@@ -12,7 +12,6 @@
             _prefab = prefab;
         }
 
-        [SerializeField]
         public T Create()
         {
             return Object.Instantiate(_prefab);

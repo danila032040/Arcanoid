@@ -11,7 +11,7 @@
         [SerializeField] private int _amountToPool;
         [SerializeField] private bool _canExpand;
 
-        [SerializeField] private IPoolFactory<T> _factory;
+        private IPoolFactory<T> _factory;
 
         private readonly Queue<T> _pooledObjects = new Queue<T>();
 
