@@ -24,9 +24,10 @@
             return _poolPrefabsDictionary[orig].Get();
         }
 
-        public void Remove(GameObject orig, GameObject obj)
+        public void Remove(GameObject obj)
         {
-            _poolPrefabsDictionary[orig].Remove(obj);
+            foreach(PoolContainer container in _poolContainers)
+                container.Remove(obj);
         }
     }
 }
