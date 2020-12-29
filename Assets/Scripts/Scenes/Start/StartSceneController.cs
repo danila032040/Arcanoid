@@ -14,7 +14,7 @@
         [SerializeField] private SceneLoaderController _sceneLoader;
         [SerializeField] private Localizer _localizer;
 
-        [SerializeField] private Locale ChoosedLocale;
+        [SerializeField] private SystemLanguage ChoosedLocale;
 
         private void Start()
         {

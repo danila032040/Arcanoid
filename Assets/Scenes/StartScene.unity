@@ -193,7 +193,7 @@ Transform:
   m_Children:
   - {fileID: 396643437}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &517061635
 MonoBehaviour:
@@ -208,7 +208,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _poolContainers:
-  - _prefabToPool: {fileID: 0}
+  - _prefabToPool: {fileID: 7075200475671673123, guid: df0062ac3cf63314281ddd010607a554,
+      type: 3}
     _container: {fileID: 396643437}
     _amountToPool: 5
     _canExpand: 0
@@ -281,7 +282,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041D\u0430\u0447\u0430\u0442\u044C"
+  m_text: ButtonStartGame
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -309,7 +310,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 71.6
+  m_fontSize: 36
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -350,7 +351,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 941747477}
-    characterCount: 6
+    characterCount: 15
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -690,7 +691,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2028940207
 GameObject:
@@ -739,7 +740,7 @@ MonoBehaviour:
   _buttonText: {fileID: 941747477}
   _sceneLoader: {fileID: 552445687}
   _localizer: {fileID: 75397875}
-  ChoosedLocale: 1
+  ChoosedLocale: 30
 --- !u!1 &2099586192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1020,6 +1021,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1606349122704432593, guid: bc54f90ec4366cf449d4d121cb9c7169,
+        type: 3}
+      propertyPath: _localizationResources.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1606349122704432593, guid: bc54f90ec4366cf449d4d121cb9c7169,
+        type: 3}
+      propertyPath: _localizationResources.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1f2939ad347e6214888c942d6ab6fbbf,
+        type: 2}
+    - target: {fileID: 1606349122704432593, guid: bc54f90ec4366cf449d4d121cb9c7169,
+        type: 3}
+      propertyPath: _localizationResources.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: e87aeb1b0098bf0499e5ec6d8199bbbd,
+        type: 2}
     - target: {fileID: 1606349122704432595, guid: bc54f90ec4366cf449d4d121cb9c7169,
         type: 3}
       propertyPath: m_Name

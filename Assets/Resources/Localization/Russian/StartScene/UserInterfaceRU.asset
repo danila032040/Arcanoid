@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc34edd5d015564dbfad24d89ec4a26, type: 3}
   m_Name: UserInterfaceRU
   m_EditorClassIdentifier: 
-  _locale: 1
+  _locale: 30
   _translations:
   - _key: ButtonStartGame
     _value: "\u041D\u0430\u0447\u0430\u0442\u044C"

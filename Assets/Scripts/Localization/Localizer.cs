@@ -6,12 +6,15 @@ namespace Scripts.Localization
 {
     public class Localizer : MonoBehaviour
     {
-        private Dictionary<Locale, Dictionary<string, string>> _words;
-        private Locale _locale = Locale.Default;
+        [SerializeField] private List<LocalizationResource> _localizationResources = new List<LocalizationResource>();
+
+        private readonly Dictionary<SystemLanguage, Dictionary<string, string>> _words = new Dictionary<SystemLanguage, Dictionary<string, string>>();
+
+        private SystemLanguage _locale;
 
         public event Action LocaleChanged;
 
-        public Locale Locale
+        public SystemLanguage Locale
         {
             get => _locale;
             set
@@ -23,21 +26,16 @@ namespace Scripts.Localization
 
         private void Awake()
         {
-            Resources.LoadAll<LocalizationResource>("/");
-            _words = new Dictionary<Locale, Dictionary<string, string>>();
-
-            foreach(Locale locale in System.Enum.GetValues(typeof(Locale)))
+            foreach (SystemLanguage locale in System.Enum.GetValues(typeof(SystemLanguage)))
             {
                 _words[locale] = new Dictionary<string, string>();
             }
 
-            foreach(UnityEngine.Object resObj in Resources.FindObjectsOfTypeAll(typeof(LocalizationResource)))
+            foreach (LocalizationResource resource in _localizationResources)
             {
-                LocalizationResource res = (LocalizationResource)resObj;
-
-                foreach(Translation translation in res.Translations)
+                foreach (Translation translation in resource.Translations)
                 {
-                    _words[res.Locale][translation.Key] = translation.Value;
+                    _words[resource.Locale][translation.Key] = translation.Value;
                 }
             }
         }
