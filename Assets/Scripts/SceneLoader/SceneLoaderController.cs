@@ -11,7 +11,7 @@
         StartScene = 1
     }
 
-    public class SceneLoader : MonoBehaviour
+    public class SceneLoaderController : MonoBehaviour
     {
         [SerializeField] private CanvasGroup _sceneChangingCanvasGroup;
 
@@ -19,8 +19,10 @@
 
         private void Awake()
         {
+            _sceneChangingCanvasGroup.blocksRaycasts = true;
             _sceneChangingCanvasGroup.alpha = 1;
             _sceneChangingCanvasGroup.DOFade(0f, _fadeDuration);
+            _sceneChangingCanvasGroup.blocksRaycasts = false;
         }
 
         public void LoadScene(LoadingScene scene)
@@ -31,6 +33,7 @@
         private IEnumerator LoadSceneCoroutine(LoadingScene scene)
         {
             _sceneChangingCanvasGroup.DOFade(1f, _fadeDuration);
+            _sceneChangingCanvasGroup.blocksRaycasts = false;
             yield return new WaitForSeconds(_fadeDuration);
             SceneManager.LoadScene((int)scene);
         }
