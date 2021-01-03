@@ -14,12 +14,10 @@
         [SerializeField] private SceneLoaderController _sceneLoader;
         [SerializeField] private Localizer _localizer;
 
-        [SerializeField] private SystemLanguage ChoosedLocale;
-
         private void Start()
         {
+            LocalizeButtonText();
             _localizer.LocaleChanged += LocalizeButtonText;
-            _localizer.Locale = ChoosedLocale;
 
             _buttonStartGame.onClick.AddListener(() =>
             {
@@ -32,6 +30,5 @@
         {
             _buttonText.text = _localizer.Localize("ButtonStartGame");
         }
-
     }
 }

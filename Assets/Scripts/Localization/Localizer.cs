@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Scripts.Localization
+﻿namespace Scripts.Localization
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using UnityEngine;
+
     public class Localizer : MonoBehaviour
     {
         [SerializeField] private List<LocalizationResource> _localizationResources = new List<LocalizationResource>();
 
-        private readonly Dictionary<SystemLanguage, Dictionary<string, string>> _words = new Dictionary<SystemLanguage, Dictionary<string, string>>();
+        private readonly Dictionary<string, string> _words = new Dictionary<string, string>();
 
         private SystemLanguage _locale;
 
@@ -19,30 +20,46 @@ namespace Scripts.Localization
             get => _locale;
             set
             {
-                _locale = value;
+                if (_localizationResources.Select(a => a.Locale).Any(a => a == value))
+                {
+                    _locale = value;
+                }
+                else
+                {
+                    SetSystemLocale();
+                }
+
+                ReloadDictionary();
                 LocaleChanged?.Invoke();
             }
         }
 
         private void Awake()
         {
-            foreach (SystemLanguage locale in System.Enum.GetValues(typeof(SystemLanguage)))
-            {
-                _words[locale] = new Dictionary<string, string>();
-            }
+            SetSystemLocale();
+            ReloadDictionary();
+        }
 
+        private void SetSystemLocale()
+        {
+            _locale = Application.systemLanguage;
+        }
+
+        private void ReloadDictionary()
+        {
+            _words.Clear();
             foreach (LocalizationResource resource in _localizationResources)
-            {
-                foreach (Translation translation in resource.Translations)
-                {
-                    _words[resource.Locale][translation.Key] = translation.Value;
-                }
-            }
+                if (resource.Locale == this._locale)
+                    foreach (Translation translation in resource.Translations)
+                    {
+                        _words[translation.Key] = translation.Value;
+                    }
         }
 
         public string Localize(string key)
         {
-            return _words[_locale][key];
+            return _words[key];
         }
+
     }
 }

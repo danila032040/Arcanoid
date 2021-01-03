@@ -3,11 +3,11 @@
     using Scripts.Pool.Interfaces;
     using UnityEngine;
 
-    public class PrefabFactory<T> : IPoolFactory<T> where T : MonoBehaviour, IPoolable
+    public class PrefabPoolFactory<T> : IPoolFactory<T> where T : MonoBehaviour, IPoolable
     {
         private readonly T _prefab;
 
-        public PrefabFactory(T prefab)
+        public PrefabPoolFactory(T prefab)
         {
             _prefab = prefab;
         }
