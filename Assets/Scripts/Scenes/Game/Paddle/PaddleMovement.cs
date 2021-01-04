@@ -29,13 +29,16 @@
         }
         private void OnDestroy()
         {
-            _inputService.OnMouseButtonDown -= StartMovingPaddle;
-            _inputService.OnMouseButtonUp -= EndMovingPaddle;
-            _inputService.OnMousePositionChanged -= ChangeGoalPositionByMouse;
+            if (_inputService != null)
+            {
+                _inputService.OnMouseButtonDown -= StartMovingPaddle;
+                _inputService.OnMouseButtonUp -= EndMovingPaddle;
+                _inputService.OnMousePositionChanged -= ChangeGoalPositionByMouse;
+            }
         }
 
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (_movePaddle)
             {
@@ -89,7 +92,7 @@
                 Vector3 nextPosition = this.transform.position;
                 nextPosition.x = nextXPosition;
 
-                this.transform.position = nextPosition;
+                GetComponent<Rigidbody2D>().MovePosition(nextPosition);
             }
         }
 
