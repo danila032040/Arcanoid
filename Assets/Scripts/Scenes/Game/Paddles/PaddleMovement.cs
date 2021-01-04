@@ -1,4 +1,4 @@
-﻿namespace Scripts.Scenes.Game.Paddle
+﻿namespace Scripts.Scenes.Game.Paddles
 {
     using Scripts.Scenes.Game.Input;
     using UnityEngine;
@@ -7,6 +7,8 @@
     {
         [SerializeField] private float _moveSpeed;
         [SerializeField] private PaddleView _paddleView;
+
+        [SerializeField] private Rigidbody2D _rb;
 
         private float _goalXPosition;
 
@@ -75,7 +77,10 @@
         }
         private void MovePaddleToGoalPosition()
         {
-            float nextXPosition = this.transform.position.x;
+
+            Vector3 nextPosition = this.transform.position;
+
+            float nextXPosition = nextPosition.x;
 
             if (nextXPosition != _goalXPosition)
             {
@@ -89,10 +94,20 @@
                 if (moveXDirection > 0) nextXPosition = Mathf.Min(nextXPosition, _goalXPosition);
                 else nextXPosition = Mathf.Max(nextXPosition, _goalXPosition);
 
-                Vector3 nextPosition = this.transform.position;
+
                 nextPosition.x = nextXPosition;
 
-                GetComponent<Rigidbody2D>().MovePosition(nextPosition);
+                float distanceToGoal = Mathf.Abs(_goalXPosition - this.transform.position.x);
+                _rb.velocity = new Vector2(moveXDirection * _moveSpeed, 0);
+                _rb.velocity = Vector2.Lerp(Vector2.zero, _rb.velocity, 
+                                            (1 - (_rb.velocity.magnitude * Time.deltaTime * Mathf.Clamp01(1f - _rb.drag * Time.deltaTime)
+                                                  ) / distanceToGoal));
+                if (nextPosition.x == _goalXPosition)
+                {
+
+                    _rb.velocity = Vector2.zero;
+                    _rb.MovePosition(nextPosition);
+                }
             }
         }
 

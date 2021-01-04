@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Scripts.Scenes.Game.Paddle
+namespace Scripts.Scenes.Game.Paddles
 {
     public class PaddleView : MonoBehaviour
     {
