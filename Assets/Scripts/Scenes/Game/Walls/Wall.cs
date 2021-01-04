@@ -1,4 +1,4 @@
-﻿namespace Scripts.Scenes.Game.Wall
+﻿namespace Scripts.Scenes.Game.Walls
 {
     using Scripts.Scenes.Game.Input;
     using UnityEngine;
