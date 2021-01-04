@@ -1,5 +1,6 @@
 ﻿namespace Scripts.Scenes.Game.Wall
 {
+    using Scripts.Scenes.Game.Input;
     using UnityEngine;
 
     public class Wall : MonoBehaviour
@@ -12,23 +13,27 @@
         [SerializeField] private float _width = 1f;
         [SerializeField] private float _zPosition = 0f;
 
+        private IInputService _inputService;
         private Camera _camera;
 
-        public void Init(Camera camera)
+        public void Init(IInputService inputService, Camera camera)
         {
+            _inputService = inputService;
             _camera = camera;
         }
 
         private void Start()
         {
-            Init(Camera.main);
+            Init(FindObjectOfType<InputService>(), Camera.main);
+
+            _inputService.OnScreenResolutionChanged += (orientation) => ArrangeWall();
+
             ArrangeWall();
         }
 
         private void OnValidate()
         {
-            Init(Camera.main);
-            ArrangeWall();
+            Start();
         }
 
         private void ArrangeWall()

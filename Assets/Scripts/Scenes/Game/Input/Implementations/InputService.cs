@@ -8,11 +8,14 @@
         public event Action OnMouseButtonDown;
         public event Action OnMouseButtonUp;
         public event Action<Vector3> OnMousePositionChanged; 
+        public event Action<Vector2> OnScreenResolutionChanged;
 
         private void Update()
         {
             CheckMouseButtonUp();
             CheckMouseButtonDown();
+
+            CheckScreenResolutionChanged();
             CheckMousePositionChanged();
         }
 
@@ -25,6 +28,20 @@
         {
             if (Input.GetMouseButtonUp(0)) OnMouseButtonUp?.Invoke();
         }
+
+        private Vector2 _oldScreenResolution;
+
+        private void CheckScreenResolutionChanged()
+        {
+
+            Vector2 currentScreenResolution = new Vector2(Screen.width, Screen.height);
+            if (currentScreenResolution != _oldScreenResolution)
+            {
+                OnScreenResolutionChanged?.Invoke(currentScreenResolution);
+            }
+            _oldScreenResolution = currentScreenResolution;
+        }
+
 
         Vector3 _oldMousePos;
         private void CheckMousePositionChanged()

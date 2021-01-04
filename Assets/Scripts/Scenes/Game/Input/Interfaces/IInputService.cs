@@ -7,5 +7,6 @@
         event Action OnMouseButtonDown;
         event Action OnMouseButtonUp;
         event Action<Vector3> OnMousePositionChanged;
+        event Action<Vector2> OnScreenResolutionChanged;
     }
 }

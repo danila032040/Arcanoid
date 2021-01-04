@@ -94,10 +94,9 @@ GameObject:
   - component: {fileID: 4370056192696929535}
   - component: {fileID: 4370056192696929532}
   - component: {fileID: 4370056192696929533}
-  - component: {fileID: 1745430903}
   m_Layer: 0
   m_Name: Paddle
-  m_TagString: Untagged
+  m_TagString: Paddle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 4370056192696929520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.9, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.4, z: 1}
+  m_LocalScale: {x: 1, y: 0.75, z: 1}
   m_Children:
   - {fileID: 2819965868928620159}
   m_Father: {fileID: 0}
@@ -129,14 +128,14 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.0001
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 6
 --- !u!61 &4370056192696929535
 BoxCollider2D:
@@ -192,15 +191,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _collider: {fileID: 4370056192696929535}
   _spriteRenderer: {fileID: 7767410802940046047}
---- !u!114 &1745430903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4370056192696929520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 723de8cc11ab5434288e49c20492ef32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -15,9 +15,29 @@
         private void Start()
         {
             _rb.isKinematic = false;
-            _rb.AddForce((Vector3.left + Vector3.up).normalized * GetCurrentVelocity());
+            _rb.velocity = (Vector2.left + Vector2.up).normalized * GetCurrentVelocity();
+        }
+
+        private void Update()
+        {
+            _rb.velocity = _rb.velocity.normalized * GetCurrentVelocity();
         }
 
         public float GetCurrentVelocity() => Mathf.Lerp(_initialSpeed, _maxSpeed, _currentSpeedProgress);
+
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.tag == "Paddle")
+            {
+                _rb.velocity = Vector2.zero;
+
+                float x = (this.transform.position.x - collision.transform.position.x) / collision.collider.bounds.size.x;
+
+                Vector2 direction = new Vector2(x, 1).normalized;
+
+                _rb.velocity = direction * GetCurrentVelocity();
+            }
+        }
     }
 }
