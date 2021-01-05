@@ -1,5 +1,7 @@
 ﻿namespace Scripts.Scenes.Game.Paddles
 {
+    using Scripts.Scenes.Game.Camera.Implementations;
+    using Scripts.Scenes.Game.Camera.Intrefaces;
     using Scripts.Scenes.Game.Input;
     using UnityEngine;
 
@@ -13,17 +15,19 @@
         private float _goalXPosition;
 
         private IInputService _inputService;
+        private ICameraService _cameraService;
         private Camera _camera;
 
-        public void Init(IInputService inputService, Camera camera)
+        public void Init(IInputService inputService, ICameraService cameraService, Camera camera)
         {
             _inputService = inputService;
+            _cameraService = cameraService;
             _camera = camera;
         }
 
         private void Start()
         {
-            this.Init(FindObjectOfType<InputService>(), Camera.main);
+            this.Init(FindObjectOfType<InputService>(),new CameraService(), Camera.main);
 
             _inputService.OnMouseButtonDown += StartMovingPaddle;
             _inputService.OnMouseButtonUp += EndMovingPaddle;
@@ -87,7 +91,7 @@
 
                 float moveXDirection = nextXPosition > _goalXPosition ? -1 : +1;
 
-                float moveXDistance = GetWorldPointWidth(_camera) * _moveSpeed * Time.deltaTime;
+                float moveXDistance = _cameraService.GetWorldPointWidth(_camera) * _moveSpeed * Time.deltaTime;
 
                 nextXPosition = nextXPosition + moveXDirection * moveXDistance;
 
@@ -112,9 +116,6 @@
         }
 
 
-        private float GetWorldPointWidth(Camera camera)
-        {
-            return (camera.ViewportToWorldPoint(Vector3.right) - camera.ViewportToWorldPoint(Vector3.zero)).magnitude;
-        }
+        
     }
 }

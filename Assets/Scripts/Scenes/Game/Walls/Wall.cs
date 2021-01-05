@@ -31,11 +31,6 @@
             ArrangeWall();
         }
 
-        private void OnValidate()
-        {
-            Start();
-        }
-
         private void ArrangeWall()
         {
             Vector3 startPoint = _camera.ViewportToWorldPoint(_startWallViewportPoint);
