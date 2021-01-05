@@ -3,7 +3,8 @@
     [System.Serializable]
     public enum BrickType
     {
-        Soft = 1,
+        None,
+        Soft,
         Medium,
         Solid
     }

@@ -3,6 +3,7 @@
     using Scripts.SaveLoader;
     using Scripts.SaveLoader.Interfaces;
     using Scripts.Scenes.Game.Balls;
+    using Scripts.Scenes.Game.Bricks;
     using Scripts.Scenes.Game.Input;
     using Scripts.Scenes.Game.Paddles;
     using UnityEngine;
@@ -11,6 +12,7 @@
         [SerializeField] private Ball _startBall;
         [SerializeField] private Paddle _paddle;
 
+        [SerializeField] private BriksManager _briksManager;
 
         private IInputService _inputService;
         private ILevelSaveLoader _levelSaveLoader;
@@ -29,8 +31,9 @@
 
         private void StartGame()
         {
-            _levelSaveLoader.SaveLevel(new LevelInfo { name = "Test" });
             AttachBall();
+            LevelInfo info = _levelSaveLoader.LoadLevel("Test");
+            _briksManager.SpawnBricks(info.Map, info.BrickHeight, info.LeftOffset, info.RightOffset, info.OffsetBetweenRows, info.OffsetBetweenCols);
         }
 
         private void AttachBall()

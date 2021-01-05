@@ -48,11 +48,18 @@
 
         }
 
+
+        //TODO: Make Pool 
+        [SerializeField] private Brick _prefab;
         private Brick SpawnBrick(Vector3 position, BrickType? type, float brickHeight, float brickWidth)
         {
             if (type == null) return null;
 
-            return null;
+            Brick brick = Instantiate(_prefab, position, Quaternion.identity);
+
+            brick.Size = new Vector3(brickWidth, brickHeight, 0);
+
+            return brick;
         }
     }
 }

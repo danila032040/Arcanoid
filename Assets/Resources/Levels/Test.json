@@ -1,0 +1,21 @@
+{
+  "_name": "Test",
+  "_bricks": [
+    0,
+    1,
+    0,
+    1,
+    0,
+    1,
+    0,
+    1,
+    0
+  ],
+  "_n": 3,
+  "_m": 3,
+  "_brickHeight": 0.25,
+  "_leftOffset": 0.1,
+  "_rightOffset": 0.1,
+  "_offsetBetweenRows": 0.01,
+  "_offsetBetweenCols": 0.01
+}

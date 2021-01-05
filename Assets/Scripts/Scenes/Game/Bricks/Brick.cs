@@ -5,9 +5,10 @@
     public class Brick : MonoBehaviour
     {
         [SerializeField] private int _health;
-        [SerializeField] private BrickType Type;
+        [SerializeField] private BrickType _type;
 
         public event OnIntValueChanged OnHealthValueChanged;
+
 
         public int Health
         {

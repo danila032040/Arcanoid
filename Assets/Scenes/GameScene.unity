@@ -300,6 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startBall: {fileID: 1935544684}
   _paddle: {fileID: 1745430903}
+  _briksManager: {fileID: 881123440}
 --- !u!114 &881123440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,6 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _topOffset: 0.2
+  _prefab: {fileID: 5358386893384147703, guid: 391835ec5d43f0b42be219f67b427f47, type: 3}
 --- !u!1 &1047297794
 GameObject:
   m_ObjectHideFlags: 0
