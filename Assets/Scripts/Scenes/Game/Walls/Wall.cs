@@ -1,8 +1,9 @@
-﻿namespace Scripts.Scenes.Game.Walls
-{
-    using Scripts.Scenes.Game.Input;
-    using UnityEngine;
+﻿using System.Diagnostics;
+using Scripts.Scenes.Game.Input;
+using UnityEngine;
 
+namespace Scenes.Game.Walls
+{
     public class Wall : MonoBehaviour
     {
         [SerializeField] private BoxCollider2D _collider;
@@ -30,7 +31,12 @@
 
             ArrangeWall();
         }
-
+        
+        [Conditional("UNITY_EDITOR")]
+        private void OnValidate()
+        {
+            Start();
+        }
         private void ArrangeWall()
         {
             Vector3 startPoint = _camera.ViewportToWorldPoint(_startWallViewportPoint);
@@ -43,14 +49,16 @@
             Vector3 direction = endPoint - startPoint;
 
 
+            var wallTransform = this.transform;
 
-            Vector3 scale = this.transform.localScale;
+            Vector3 scale = wallTransform.localScale;
             scale.x = _width;
             scale.y = direction.magnitude;
 
-            this.transform.localScale = scale;
-            this.transform.rotation = Quaternion.Euler(0, 0, -Mathf.Sign(direction.x) * Vector3.Angle(Vector3.up, direction));
-            this.transform.position = startPoint;
+            wallTransform.localScale = scale;
+            wallTransform.rotation =
+                Quaternion.Euler(0, 0, -Mathf.Sign(direction.x) * Vector3.Angle(Vector3.up, direction));
+            wallTransform.position = startPoint;
         }
     }
 }

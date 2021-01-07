@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 479106398499040805}
   - component: {fileID: 479106398499040804}
   - component: {fileID: 479106398499040807}
+  - component: {fileID: -5412475901618892503}
   - component: {fileID: 8903819894426366160}
   - component: {fileID: 479106398499040811}
   m_Layer: 0
@@ -116,12 +117,24 @@ Rigidbody2D:
   m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 0.1
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &-5412475901618892503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479106398499040810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6b79cb7531d462ab7879bc44d349a66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8903819894426366160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attachOffset: {x: 0, y: 0.1, z: 0}
-  _ballMovement: {fileID: 479106398499040811}
 --- !u!114 &479106398499040811
 MonoBehaviour:
   m_ObjectHideFlags: 0

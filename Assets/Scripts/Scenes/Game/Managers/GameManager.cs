@@ -1,13 +1,14 @@
-﻿using Scenes.Game.Paddles;
+﻿using SaveLoader;
+using Scenes.Game.Balls;
+using Scenes.Game.Paddles;
+using Scripts.SaveLoader;
+using Scripts.SaveLoader.Interfaces;
+using Scripts.Scenes.Game.Bricks;
+using Scripts.Scenes.Game.Input;
+using UnityEngine;
 
-namespace Scripts.Scenes.Game.Managers
+namespace Scenes.Game.Managers
 {
-    using Scripts.SaveLoader;
-    using Scripts.SaveLoader.Interfaces;
-    using Scripts.Scenes.Game.Balls;
-    using Scripts.Scenes.Game.Bricks;
-    using Scripts.Scenes.Game.Input;
-    using UnityEngine;
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private Ball _startBall;
@@ -40,14 +41,14 @@ namespace Scripts.Scenes.Game.Managers
         private void AttachBall()
         {
 
-            _startBall.AttachTo(_paddle.gameObject);
+            _startBall.GetBallAttachment().AttachTo(_paddle.gameObject);
             _inputService.OnMouseButtonUp += DetachBall;
         }
         private void DetachBall()
         {
             _inputService.OnMouseButtonUp -= DetachBall;
-            _startBall.Detach();
-            _startBall.StartMoving();
+            _startBall.GetBallAttachment().Detach();
+            _startBall.GetBallMovement().StartMoving();
         }
     }
 }

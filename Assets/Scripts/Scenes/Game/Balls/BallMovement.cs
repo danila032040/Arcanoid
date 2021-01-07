@@ -1,7 +1,8 @@
-﻿namespace Scripts.Scenes.Game.Balls
-{
-    using UnityEngine;
+﻿using Scenes.Game.Paddles;
+using UnityEngine;
 
+namespace Scenes.Game.Balls
+{
     public class BallMovement : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D _rb;
@@ -19,16 +20,21 @@
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.tag == "Paddle")
-            {
-                _rb.velocity = Vector2.zero;
+            CheckCollisionWithPaddle(collision);
+        }
 
-                float x = (this.transform.position.x - collision.transform.position.x) / collision.collider.bounds.size.x;
+        private void CheckCollisionWithPaddle(Collision2D collision)
+        {
+            Paddle paddle = collision.gameObject.GetComponent<Paddle>();
+            if (!paddle) return;
+            
+            _rb.velocity = Vector2.zero;
 
-                Vector2 direction = new Vector2(x, 1).normalized;
+            float x = (this.transform.position.x - collision.transform.position.x) / collision.collider.bounds.size.x;
 
-                _rb.velocity = direction * GetCurrentVelocity();
-            }
+            Vector2 direction = new Vector2(x, 1).normalized;
+
+            _rb.velocity = direction * GetCurrentVelocity();
         }
 
 
@@ -37,7 +43,7 @@
             _rb.velocity = direction.normalized * GetCurrentVelocity();
         }
 
-        public float GetCurrentVelocity() => Mathf.Lerp(_initialSpeed, _maxSpeed, _currentSpeedProgress);
+        private float GetCurrentVelocity() => Mathf.Lerp(_initialSpeed, _maxSpeed, _currentSpeedProgress);
 
 
         public void StartMoving()

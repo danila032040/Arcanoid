@@ -1,40 +1,21 @@
-﻿namespace Scripts.Scenes.Game.Balls
+using UnityEngine;
+
+namespace Scenes.Game.Balls
 {
-    using UnityEngine;
+    [RequireComponent(typeof(BallMovement))]
+    [RequireComponent(typeof(BallAttachment))]
     public class Ball : MonoBehaviour
     {
-        [SerializeField] private Vector3 _attachOffset;
+        private BallMovement _ballMovement;
+        private BallAttachment _ballAttachment;
 
-        [SerializeField] private BallMovement _ballMovement;
-
-        private void Update()
+        private void Awake()
         {
-            if (_isAttaching && (object)_attachingGameObject != null)
-            {
-                Attach();
-            }
+            _ballMovement = GetComponent<BallMovement>();
+            _ballAttachment = GetComponent<BallAttachment>();
         }
 
-        private void Attach()
-        {
-            this.transform.position = _attachingGameObject.transform.position + _attachOffset;
-        }
-
-        private bool _isAttaching;
-        private GameObject _attachingGameObject;
-        public void AttachTo(GameObject obj)
-        {
-            _isAttaching = true;
-            _attachingGameObject = obj;
-        }
-        public void Detach()
-        {
-            _isAttaching = false;
-            _attachingGameObject = null;
-        }
-        public void StartMoving()
-        {
-            _ballMovement.StartMoving();
-        }
+        public BallMovement GetBallMovement() => _ballMovement;
+        public BallAttachment GetBallAttachment() => _ballAttachment;
     }
 }
