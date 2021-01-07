@@ -1,6 +1,5 @@
 ﻿namespace Scripts.Scenes.Game.Balls
 {
-    using Scripts.Scenes.Game.Paddles;
     using UnityEngine;
 
     public class BallMovement : MonoBehaviour

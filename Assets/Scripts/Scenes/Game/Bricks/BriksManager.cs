@@ -17,7 +17,7 @@
             _cameraService = cameraService;
             _camera = camera;
         }
-        public void Start()
+        public void Awake()
         {
             Init(new CameraService(), Camera.main);
         }

@@ -1,11 +1,12 @@
-﻿namespace Scripts.Scenes.Game.Managers
+﻿using Scenes.Game.Paddles;
+
+namespace Scripts.Scenes.Game.Managers
 {
     using Scripts.SaveLoader;
     using Scripts.SaveLoader.Interfaces;
     using Scripts.Scenes.Game.Balls;
     using Scripts.Scenes.Game.Bricks;
     using Scripts.Scenes.Game.Input;
-    using Scripts.Scenes.Game.Paddles;
     using UnityEngine;
     public class GameManager : MonoBehaviour
     {

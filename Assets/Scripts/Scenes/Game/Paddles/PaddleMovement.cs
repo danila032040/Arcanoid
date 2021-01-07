@@ -1,10 +1,11 @@
-﻿namespace Scripts.Scenes.Game.Paddles
-{
-    using Scripts.Scenes.Game.Camera.Implementations;
-    using Scripts.Scenes.Game.Camera.Intrefaces;
-    using Scripts.Scenes.Game.Input;
-    using UnityEngine;
+﻿using System;
+using Scripts.Scenes.Game.Camera.Implementations;
+using Scripts.Scenes.Game.Camera.Intrefaces;
+using Scripts.Scenes.Game.Input;
+using UnityEngine;
 
+namespace Scenes.Game.Paddles
+{
     public class PaddleMovement : MonoBehaviour
     {
         [SerializeField] private float _moveSpeed;
@@ -35,15 +36,12 @@
         }
         private void OnDestroy()
         {
-            if (_inputService != null)
-            {
-                _inputService.OnMouseButtonDown -= StartMovingPaddle;
-                _inputService.OnMouseButtonUp -= EndMovingPaddle;
-                _inputService.OnMousePositionChanged -= ChangeGoalPositionByMouse;
-            }
+            if (_inputService == null) return;
+            
+            _inputService.OnMouseButtonDown -= StartMovingPaddle;
+            _inputService.OnMouseButtonUp -= EndMovingPaddle;
+            _inputService.OnMousePositionChanged -= ChangeGoalPositionByMouse;
         }
-
-
         private void FixedUpdate()
         {
             if (_movePaddle)
@@ -69,7 +67,7 @@
         }
 
 
-        public void SetGoalPosition(float x)
+        private void SetGoalPosition(float x)
         {
             float leftClamp = _camera.ViewportToWorldPoint(Vector3.zero).x;
             float rightClamp = _camera.ViewportToWorldPoint(Vector3.right).x;
@@ -86,7 +84,7 @@
 
             float nextXPosition = nextPosition.x;
 
-            if (nextXPosition != _goalXPosition)
+            if (Math.Abs(nextXPosition - _goalXPosition) > 1e-2)
             {
 
                 float moveXDirection = nextXPosition > _goalXPosition ? -1 : +1;
@@ -102,16 +100,12 @@
                 nextPosition.x = nextXPosition;
 
                 float distanceToGoal = Mathf.Abs(_goalXPosition - this.transform.position.x);
-                _rb.velocity = new Vector2(moveXDirection * _moveSpeed, 0);
-                _rb.velocity = Vector2.Lerp(Vector2.zero, _rb.velocity, 
-                                            (1 - (_rb.velocity.magnitude * Time.deltaTime * Mathf.Clamp01(1f - _rb.drag * Time.deltaTime)
-                                                  ) / distanceToGoal));
-                if (nextPosition.x == _goalXPosition)
-                {
 
-                    _rb.velocity = Vector2.zero;
-                    _rb.MovePosition(nextPosition);
-                }
+                Vector2 velocity = new Vector2(moveXDirection * _moveSpeed, 0);
+                _rb.velocity = velocity;
+                _rb.velocity = Vector2.Lerp(Vector2.zero, velocity, 
+                                            (1 - (velocity.magnitude * Time.deltaTime * Mathf.Clamp01(1f - _rb.drag * Time.deltaTime)
+                                                  ) / distanceToGoal));
             }
         }
 

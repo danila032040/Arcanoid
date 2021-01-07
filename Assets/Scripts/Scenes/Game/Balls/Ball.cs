@@ -9,7 +9,7 @@
 
         private void Update()
         {
-            if (_isAttaching && _attachingGameObject != null)
+            if (_isAttaching && (object)_attachingGameObject != null)
             {
                 Attach();
             }
