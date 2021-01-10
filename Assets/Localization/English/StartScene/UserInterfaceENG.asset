@@ -16,3 +16,7 @@ MonoBehaviour:
   _translations:
   - _key: ButtonStartGame
     _value: Start
+  - _key: Arkanoid
+    _value: Arkanoid
+  - _key: ChoosePack
+    _value: Choose pack
