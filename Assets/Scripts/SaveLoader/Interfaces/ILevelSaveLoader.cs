@@ -1,8 +1,11 @@
-﻿namespace SaveLoader.Interfaces
+﻿using UnityEngine;
+
+namespace SaveLoader.Interfaces
 {
     public interface ILevelSaveLoader
     {
-        LevelInfo LoadLevel(string name);
+        LevelInfo LoadLevel(string fileName);
+        LevelInfo LoadLevel(TextAsset level);
         
         void SaveLevel(LevelInfo info);
     }

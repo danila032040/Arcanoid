@@ -8,6 +8,7 @@ namespace SaveLoader
     public class LevelInfo
     {
         [SerializeField] private string _name;
+        [SerializeField] private string _fileName;
         [SerializeField] private List<BrickType> _bricks;
         [SerializeField] private int _n;
         [SerializeField] private int _m;
@@ -18,6 +19,7 @@ namespace SaveLoader
         [SerializeField] private float _offsetBetweenCols;
 
         public string Name => _name;
+        public string FileName => _fileName;
         public BrickType?[,] Map
         {
             get
@@ -44,9 +46,10 @@ namespace SaveLoader
 
         public LevelInfo() { }
 
-        public LevelInfo(string name, List<BrickType> bricks, int n, int m, float brickHeight, float leftOffset, float rightOffset, float offsetBetweenRows, float offsetBetweenCols)
+        public LevelInfo(string name, string fileName, List<BrickType> bricks, int n, int m, float brickHeight, float leftOffset, float rightOffset, float offsetBetweenRows, float offsetBetweenCols)
         {
             _name = name;
+            _fileName = fileName;
             _bricks = bricks;
             _n = n;
             _m = m;

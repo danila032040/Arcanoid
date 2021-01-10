@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StartScene.unity
     guid: 015011bfd03ee83448f247e3c0499a3d
+  - enabled: 1
+    path: Assets/Scenes/ChoosePackScene.unity
+    guid: d11809ad23f1c1642b63ab6f83ee0d62
   m_configObjects: {}

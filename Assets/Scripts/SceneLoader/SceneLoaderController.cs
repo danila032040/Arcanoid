@@ -8,7 +8,8 @@ namespace SceneLoader
     public enum LoadingScene
     {
         GameScene = 0,
-        StartScene = 1
+        StartScene = 1,
+        ChoosePackScene = 2
     }
 
     public class SceneLoaderController : MonoBehaviour
