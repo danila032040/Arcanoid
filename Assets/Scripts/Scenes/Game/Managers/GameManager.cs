@@ -33,7 +33,7 @@ namespace Scenes.Game.Managers
         private void StartGame()
         {
             AttachBall();
-            LevelInfo info = _levelSaveLoader.LoadLevel("Test");
+            LevelInfo info = _levelSaveLoader.LoadLevel("FirstLevel");
             _briksManager.SpawnBricks(info.Map, info.BrickHeight, info.LeftOffset, info.RightOffset, info.OffsetBetweenRows, info.OffsetBetweenCols);
         }
 
