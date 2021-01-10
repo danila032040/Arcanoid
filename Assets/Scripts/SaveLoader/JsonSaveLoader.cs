@@ -27,6 +27,7 @@ namespace SaveLoader
                 $"{info.FileName}.json");
             Debug.Log(path);
             File.WriteAllText(path, JsonUtility.ToJson(info, true));
+
 #if UNITY_EDITOR
             UnityEditor.AssetDatabase.Refresh();
 #endif

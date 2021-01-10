@@ -14,7 +14,7 @@ namespace Scenes.Start
 
         private void Start()
         {
-            _buttonStartGame.onClick.AddListener(() => { _sceneLoader.LoadScene(LoadingScene.ChoosePackScene); });
+            _buttonStartGame.onClick.AddListener(() => { _sceneLoader.LoadScene(LoadingScene.GameScene); });
 
         }
     }
