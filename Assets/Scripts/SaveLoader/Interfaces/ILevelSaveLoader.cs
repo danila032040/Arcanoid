@@ -1,4 +1,4 @@
-﻿namespace Scripts.SaveLoader.Interfaces
+﻿namespace SaveLoader.Interfaces
 {
     public interface ILevelSaveLoader
     {

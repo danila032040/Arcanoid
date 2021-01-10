@@ -1,9 +1,9 @@
-﻿namespace Scripts.SaveLoader
-{
-    using Scripts.Scenes.Game.Bricks;
-    using System.Collections.Generic;
-    using UnityEngine;
+﻿using System.Collections.Generic;
+using Scripts.Scenes.Game.Bricks;
+using UnityEngine;
 
+namespace SaveLoader
+{
     [System.Serializable]
     public class LevelInfo
     {

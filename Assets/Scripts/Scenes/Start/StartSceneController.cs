@@ -1,7 +1,8 @@
-﻿namespace Scripts.Scenes.Start
+﻿using Localization;
+using SceneLoader;
+
+namespace Scripts.Scenes.Start
 {
-    using Scripts.Localization;
-    using Scripts.SceneLoader;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;

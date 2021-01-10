@@ -1,10 +1,10 @@
-﻿namespace Scripts.SceneLoader
-{
-    using System.Collections;
-    using UnityEngine;
-    using UnityEngine.SceneManagement;
-    using DG.Tweening;
+﻿using System.Collections;
+using DG.Tweening;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
+namespace SceneLoader
+{
     public enum LoadingScene
     {
         GameScene = 0,

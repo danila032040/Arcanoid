@@ -1,10 +1,10 @@
-﻿namespace Scripts.Pool.Abstracts
-{
-    using Scripts.Pool.Interfaces;
-    using System;
-    using System.Collections.Generic;
-    using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using Pool.Interfaces;
+using UnityEngine;
 
+namespace Pool.Abstracts
+{
     [Serializable]
     public abstract class Pool<T> : MonoBehaviour where T : IPoolable
     {

@@ -1,13 +1,13 @@
-﻿namespace Scripts.Localization
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
+namespace Localization
+{
     public class Localizer : MonoBehaviour
     {
-        [SerializeField] private List<LocalizationResource> _localizationResources = new List<LocalizationResource>();
+        [SerializeField] private LocalizationResource[] _localizationResources = new LocalizationResource[0];
 
         private readonly Dictionary<string, string> _words = new Dictionary<string, string>();
 

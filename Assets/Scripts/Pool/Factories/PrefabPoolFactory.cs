@@ -1,8 +1,8 @@
-﻿namespace Scripts.Pool.Factories
-{
-    using Scripts.Pool.Interfaces;
-    using UnityEngine;
+﻿using Pool.Interfaces;
+using UnityEngine;
 
+namespace Pool.Factories
+{
     public class PrefabPoolFactory<T> : IPoolFactory<T> where T : MonoBehaviour, IPoolable
     {
         private readonly T _prefab;

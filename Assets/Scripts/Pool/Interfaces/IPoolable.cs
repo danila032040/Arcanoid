@@ -1,4 +1,4 @@
-﻿namespace Scripts.Pool.Interfaces
+﻿namespace Pool.Interfaces
 {
     public interface IPoolable
     {

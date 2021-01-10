@@ -1,8 +1,7 @@
 ﻿using SaveLoader;
+using SaveLoader.Interfaces;
 using Scenes.Game.Balls;
 using Scenes.Game.Paddles;
-using Scripts.SaveLoader;
-using Scripts.SaveLoader.Interfaces;
 using Scripts.Scenes.Game.Bricks;
 using Scripts.Scenes.Game.Input;
 using UnityEngine;
