@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Runtime.CompilerServices;
 using SaveLoader;
 using SaveLoadSystem;
 using SaveLoadSystem.Data;
@@ -48,9 +49,17 @@ namespace Scenes.ChoosePack
             {
                 _packs[i] = Instantiate(_packPrefab, _packsParent);
                 _packs[i].Init(packInfos[i]);
+
+                _packs[i].OnClicked += PackClicked;
+                
                 if (info.GetOpenedPacks()[i]) _packs[i].GetPackView().Show();
                 else _packs[i].GetPackView().Hide();
             }
+        }
+
+        private void PackClicked(PackInfo packInfo)
+        {
+            Debug.Log(packInfo.GetPackName());
         }
     }
 }

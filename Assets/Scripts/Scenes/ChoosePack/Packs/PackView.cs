@@ -1,11 +1,13 @@
+using System;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Scenes.ChoosePack.Packs
 {
-    public class PackView : MonoBehaviour
+    public class PackView : MonoBehaviour, IPointerClickHandler , IPointerDownHandler, IPointerUpHandler
     {
         [SerializeField] private Color _hideColor;
         [SerializeField] private Color _showColor;
@@ -17,6 +19,8 @@ namespace Scenes.ChoosePack.Packs
         [SerializeField] private Image _packImage;
         [SerializeField] private TextMeshProUGUI _packNameText;
         [SerializeField] private TextMeshProUGUI _packPassedLevelsInfoText;
+
+        public event Action OnClicked;
 
         public void SetPackName(string packName)
         {
@@ -33,6 +37,8 @@ namespace Scenes.ChoosePack.Packs
             _packImage.sprite = sprite;
         }
 
+        private bool _isHiding;
+
         public void Hide()
         {
             HideAnim(0f);
@@ -48,6 +54,7 @@ namespace Scenes.ChoosePack.Packs
             _backgroundImage.DOColor(_hideColor, duration);
             _canvasGroup.DOFade(.5f, duration);
             _canvasGroup.interactable = false;
+            _isHiding = true;
         }
 
         public void Show()
@@ -65,6 +72,32 @@ namespace Scenes.ChoosePack.Packs
             _backgroundImage.DOColor(_showColor, duration);
             _canvasGroup.DOFade(1f, duration);
             _canvasGroup.interactable = true;
+
+            _isHiding = false;
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (!_isHiding)
+            {
+                OnClicked?.Invoke();
+            }
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (!_isHiding)
+            {
+                this.transform.DOScale(0.9f, 0.5f);
+            }
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            if (!_isHiding)
+            {
+                this.transform.DOScale(1, 0.5f);
+            }
         }
     }
 }
