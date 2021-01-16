@@ -1,9 +1,8 @@
-﻿using Scenes.Game.Bricks;
+﻿using Scripts.Scenes.Game.Utils;
+using UnityEngine;
 
-namespace Scripts.Scenes.Game.Bricks
+namespace Scenes.Game.Bricks
 {
-    using Scripts.Scenes.Game.Utils;
-    using UnityEngine;
     public class Brick : MonoBehaviour
     {
         [SerializeField] private int _health;
@@ -19,6 +18,7 @@ namespace Scripts.Scenes.Game.Bricks
             {
                 OnHealthValueChanged?.Invoke(this, _health, value);
                 _health = value;
+                if (value <=0) Destroy(this.gameObject);
             }
         }
 
