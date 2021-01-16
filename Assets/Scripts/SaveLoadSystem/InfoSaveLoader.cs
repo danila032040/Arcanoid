@@ -9,7 +9,8 @@ namespace SaveLoadSystem
 {
     public class InfoSaveLoader : ILevelInfoSaveLoader, IPlayerInfoSaveLoader
     {
-        private const string openedPackKey = "openedPack"; 
+        private const string openedPackKey = "openedPack";
+        private const string lastPlayedLevelKey = "lastPlayed";
         
         #region ILevelInfoSaveLoader
 
@@ -46,8 +47,10 @@ namespace SaveLoadSystem
 
         public PlayerInfo LoadPlayerInfo()
         {
-            return new PlayerInfo(LoadOpenedPacksForPlayerInfo());
+            return new PlayerInfo(LoadOpenedPacksForPlayerInfo(), LoadLastPlayedLevelsForPlayerInfo());
         }
+
+        
 
         private bool[] LoadOpenedPacksForPlayerInfo()
         {
@@ -62,12 +65,28 @@ namespace SaveLoadSystem
 
             return openedPacks;
         }
+        private int[] LoadLastPlayedLevelsForPlayerInfo()
+        {
+            if (!PlayerPrefs.HasKey(lastPlayedLevelKey + "Count")) return null;
+            int n = PlayerPrefs.GetInt(lastPlayedLevelKey + "Count");
+            int[] data = new int[n];
+
+            for (int i = 0; i < n; ++i)
+            {
+                data[i] = PlayerPrefs.GetInt(lastPlayedLevelKey + i);
+            }
+
+            return data;
+        }
 
         public void SavePlayerInfo(PlayerInfo info)
         {
             SaveOpenedPacksByPlayerInfo(info);
+            SaveLastPlayedLevelsByPlayerInfo(info);
             PlayerPrefs.Save();
         }
+
+        
 
         private void SaveOpenedPacksByPlayerInfo(PlayerInfo info)
         {
@@ -78,6 +97,17 @@ namespace SaveLoadSystem
             for (int i = 0; i < n; ++i)
             {
                 PlayerPrefs.SetInt(openedPackKey + i, Convert.ToInt32(openedPacks[i]));
+            }
+        }
+        private void SaveLastPlayedLevelsByPlayerInfo(PlayerInfo info)
+        {
+            int[] data = info.GetLastPlayedLevels();
+            int n = data.Length;
+            PlayerPrefs.SetInt(lastPlayedLevelKey + "Count", n);
+
+            for (int i = 0; i < n; ++i)
+            {
+                PlayerPrefs.SetInt(lastPlayedLevelKey + i, data[i]);
             }
         }
 

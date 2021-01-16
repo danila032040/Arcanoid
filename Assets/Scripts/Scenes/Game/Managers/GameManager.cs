@@ -18,24 +18,41 @@ namespace Scenes.Game.Managers
 
         private IInputService _inputService;
         private ILevelInfoSaveLoader _levelInfoSaveLoader;
+        private DataProviderBetweenScenes _dataProvider;
 
-        private void Init(IInputService inputService, ILevelInfoSaveLoader levelInfoSaveLoader)
+        private void Init(IInputService inputService, ILevelInfoSaveLoader levelInfoSaveLoader, DataProviderBetweenScenes dataProvider)
         {
             _inputService = inputService;
             _levelInfoSaveLoader = levelInfoSaveLoader;
+            _dataProvider = dataProvider;
         }
 
         public void Start()
         {
-            Init(FindObjectOfType<InputService>(), new InfoSaveLoader());
+            Init(FindObjectOfType<InputService>(), new InfoSaveLoader(), DataProviderBetweenScenes.Instance);
             StartGame();
         }
 
         private void StartGame()
         {
             AttachBall();
-            LevelInfo info = _levelInfoSaveLoader.LoadLevelInfo("FirstLevel");
-            _briksManager.SpawnBricks(info.Map, info.BrickHeight, info.LeftOffset, info.RightOffset, info.OffsetBetweenRows, info.OffsetBetweenCols);
+            LoadPack();
+            
+        }
+
+        private LevelInfo[] _levelInfos;
+        private void LoadPack()
+        {
+            PackInfo packInfo = _dataProvider.GetSelectedPackInfo();
+
+            _levelInfos = packInfo.GetLevelInfos();
+            
+            _briksManager.SpawnBricks(_levelInfos[0]);
+        }
+
+        private void LoadNextLevel()
+        {
+            
         }
 
         private void AttachBall()

@@ -29,7 +29,7 @@ namespace SaveLoadSystem.Data
 
         public LevelInfo[] GetLevelInfos()
         {
-            if (_levelInfos == null)
+            if (_levelInfos == null || _levelInfos.Length != _levelFiles.Length)
             {
                 int n = _levelFiles.Length;
                 _levelInfos = new LevelInfo[n];

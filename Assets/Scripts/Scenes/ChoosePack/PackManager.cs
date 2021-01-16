@@ -4,6 +4,7 @@ using SaveLoader;
 using SaveLoadSystem;
 using SaveLoadSystem.Data;
 using SaveLoadSystem.Interfaces.SaveLoaders;
+using SceneLoader;
 using Scenes.ChoosePack.Packs;
 using UnityEngine;
 
@@ -15,19 +16,23 @@ namespace Scenes.ChoosePack
         [SerializeField] private Transform _packsParent;
 
         [SerializeField] private PackProvider _test;
+        [SerializeField] private SceneLoaderController _sceneLoader;
+        
         private IPackProvider _packProvider;
         private IPlayerInfoSaveLoader _playerInfoSaveLoader;
+        private DataProviderBetweenScenes _dataProvider;
 
         
-        public void Init(IPackProvider packProvider, IPlayerInfoSaveLoader playerInfoSaveLoader)
+        public void Init(IPackProvider packProvider, IPlayerInfoSaveLoader playerInfoSaveLoader, DataProviderBetweenScenes dataProvider)
         {
             _packProvider = packProvider;
             _playerInfoSaveLoader = playerInfoSaveLoader;
+            _dataProvider = dataProvider;
         }
         
         private void Start()
         {
-            Init(_test, new InfoSaveLoader());
+            Init(_test, new InfoSaveLoader(), DataProviderBetweenScenes.Instance);
             SpawnPacks();
         }
 
@@ -43,6 +48,8 @@ namespace Scenes.ChoosePack
             {
                 info.SetOpenedPacks(new bool[n]);
                 info.GetOpenedPacks()[n - 1] = true;
+                
+                _playerInfoSaveLoader.SavePlayerInfo(info);
             }
             
             for (int i = 0; i < n; ++i)
@@ -59,7 +66,8 @@ namespace Scenes.ChoosePack
 
         private void PackClicked(PackInfo packInfo)
         {
-            Debug.Log(packInfo.GetPackName());
+            _dataProvider.SetSelectedPackInfo(packInfo);
+            _sceneLoader.LoadScene(LoadingScene.GameScene);
         }
     }
 }
