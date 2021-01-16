@@ -13,14 +13,10 @@ namespace Scenes.Game.Balls
 
         private float _currentSpeedProgress = 0f;
 
-        private void Update()
-        {
-            NormalizeVelocity(_rb.velocity.normalized);
-        }
-
         private void OnCollisionEnter2D(Collision2D collision)
         {
             CheckCollisionWithPaddle(collision);
+            NormalizeVelocity(_rb.velocity.normalized);
         }
 
         private void CheckCollisionWithPaddle(Collision2D collision)
@@ -41,6 +37,11 @@ namespace Scenes.Game.Balls
         private void NormalizeVelocity(Vector2 direction)
         {
             _rb.velocity = direction.normalized * GetCurrentVelocity();
+            
+            if (Vector2.Angle(_rb.velocity, Vector2.right) <= 10)
+            {
+                _rb.velocity = Quaternion.Euler(0, 0, UnityEngine.Random.Range(15f, 30f)) * _rb.velocity;
+            }
         }
 
         private float GetCurrentVelocity() => Mathf.Lerp(_initialSpeed, _maxSpeed, _currentSpeedProgress);
