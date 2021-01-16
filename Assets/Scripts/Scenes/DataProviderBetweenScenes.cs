@@ -8,7 +8,7 @@ namespace Scenes
         
         public static DataProviderBetweenScenes Instance;
         
-        private PackInfo _selectedPackInfo;
+        [SerializeField] private PackInfo _selectedPackInfo;
         
         public void Awake()
         {
