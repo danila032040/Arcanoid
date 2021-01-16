@@ -398,9 +398,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4533836787972784982}
   - component: {fileID: 1036132851}
+  - component: {fileID: 1036132852}
+  - component: {fileID: 4813518393131069182}
   - component: {fileID: 4533836787972784983}
   - component: {fileID: 4533836787972784976}
-  - component: {fileID: 1036132852}
   m_Layer: 5
   m_Name: Pack
   m_TagString: Untagged
@@ -459,6 +460,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1036132852
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4533836787972784981}
+  m_CullTransparentMesh: 0
+--- !u!225 &4813518393131069182
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4533836787972784981}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &4533836787972784983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,7 +492,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d890e5a25d648198371336bc8e9b4f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _packData: {fileID: 0}
 --- !u!114 &4533836787972784976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,13 +504,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26725494abe5453c9de3f2f8eb25b4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hideColor: {r: 0, g: 0, b: 0, a: 1}
+  _showColor: {r: 1, g: 1, b: 1, a: 0.19607843}
+  _canvasGroup: {fileID: 4813518393131069182}
+  _backgroundImage: {fileID: 1036132851}
+  _packImage: {fileID: 307938391}
   _packNameText: {fileID: 2029619830}
   _packPassedLevelsInfoText: {fileID: 118128670}
---- !u!222 &1036132852
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4533836787972784981}
-  m_CullTransparentMesh: 0

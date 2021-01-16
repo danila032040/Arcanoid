@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe177ffd86ae49dda6d92f7fa81dd03c, type: 3}
+  m_Name: PackProvider
+  m_EditorClassIdentifier: 
+  _packs:
+  - _packName: HighRank4
+    _levelFiles:
+    - {fileID: 4900000, guid: 95e13ea418909ba498af59207f58cfb3, type: 3}
+    _packSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - _packName: HighRank3
+    _levelFiles:
+    - {fileID: 4900000, guid: 95e13ea418909ba498af59207f58cfb3, type: 3}
+    _packSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - _packName: HighRank2
+    _levelFiles:
+    - {fileID: 4900000, guid: 95e13ea418909ba498af59207f58cfb3, type: 3}
+    _packSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - _packName: HighRank1
+    _levelFiles:
+    - {fileID: 4900000, guid: 95e13ea418909ba498af59207f58cfb3, type: 3}
+    _packSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - _packName: MediumRank
+    _levelFiles:
+    - {fileID: 4900000, guid: 95e13ea418909ba498af59207f58cfb3, type: 3}
+    _packSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  - _packName: LowRank
+    _levelFiles:
+    - {fileID: 4900000, guid: 95e13ea418909ba498af59207f58cfb3, type: 3}
+    _packSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}

@@ -1,4 +1,6 @@
-﻿namespace Scripts.Scenes.Game.Bricks
+﻿using Scenes.Game.Bricks;
+
+namespace Scripts.Scenes.Game.Bricks
 {
     using Scripts.Scenes.Game.Utils;
     using UnityEngine;

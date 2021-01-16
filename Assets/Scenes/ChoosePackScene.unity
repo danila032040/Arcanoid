@@ -516,9 +516,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c3a004cd1804a50bde1dd991bc47c0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _packs:
-  - {fileID: 2938800649074959601, guid: 33ce4ad9f8bce7c4598cd0e771f54564, type: 3}
+  _packPrefab: {fileID: 4533836787972784983, guid: c6abeffbfdccd4a44a52effa74d65a67,
+    type: 3}
   _packsParent: {fileID: 106029226}
+  _test: {fileID: 11400000, guid: 81796acd2a97c0141899201c2a6a2bea, type: 2}
 --- !u!4 &334030510
 Transform:
   m_ObjectHideFlags: 0

@@ -1,4 +1,4 @@
-﻿namespace Scripts.Scenes.Game.Bricks
+﻿namespace Scenes.Game.Bricks
 {
     [System.Serializable]
     public enum BrickType

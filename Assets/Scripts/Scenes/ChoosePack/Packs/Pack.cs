@@ -1,5 +1,6 @@
 using System;
 using SaveLoader;
+using SaveLoadSystem.Data;
 using UnityEngine;
 
 namespace Scenes.ChoosePack.Packs
@@ -8,22 +9,25 @@ namespace Scenes.ChoosePack.Packs
     public class Pack : MonoBehaviour
     {
         
-        [SerializeField] private PackData _packData;
-        
+        private PackInfo _packInfo;
         private PackView _packView;
 
+        public void Init(PackInfo packInfo)
+        {
+            _packInfo = packInfo;
+            
+            
+            _packView.SetPackName(_packInfo.GetPackName());
+            _packView.SetPassedLevelsInfo($"0/{_packInfo.GetLevelsCount()}");
+            _packView.SetPackSprite(_packInfo.GetPackSprite());
+        }
+        
         private void Awake()
         {
             _packView = GetComponent<PackView>();
         }
 
-        private void Start()
-        {
-            _packView.SetPackName(_packData.GetPackName());
-            _packView.SetPassedLevelsInfo($"0/{_packData.GetLevelsCount()}");
-        }
-
         public PackView GetPackView() => _packView;
-        public PackData GetPackData() => _packData;
+        public PackInfo GetPackInfo() => _packInfo;
     }
 }

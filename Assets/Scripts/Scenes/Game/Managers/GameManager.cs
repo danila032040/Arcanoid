@@ -1,5 +1,6 @@
-﻿using SaveLoader;
-using SaveLoader.Interfaces;
+﻿using SaveLoadSystem;
+using SaveLoadSystem.Data;
+using SaveLoadSystem.Interfaces.SaveLoaders;
 using Scenes.Game.Balls;
 using Scenes.Game.Paddles;
 using Scripts.Scenes.Game.Bricks;
@@ -16,24 +17,24 @@ namespace Scenes.Game.Managers
         [SerializeField] private BriksManager _briksManager;
 
         private IInputService _inputService;
-        private ILevelSaveLoader _levelSaveLoader;
+        private ILevelInfoSaveLoader _levelInfoSaveLoader;
 
-        private void Init(IInputService inputService, ILevelSaveLoader levelSaveLoader)
+        private void Init(IInputService inputService, ILevelInfoSaveLoader levelInfoSaveLoader)
         {
             _inputService = inputService;
-            _levelSaveLoader = levelSaveLoader;
+            _levelInfoSaveLoader = levelInfoSaveLoader;
         }
 
         public void Start()
         {
-            Init(FindObjectOfType<InputService>(), new JsonSaveLoader());
+            Init(FindObjectOfType<InputService>(), new InfoSaveLoader());
             StartGame();
         }
 
         private void StartGame()
         {
             AttachBall();
-            LevelInfo info = _levelSaveLoader.LoadLevel("FirstLevel");
+            LevelInfo info = _levelInfoSaveLoader.LoadLevelInfo("FirstLevel");
             _briksManager.SpawnBricks(info.Map, info.BrickHeight, info.LeftOffset, info.RightOffset, info.OffsetBetweenRows, info.OffsetBetweenCols);
         }
 

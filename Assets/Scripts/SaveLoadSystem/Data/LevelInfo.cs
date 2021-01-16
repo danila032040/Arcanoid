@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
-using Scripts.Scenes.Game.Bricks;
+using SaveLoadSystem.Interfaces.Infos;
+using Scenes.Game.Bricks;
 using UnityEngine;
 
-namespace SaveLoader
+namespace SaveLoadSystem.Data
 {
     [System.Serializable]
-    public class LevelInfo
+    public class LevelInfo : IBrickLevelInfo
     {
         [SerializeField] private string _name;
         [SerializeField] private string _fileName;
-        [SerializeField] private List<BrickType> _bricks;
         [SerializeField] private int _n;
         [SerializeField] private int _m;
+        [SerializeField] private List<BrickType> _bricks;
         [SerializeField] private float _brickHeight;
         [SerializeField] private float _leftOffset;
         [SerializeField] private float _rightOffset;
