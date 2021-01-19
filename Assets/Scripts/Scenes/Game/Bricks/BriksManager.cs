@@ -1,11 +1,11 @@
 ﻿using System;
 using SaveLoadSystem.Interfaces.Infos;
 using Scenes.Game.Bricks;
+using Scenes.Game.Services.Cameras.Implementations;
+using Scenes.Game.Services.Cameras.Interfaces;
 
 namespace Scripts.Scenes.Game.Bricks
 {
-    using Scripts.Scenes.Game.Camera.Implementations;
-    using Scripts.Scenes.Game.Camera.Intrefaces;
     using UnityEngine;
 
     public class BriksManager : MonoBehaviour

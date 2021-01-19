@@ -1,8 +1,8 @@
 ﻿using System;
+using Scenes.Game.Services.Cameras.Implementations;
+using Scenes.Game.Services.Cameras.Interfaces;
 using Scenes.Game.Services.Inputs.Implementations;
 using Scenes.Game.Services.Inputs.Interfaces;
-using Scripts.Scenes.Game.Camera.Implementations;
-using Scripts.Scenes.Game.Camera.Intrefaces;
 using UnityEngine;
 
 namespace Scenes.Game.Paddles

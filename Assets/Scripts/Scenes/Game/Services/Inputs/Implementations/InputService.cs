@@ -21,12 +21,12 @@ namespace Scenes.Game.Services.Inputs.Implementations
 
         private void CheckMouseButtonDown()
         {
-            if (UnityEngine.Input.GetMouseButtonDown(0)) OnMouseButtonDown?.Invoke();
+            if (Input.GetMouseButtonDown(0)) OnMouseButtonDown?.Invoke();
         }
 
         private void CheckMouseButtonUp()
         {
-            if (UnityEngine.Input.GetMouseButtonUp(0)) OnMouseButtonUp?.Invoke();
+            if (Input.GetMouseButtonUp(0)) OnMouseButtonUp?.Invoke();
         }
 
 
@@ -34,7 +34,7 @@ namespace Scenes.Game.Services.Inputs.Implementations
 
         private void CheckMousePositionChanged()
         {
-            Vector3 currentMousePos = UnityEngine.Input.mousePosition;
+            Vector3 currentMousePos = Input.mousePosition;
             if (_oldMousePos != currentMousePos)
             {
                 OnMousePositionChanged?.Invoke(currentMousePos);

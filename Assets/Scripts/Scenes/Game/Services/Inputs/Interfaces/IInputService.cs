@@ -1,5 +1,4 @@
 ﻿using System;
-using Scenes.Game.Services.Screens.Interfaces;
 using UnityEngine;
 
 namespace Scenes.Game.Services.Inputs.Interfaces

@@ -17,7 +17,7 @@ namespace Scenes.Game.Services.Screens.Implementations
         private void CheckScreenResolutionChanged()
         {
 
-            Vector2 currentScreenResolution = new Vector2(UnityEngine.Screen.width, UnityEngine.Screen.height);
+            Vector2 currentScreenResolution = new Vector2(Screen.width, Screen.height);
             if (currentScreenResolution != _oldScreenResolution)
             {
                 OnScreenResolutionChanged?.Invoke(currentScreenResolution);

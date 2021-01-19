@@ -1,7 +1,8 @@
-﻿namespace Scripts.Scenes.Game.Camera.Implementations
+﻿using Scenes.Game.Services.Cameras.Interfaces;
+using UnityEngine;
+
+namespace Scenes.Game.Services.Cameras.Implementations
 {
-    using Scripts.Scenes.Game.Camera.Intrefaces;
-    using UnityEngine;
     public class CameraService : ICameraService
     {
         public float GetWorldPointWidth(Camera camera)
