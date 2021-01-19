@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using SaveLoadSystem.Interfaces.Infos;
-using Scenes.Game.Bricks;
+using Scenes.Game.Blocks;
 using UnityEngine;
 
 namespace SaveLoadSystem.Data
 {
     [System.Serializable]
-    public class LevelInfo : IBrickLevelInfo
+    public class LevelInfo : IBlockLevelInfo
     {
         [SerializeField] private string _name;
         [SerializeField] private string _fileName;
         [SerializeField] private int _n;
         [SerializeField] private int _m;
-        [SerializeField] private List<BrickType> _bricks;
+        [SerializeField] private List<BlockType> _bricks;
         [SerializeField] private float _brickHeight;
         [SerializeField] private float _leftOffset;
         [SerializeField] private float _rightOffset;
@@ -21,17 +21,17 @@ namespace SaveLoadSystem.Data
 
         public string Name => _name;
         public string FileName => _fileName;
-        public BrickType?[,] Map
+        public BlockType?[,] Map
         {
             get
             {
-                BrickType?[,] res = new BrickType?[_n, _m];
+                BlockType?[,] res = new BlockType?[_n, _m];
 
                 int currBrick = 0;
                 for (int i = 0; i < _n; ++i)
                     for (int j = 0; j < _m; ++j)
                     {
-                        if (_bricks[currBrick] != BrickType.None) res[i, j] = _bricks[currBrick];
+                        if (_bricks[currBrick] != BlockType.None) res[i, j] = _bricks[currBrick];
                         else res[i, j] = null;
                         ++currBrick;
                     }
@@ -39,7 +39,7 @@ namespace SaveLoadSystem.Data
                 return res;
             }
         }
-        public float BrickHeight => _brickHeight;
+        public float BlockHeight => _brickHeight;
         public float LeftOffset => _leftOffset;
         public float RightOffset => _rightOffset;
         public float OffsetBetweenRows => _offsetBetweenRows;
@@ -47,7 +47,7 @@ namespace SaveLoadSystem.Data
 
         public LevelInfo() { }
 
-        public LevelInfo(string name, string fileName, List<BrickType> bricks, int n, int m, float brickHeight, float leftOffset, float rightOffset, float offsetBetweenRows, float offsetBetweenCols)
+        public LevelInfo(string name, string fileName, List<BlockType> bricks, int n, int m, float brickHeight, float leftOffset, float rightOffset, float offsetBetweenRows, float offsetBetweenCols)
         {
             _name = name;
             _fileName = fileName;

@@ -1,12 +1,12 @@
 ﻿using Scenes.Game.Utils;
 using UnityEngine;
 
-namespace Scenes.Game.Bricks
+namespace Scenes.Game.Blocks
 {
-    public class Brick : MonoBehaviour
+    public class Block : MonoBehaviour
     {
         [SerializeField] private int _health;
-        [SerializeField] private BrickType _type;
+        [SerializeField] private BlockType _type;
 
         public event OnIntValueChanged OnHealthValueChanged;
 

@@ -2,10 +2,10 @@
 using SaveLoadSystem.Data;
 using SaveLoadSystem.Interfaces;
 using Scenes.Game.Balls;
+using Scenes.Game.Blocks;
 using Scenes.Game.Paddles;
 using Scenes.Game.Services.Inputs.Implementations;
 using Scenes.Game.Services.Inputs.Interfaces;
-using Scripts.Scenes.Game.Bricks;
 using UnityEngine;
 
 namespace Scenes.Game.Managers
@@ -15,7 +15,7 @@ namespace Scenes.Game.Managers
         [SerializeField] private Ball _startBall;
         [SerializeField] private Paddle _paddle;
 
-        [SerializeField] private BriksManager _briksManager;
+        [SerializeField] private BlocksManager _blocksManager;
 
         private IInputService _inputService;
         private IPackProvider _packProvider;
@@ -63,7 +63,7 @@ namespace Scenes.Game.Managers
 
             _currentLevelInfo = 0;
 
-            _briksManager.SpawnBricks(_levelInfos[_currentLevelInfo]);
+            _blocksManager.SpawnBlocks(_levelInfos[_currentLevelInfo]);
         }
 
         private void LoadNextLevel()
@@ -74,8 +74,8 @@ namespace Scenes.Game.Managers
                 LoadPack();
             }
 
-            _briksManager.DeleteBricks();
-            _briksManager.SpawnBricks(_levelInfos[_currentLevelInfo]);
+            _blocksManager.DeleteBlocks();
+            _blocksManager.SpawnBlocks(_levelInfos[_currentLevelInfo]);
         }
 
         private void AttachBall()

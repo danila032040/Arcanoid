@@ -1,4 +1,4 @@
-using Scenes.Game.Bricks;
+using Scenes.Game.Blocks;
 using UnityEngine;
 
 namespace Scenes.Game.Balls
@@ -12,11 +12,11 @@ namespace Scenes.Game.Balls
         
         private void CheckCollisionWithBrick(Collision2D collision)
         {
-            Brick brick = collision.gameObject.GetComponent<Brick>();
-            if (!brick) return;
+            Block block = collision.gameObject.GetComponent<Block>();
+            if (!block) return;
             
             
-            brick.Health -= 1;
+            block.Health -= 1;
         }
     }
 }

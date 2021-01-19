@@ -1,11 +1,11 @@
-using Scenes.Game.Bricks;
+using Scenes.Game.Blocks;
 
 namespace SaveLoadSystem.Interfaces.Infos
 {
-    public interface IBrickLevelInfo
+    public interface IBlockLevelInfo
     {
-        BrickType?[,] Map { get; }
-        float BrickHeight { get; }
+        BlockType?[,] Map { get; }
+        float BlockHeight { get; }
         float LeftOffset { get; }
         float RightOffset { get; }
         float OffsetBetweenRows { get; }
