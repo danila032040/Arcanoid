@@ -1,12 +1,11 @@
-﻿using System;
-using SaveLoadSystem;
+﻿using SaveLoadSystem;
 using SaveLoadSystem.Data;
 using SaveLoadSystem.Interfaces;
-using SaveLoadSystem.Interfaces.SaveLoaders;
 using Scenes.Game.Balls;
 using Scenes.Game.Paddles;
+using Scenes.Game.Services.Inputs.Implementations;
+using Scenes.Game.Services.Inputs.Interfaces;
 using Scripts.Scenes.Game.Bricks;
-using Scripts.Scenes.Game.Input;
 using UnityEngine;
 
 namespace Scenes.Game.Managers
@@ -31,11 +30,11 @@ namespace Scenes.Game.Managers
         }
 
         [SerializeField] private PackProvider _packProviderImpl;
-        [SerializeField] private InputService _inputSerivceImpl;
+        [SerializeField] private InputService _inputServiceImpl;
 
         public void Start()
         {
-            Init(_inputSerivceImpl, _packProviderImpl, DataProviderBetweenScenes.Instance);
+            Init(_inputServiceImpl, _packProviderImpl, DataProviderBetweenScenes.Instance);
             StartGame();
         }
 
@@ -81,7 +80,7 @@ namespace Scenes.Game.Managers
 
         private void AttachBall()
         {
-            _startBall.GetBallAttachment().AttachTo(_paddle.gameObject);
+            _startBall.GetBallAttachment().AttachTo(_paddle.transform);
             _inputService.OnMouseButtonUp += DetachBall;
         }
 

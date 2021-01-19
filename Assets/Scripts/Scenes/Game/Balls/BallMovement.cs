@@ -15,8 +15,19 @@ namespace Scenes.Game.Balls
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            ReflectBallVelocity(collision);
+            
             CheckCollisionWithPaddle(collision);
+            
             NormalizeVelocity(_rb.velocity.normalized);
+        }
+
+        private void ReflectBallVelocity(Collision2D collision)
+        {
+            Vector2 normal = collision.contacts[0].normal;
+            Vector2 velocity = -collision.relativeVelocity;
+
+            _rb.velocity = Vector2.Reflect(velocity, normal);
         }
 
         private void CheckCollisionWithPaddle(Collision2D collision)

@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using Scripts.Scenes.Game.Input;
+﻿using Scenes.Game.Services.Screens.Implementations;
+using Scenes.Game.Services.Screens.Interfaces;
 using UnityEngine;
 
 namespace Scenes.Game.Walls
@@ -14,20 +14,21 @@ namespace Scenes.Game.Walls
         [SerializeField] private float _width = 1f;
         [SerializeField] private float _zPosition = 0f;
 
-        private IInputService _inputService;
+        private IScreenService _screenService;
         private Camera _camera;
 
-        public void Init(IInputService inputService, Camera camera)
+        public void Init(IScreenService screenService, Camera camera)
         {
-            _inputService = inputService;
+            _screenService = screenService;
             _camera = camera;
         }
 
+        [SerializeField] private ScreenService _screenServiceImpl;
         private void Start()
         {
-            Init(FindObjectOfType<InputService>(), Camera.main);
+            Init(_screenServiceImpl, Camera.main);
 
-            _inputService.OnScreenResolutionChanged += (orientation) => ArrangeWall();
+            _screenService.OnScreenResolutionChanged += (orientation) => ArrangeWall();
 
             ArrangeWall();
         }

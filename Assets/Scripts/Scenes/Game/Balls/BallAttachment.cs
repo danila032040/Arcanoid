@@ -5,31 +5,22 @@ namespace Scenes.Game.Balls
     public class BallAttachment : MonoBehaviour
     {
         [SerializeField] private Vector3 _attachOffset;
+        [SerializeField] private Rigidbody2D _rb;
 
-        private void Update()
+        public void AttachTo(Transform attachingTransform)
         {
-            if (_isAttaching && (object)_attachingGameObject != null)
-            {
-                Attach();
-            }
-        }
+            _rb.isKinematic = true;
 
-        private void Attach()
-        {
-            this.transform.position = _attachingGameObject.transform.position + _attachOffset;
-        }
-
-        private bool _isAttaching;
-        private GameObject _attachingGameObject;
-        public void AttachTo(GameObject obj)
-        {
-            _isAttaching = true;
-            _attachingGameObject = obj;
+            Transform currTransform = transform;
+            
+            currTransform.SetParent(attachingTransform);
+            currTransform.localPosition = _attachOffset;
         }
         public void Detach()
         {
-            _isAttaching = false;
-            _attachingGameObject = null;
+            _rb.isKinematic = false;
+            
+            transform.SetParent(null);
         }
     }
 }

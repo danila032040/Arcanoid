@@ -1,4 +1,4 @@
-﻿using Scripts.Scenes.Game.Utils;
+﻿using Scenes.Game.Utils;
 using UnityEngine;
 
 namespace Scenes.Game.Bricks

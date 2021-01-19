@@ -310,37 +310,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &668147229
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 668147230}
-  m_Layer: 0
-  m_Name: Balls
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &668147230
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668147229}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1935544682}
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &834611647 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6885784943255915701, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
@@ -357,6 +326,7 @@ GameObject:
   m_Component:
   - component: {fileID: 881123438}
   - component: {fileID: 881123437}
+  - component: {fileID: 881123441}
   - component: {fileID: 881123439}
   - component: {fileID: 881123440}
   m_Layer: 0
@@ -407,6 +377,8 @@ MonoBehaviour:
   _startBall: {fileID: 265213944}
   _paddle: {fileID: 1745430903}
   _briksManager: {fileID: 881123440}
+  _packProviderImpl: {fileID: 11400000, guid: 81796acd2a97c0141899201c2a6a2bea, type: 2}
+  _inputServiceImpl: {fileID: 0}
 --- !u!114 &881123440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +393,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _topOffset: 0.2
   _prefab: {fileID: 5358386893384147703, guid: 391835ec5d43f0b42be219f67b427f47, type: 3}
+--- !u!114 &881123441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881123436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed5da46e467e4cdd953282aa16af0ca1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1047297794
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,6 +452,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TopRightAngleWall (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885784943255915700, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6885784943255915701, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
         type: 3}
@@ -564,6 +553,16 @@ PrefabInstance:
       propertyPath: _endWallViewportPoint.y
       value: 0.99
       objectReference: {fileID: 0}
+    - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
+        type: 3}
+      propertyPath: _inputServiceImpl
+      value: 
+      objectReference: {fileID: 881123437}
+    - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
+        type: 3}
+      propertyPath: _screenServiceImpl
+      value: 
+      objectReference: {fileID: 881123441}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba, type: 3}
 --- !u!4 &1121219052 stripped
@@ -690,6 +689,16 @@ PrefabInstance:
       propertyPath: _width
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
+        type: 3}
+      propertyPath: _inputServiceImpl
+      value: 
+      objectReference: {fileID: 881123437}
+    - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
+        type: 3}
+      propertyPath: _screenServiceImpl
+      value: 
+      objectReference: {fileID: 881123441}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba, type: 3}
 --- !u!4 &1414569260 stripped
@@ -709,6 +718,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RightWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885784943255915700, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6885784943255915701, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
         type: 3}
@@ -800,6 +814,16 @@ PrefabInstance:
       propertyPath: _width
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
+        type: 3}
+      propertyPath: _inputServiceImpl
+      value: 
+      objectReference: {fileID: 881123437}
+    - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
+        type: 3}
+      propertyPath: _screenServiceImpl
+      value: 
+      objectReference: {fileID: 881123441}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba, type: 3}
 --- !u!4 &1491752044 stripped
@@ -898,6 +922,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TopLeftAngleWall
       objectReference: {fileID: 0}
+    - target: {fileID: 6885784943255915700, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6885784943255915701, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -988,14 +1017,18 @@ PrefabInstance:
       propertyPath: _endWallViewportPoint.x
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
+        type: 3}
+      propertyPath: _inputServiceImpl
+      value: 
+      objectReference: {fileID: 881123437}
+    - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
+        type: 3}
+      propertyPath: _screenServiceImpl
+      value: 
+      objectReference: {fileID: 881123441}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba, type: 3}
---- !u!4 &1935544682 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 479106398499040806, guid: 583bfbee0084dd34da2f63803c6416cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 479106399360057164}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2016547473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1098,6 +1131,16 @@ PrefabInstance:
       propertyPath: _width
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
+        type: 3}
+      propertyPath: _inputServiceImpl
+      value: 
+      objectReference: {fileID: 881123437}
+    - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
+        type: 3}
+      propertyPath: _screenServiceImpl
+      value: 
+      objectReference: {fileID: 881123441}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba, type: 3}
 --- !u!4 &2016547474 stripped
@@ -1111,7 +1154,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 668147230}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 479106398499040806, guid: 583bfbee0084dd34da2f63803c6416cc,
         type: 3}
@@ -1151,7 +1194,7 @@ PrefabInstance:
     - target: {fileID: 479106398499040806, guid: 583bfbee0084dd34da2f63803c6416cc,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 479106398499040806, guid: 583bfbee0084dd34da2f63803c6416cc,
         type: 3}
@@ -1166,11 +1209,6 @@ PrefabInstance:
     - target: {fileID: 479106398499040806, guid: 583bfbee0084dd34da2f63803c6416cc,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 479106398499040807, guid: 583bfbee0084dd34da2f63803c6416cc,
-        type: 3}
-      propertyPath: m_GravityScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 479106398499040810, guid: 583bfbee0084dd34da2f63803c6416cc,
@@ -1425,5 +1463,15 @@ PrefabInstance:
       propertyPath: _width
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
+        type: 3}
+      propertyPath: _inputServiceImpl
+      value: 
+      objectReference: {fileID: 881123437}
+    - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
+        type: 3}
+      propertyPath: _screenServiceImpl
+      value: 
+      objectReference: {fileID: 881123441}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba, type: 3}
