@@ -148,7 +148,7 @@ PrefabInstance:
     - target: {fileID: 946452480559830534, guid: 9364ecdfe86c4a146a5ecd8072ff899b,
         type: 3}
       propertyPath: _selectedPackInfo._levelFiles.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 946452480559830534, guid: 9364ecdfe86c4a146a5ecd8072ff899b,
         type: 3}
@@ -163,6 +163,11 @@ PrefabInstance:
     - target: {fileID: 946452480559830534, guid: 9364ecdfe86c4a146a5ecd8072ff899b,
         type: 3}
       propertyPath: _selectedPackInfo._levelFiles.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: 95e13ea418909ba498af59207f58cfb3, type: 3}
+    - target: {fileID: 946452480559830534, guid: 9364ecdfe86c4a146a5ecd8072ff899b,
+        type: 3}
+      propertyPath: _selectedPackInfo._levelFiles.Array.data[1]
       value: 
       objectReference: {fileID: 4900000, guid: 95e13ea418909ba498af59207f58cfb3, type: 3}
     - target: {fileID: 946452480559830535, guid: 9364ecdfe86c4a146a5ecd8072ff899b,
@@ -584,6 +589,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BottomWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885784943255915700, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6885784943255915701, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
         type: 3}

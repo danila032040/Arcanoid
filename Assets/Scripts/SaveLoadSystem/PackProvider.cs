@@ -1,7 +1,9 @@
+using System;
 using SaveLoadSystem.Data;
+using SaveLoadSystem.Interfaces;
 using UnityEngine;
 
-namespace SaveLoader
+namespace SaveLoadSystem
 {
     [CreateAssetMenu(fileName = "PackProvider", menuName = "Packs/PackProvider", order = 0)]
     public class PackProvider : ScriptableObject, IPackProvider
@@ -9,5 +11,8 @@ namespace SaveLoader
         [SerializeField] private PackInfo[] _packs;
 
         public PackInfo[] GetPackInfos() => _packs;
+        
+        public int GetPackNumber(PackInfo packInfo) => Array.IndexOf(_packs, packInfo);
+        public PackInfo GetPackInfo(int packNumber) => _packs[packNumber];
     }
 }

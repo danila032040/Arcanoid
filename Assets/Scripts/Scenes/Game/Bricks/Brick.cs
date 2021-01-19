@@ -18,17 +18,13 @@ namespace Scenes.Game.Bricks
             {
                 OnHealthValueChanged?.Invoke(this, _health, value);
                 _health = value;
-                if (value <=0) Destroy(this.gameObject);
             }
         }
 
         public Vector3 Size
         {
             get => this.transform.localScale;
-            set
-            {
-                this.transform.localScale = value;
-            }
+            set => this.transform.localScale = value;
         }
     }
 }

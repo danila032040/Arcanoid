@@ -1,8 +1,8 @@
 using System.Linq;
 using System.Runtime.CompilerServices;
-using SaveLoader;
 using SaveLoadSystem;
 using SaveLoadSystem.Data;
+using SaveLoadSystem.Interfaces;
 using SaveLoadSystem.Interfaces.SaveLoaders;
 using SceneLoader;
 using Scenes.ChoosePack.Packs;
@@ -66,7 +66,8 @@ namespace Scenes.ChoosePack
 
         private void PackClicked(PackInfo packInfo)
         {
-            _dataProvider.SetSelectedPackInfo(packInfo);
+            int packNumber = _packProvider.GetPackNumber(packInfo);
+            _dataProvider.SetSelectedPackNumber(packNumber);
             _sceneLoader.LoadScene(LoadingScene.GameScene);
         }
     }

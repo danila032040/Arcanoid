@@ -3,28 +3,15 @@ using UnityEngine;
 
 namespace Scenes
 {
-    public class DataProviderBetweenScenes : MonoBehaviour
+    public class DataProviderBetweenScenes : MonoBehaviourSingletonPersistent<DataProviderBetweenScenes>
     {
+        [SerializeField] private int _selectedPackNumber;
         
-        public static DataProviderBetweenScenes Instance;
+        public int GetSelectedPackNumber() => _selectedPackNumber;
         
-        [SerializeField] private PackInfo _selectedPackInfo;
-        
-        public void Awake()
+        public void SetSelectedPackNumber(int packNumber)
         {
-            if (Instance == null)
-            {
-                Instance = this;
-                DontDestroyOnLoad(this);
-            }
-            else Destroy(this);
-        }
-
-        public PackInfo GetSelectedPackInfo() => _selectedPackInfo;
-        
-        public void SetSelectedPackInfo(PackInfo packInfo)
-        {
-            _selectedPackInfo = packInfo;
+            _selectedPackNumber = packNumber;
         }
         
     }
