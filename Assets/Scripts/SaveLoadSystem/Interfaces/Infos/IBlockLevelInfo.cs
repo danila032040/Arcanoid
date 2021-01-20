@@ -4,7 +4,7 @@ namespace SaveLoadSystem.Interfaces.Infos
 {
     public interface IBlockLevelInfo
     {
-        BlockType?[,] Map { get; }
+        BlockType[,] Map { get; }
         float BlockHeight { get; }
         float LeftOffset { get; }
         float RightOffset { get; }

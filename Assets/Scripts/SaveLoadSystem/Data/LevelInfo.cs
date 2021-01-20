@@ -21,18 +21,17 @@ namespace SaveLoadSystem.Data
 
         public string Name => _name;
         public string FileName => _fileName;
-        public BlockType?[,] Map
+        public BlockType[,] Map
         {
             get
             {
-                BlockType?[,] res = new BlockType?[_n, _m];
+                BlockType[,] res = new BlockType[_n, _m];
 
                 int currBrick = 0;
                 for (int i = 0; i < _n; ++i)
                     for (int j = 0; j < _m; ++j)
                     {
-                        if (_bricks[currBrick] != BlockType.None) res[i, j] = _bricks[currBrick];
-                        else res[i, j] = null;
+                        res[i, j] = _bricks[currBrick];
                         ++currBrick;
                     }
 

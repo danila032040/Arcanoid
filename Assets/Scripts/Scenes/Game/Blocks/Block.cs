@@ -3,28 +3,18 @@ using UnityEngine;
 
 namespace Scenes.Game.Blocks
 {
+    [RequireComponent(typeof(BlockView))]
     public class Block : MonoBehaviour
     {
-        [SerializeField] private int _health;
         [SerializeField] private BlockType _type;
 
-        public event OnIntValueChanged OnHealthValueChanged;
+        private BlockView _blockView;
 
-
-        public int Health
+        protected virtual void Awake()
         {
-            get => _health;
-            set
-            {
-                OnHealthValueChanged?.Invoke(this, _health, value);
-                _health = value;
-            }
+            _blockView = GetComponent<BlockView>();
         }
 
-        public Vector3 Size
-        {
-            get => this.transform.localScale;
-            set => this.transform.localScale = value;
-        }
+        public BlockView GetBlockView() => _blockView;
     }
 }

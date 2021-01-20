@@ -49,7 +49,8 @@ namespace Scenes.Game.Balls
         {
             _rb.velocity = direction.normalized * GetCurrentVelocity();
             
-            if (Vector2.Angle(_rb.velocity, Vector2.right) <= 10)
+            if (Vector2.Angle(_rb.velocity, Vector2.left) <= 10 || 
+                Vector2.Angle(_rb.velocity, Vector2.right) <= 10)
             {
                 _rb.velocity = Quaternion.Euler(0, 0, UnityEngine.Random.Range(15f, 30f)) * _rb.velocity;
             }

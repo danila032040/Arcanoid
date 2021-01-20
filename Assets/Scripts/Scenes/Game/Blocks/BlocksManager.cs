@@ -2,6 +2,7 @@
 using Scenes.Game.Services.Cameras.Implementations;
 using Scenes.Game.Services.Cameras.Interfaces;
 using UnityEngine;
+using UnityEngine.Windows.WebCam;
 using Object = UnityEngine.Object;
 
 namespace Scenes.Game.Blocks
@@ -65,15 +66,19 @@ namespace Scenes.Game.Blocks
         //TODO: Make Pool 
         [SerializeField] private Block _prefab;
 
-        public Block SpawnBlock(Vector3 position, BlockType? type, float blockHeight, float blockWidth)
+        public Block SpawnBlock(Vector3 position, BlockType type, float blockHeight, float blockWidth)
         {
-            if (type == null) return null;
+            if (type == BlockType.None) return null;
 
             Block block = Instantiate(_prefab, position, Quaternion.identity);
 
-            block.Size = new Vector3(blockWidth, blockHeight, 0);
+            block.GetBlockView().Size = new Vector3(blockWidth, blockHeight, 0);
 
-            block.OnHealthValueChanged += BlockOnOnHealthValueChanged;
+            //TODO: Make Destroyment
+
+            var dBlock = block as DestroyableBlock;
+            if (!(dBlock is null))
+                dBlock.OnHealthValueChanged += BlockOnOnHealthValueChanged;
             return block;
         }
 
@@ -89,16 +94,16 @@ namespace Scenes.Game.Blocks
         //TODO: Make Pool 
         public void DeleteBlock(Block block)
         {
-            if ((Object)block == null) return;
+            if ((Object) block == null) return;
             Destroy(block.gameObject);
 
             for (int i = 0; i < _blocks.GetLength(0); ++i)
-                for (int j = 0; j < _blocks.GetLength(1); ++j)
-                    if (_blocks[i, j] == block)
-                    {
-                        _blocks[i, j] = null;
-                        return;
-                    }
+            for (int j = 0; j < _blocks.GetLength(1); ++j)
+                if (_blocks[i, j] == block)
+                {
+                    _blocks[i, j] = null;
+                    return;
+                }
         }
     }
 }

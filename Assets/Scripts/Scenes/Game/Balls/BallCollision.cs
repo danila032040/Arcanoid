@@ -7,16 +7,15 @@ namespace Scenes.Game.Balls
     {
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            CheckCollisionWithBrick(collision);
+            CheckCollisionWithDestroyableBlock(collision);
         }
         
-        private void CheckCollisionWithBrick(Collision2D collision)
+        private void CheckCollisionWithDestroyableBlock(Collision2D collision)
         {
-            Block block = collision.gameObject.GetComponent<Block>();
+            DestroyableBlock block = collision.gameObject.GetComponent<DestroyableBlock>();
             if (!block) return;
             
-            
-            block.Health -= 1;
+            block.GetBlockDestructibility().AddHealth(-1);
         }
     }
 }

@@ -376,9 +376,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startBall: {fileID: 265213944}
   _paddle: {fileID: 1745430903}
-  _briksManager: {fileID: 881123440}
+  _blocksManager: {fileID: 881123440}
   _packProviderImpl: {fileID: 11400000, guid: 81796acd2a97c0141899201c2a6a2bea, type: 2}
-  _inputServiceImpl: {fileID: 0}
+  _inputServiceImpl: {fileID: 881123437}
 --- !u!114 &881123440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _topOffset: 0.2
-  _prefab: {fileID: 5358386893384147703, guid: 391835ec5d43f0b42be219f67b427f47, type: 3}
+  _prefab: {fileID: 2016296109857248312, guid: d8d6a574263356e4892722e44352be43, type: 3}
 --- !u!114 &881123441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,7 +451,7 @@ PrefabInstance:
     - target: {fileID: 6885784943255915700, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
         type: 3}
       propertyPath: m_Name
-      value: TopRightAngleWall (1)
+      value: TopRightAngleWall
       objectReference: {fileID: 0}
     - target: {fileID: 6885784943255915700, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
         type: 3}
