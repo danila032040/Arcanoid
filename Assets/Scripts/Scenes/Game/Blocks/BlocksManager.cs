@@ -48,13 +48,15 @@ namespace Scenes.Game.Blocks
             startPos.x += info.LeftOffset;
 
             for (int i = 0; i < n; ++i)
-            for (int j = 0; j < m; ++j)
             {
-                Vector3 currPosition = startPos;
-                currPosition.x += j * (blockWidth + info.OffsetBetweenRows) + blockWidth / 2;
-                currPosition.y -= i * (info.BlockHeight + info.OffsetBetweenCols) + info.BlockHeight / 2;
+                for (int j = 0; j < m; ++j)
+                {
+                    Vector3 currPosition = startPos;
+                    currPosition.x += j * (blockWidth + info.OffsetBetweenRows) + blockWidth / 2;
+                    currPosition.y -= i * (info.BlockHeight + info.OffsetBetweenCols) + info.BlockHeight / 2;
 
-                _blocks[i, j] = SpawnBlock(currPosition, info.Map[i, j], info.BlockHeight, blockWidth);
+                    _blocks[i, j] = SpawnBlock(currPosition, info.Map[i, j], info.BlockHeight, blockWidth);
+                }
             }
         }
 
@@ -115,12 +117,14 @@ namespace Scenes.Game.Blocks
             _poolManager.Remove(block);
 
             for (int i = 0; i < _blocks.GetLength(0); ++i)
-            for (int j = 0; j < _blocks.GetLength(1); ++j)
-                if (_blocks[i, j] == block)
-                {
-                    _blocks[i, j] = null;
-                    return;
-                }
+            {
+                for (int j = 0; j < _blocks.GetLength(1); ++j)
+                    if (_blocks[i, j] == block)
+                    {
+                        _blocks[i, j] = null;
+                        return;
+                    }
+            }
         }
     }
 }

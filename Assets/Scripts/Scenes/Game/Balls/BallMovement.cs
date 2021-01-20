@@ -1,4 +1,5 @@
-﻿using Scenes.Game.Paddles;
+﻿using System;
+using Scenes.Game.Paddles;
 using UnityEngine;
 
 namespace Scenes.Game.Balls
@@ -13,13 +14,17 @@ namespace Scenes.Game.Balls
 
         private float _currentSpeedProgress = 0f;
 
+        private void Update()
+        {
+            NormalizeVelocity(_rb.velocity.normalized);
+        }
+
         private void OnCollisionEnter2D(Collision2D collision)
         {
             ReflectBallVelocity(collision);
             
             CheckCollisionWithPaddle(collision);
             
-            NormalizeVelocity(_rb.velocity.normalized);
         }
 
         private void ReflectBallVelocity(Collision2D collision)
