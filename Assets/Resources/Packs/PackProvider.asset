@@ -13,27 +13,21 @@ MonoBehaviour:
   m_Name: PackProvider
   m_EditorClassIdentifier: 
   _packs:
-  - _packName: HighRank4
-    _levelFiles:
-    - {fileID: 4900000, guid: 95e13ea418909ba498af59207f58cfb3, type: 3}
-    _packSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  - _packName: HighRank3
-    _levelFiles:
-    - {fileID: 4900000, guid: 95e13ea418909ba498af59207f58cfb3, type: 3}
-    _packSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  - _packName: HighRank2
-    _levelFiles:
-    - {fileID: 4900000, guid: 95e13ea418909ba498af59207f58cfb3, type: 3}
-    _packSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  - _packName: HighRank1
-    _levelFiles:
-    - {fileID: 4900000, guid: 95e13ea418909ba498af59207f58cfb3, type: 3}
-    _packSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  - _packName: MediumRank
-    _levelFiles:
-    - {fileID: 4900000, guid: 95e13ea418909ba498af59207f58cfb3, type: 3}
-    _packSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   - _packName: LowRank
     _levelFiles:
     - {fileID: 4900000, guid: 95e13ea418909ba498af59207f58cfb3, type: 3}
-    _packSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    - {fileID: 4900000, guid: 930980ee371d9a94c89cbe6ca17b04e5, type: 3}
+    - {fileID: 4900000, guid: ee08bc7a401f41740a6f55852ac7c5cf, type: 3}
+    _packSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  - _packName: MediumRank
+    _levelFiles:
+    - {fileID: 4900000, guid: 95e13ea418909ba498af59207f58cfb3, type: 3}
+    - {fileID: 4900000, guid: 930980ee371d9a94c89cbe6ca17b04e5, type: 3}
+    - {fileID: 4900000, guid: ee08bc7a401f41740a6f55852ac7c5cf, type: 3}
+    _packSprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  - _packName: HighRank
+    _levelFiles:
+    - {fileID: 4900000, guid: 95e13ea418909ba498af59207f58cfb3, type: 3}
+    - {fileID: 4900000, guid: 930980ee371d9a94c89cbe6ca17b04e5, type: 3}
+    - {fileID: 4900000, guid: ee08bc7a401f41740a6f55852ac7c5cf, type: 3}
+    _packSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
