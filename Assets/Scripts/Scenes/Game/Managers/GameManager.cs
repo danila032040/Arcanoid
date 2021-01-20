@@ -69,7 +69,7 @@ namespace Scenes.Game.Managers
         private void LoadNextLevel()
         {
             _blocksManager.DeleteBlocks();
-            if (++_currentLevelInfo >= _levelInfos.Length)
+             if (++_currentLevelInfo >= _levelInfos.Length)
             {
                 _dataProvider.SetSelectedPackNumber(_dataProvider.GetSelectedPackNumber() + 1);
                 LoadPack();

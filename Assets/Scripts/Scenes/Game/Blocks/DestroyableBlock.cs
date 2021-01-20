@@ -1,3 +1,5 @@
+using System;
+using DG.Tweening;
 using Scenes.Game.Utils;
 using UnityEngine;
 
@@ -15,9 +17,11 @@ namespace Scenes.Game.Blocks
             base.Awake();
 
             _blockDestructibility = GetComponent<BlockDestructibility>();
+
             _blockDestructibility.OnHealthValueChanged += (sender, value, newValue) =>
             {
-                OnHealthValueChanged?.Invoke(this, value, newValue);
+                GetBlockView().GetSpriteRenderer().DOFade(_blockDestructibility.GetHealthPercentage(), 0f);
+                OnHealthValueChanged?.Invoke(this, value, newValue); 
             };
         }
 

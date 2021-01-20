@@ -1,4 +1,5 @@
-﻿using Pool.Interfaces;
+﻿using DG.Tweening;
+using Pool.Interfaces;
 using Scenes.Game.Utils;
 using UnityEngine;
 
@@ -19,5 +20,6 @@ namespace Scenes.Game.Blocks
         public BlockType GetBlockType() => _type;
 
         public BlockView GetBlockView() => _blockView;
+        
     }
 }

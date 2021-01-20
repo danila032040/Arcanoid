@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Pool.Interfaces;
+using UnityEditor;
 using UnityEngine;
 
 namespace Pool.Abstracts
@@ -42,8 +43,9 @@ namespace Pool.Abstracts
                 return obj;
             }
 
-            OnPoolExit(default(T));
-            return default(T);
+            T def = default(T);
+            OnPoolExit(def);
+            return def;
         }
         public void Remove(T obj)
         {

@@ -1,4 +1,5 @@
-﻿using SaveLoadSystem.Interfaces.Infos;
+﻿using DG.Tweening;
+using SaveLoadSystem.Interfaces.Infos;
 using Scenes.Game.Blocks.Pool;
 using Scenes.Game.Services.Cameras.Implementations;
 using Scenes.Game.Services.Cameras.Interfaces;
@@ -31,6 +32,7 @@ namespace Scenes.Game.Blocks
 
         public void SpawnBlocks(IBlockLevelInfo info)
         {
+            if (!(_blocks is null)) DeleteBlocks();
             int n = info.Map.GetLength(0);
              int m = info.Map.GetLength(1);
 
@@ -62,6 +64,8 @@ namespace Scenes.Game.Blocks
             {
                 DeleteBlock(block);
             }
+
+            _blocks = null;
         }
 
 
@@ -77,10 +81,15 @@ namespace Scenes.Game.Blocks
             blockTransform.rotation = Quaternion.identity;
 
             block.GetBlockView().Size = new Vector3(blockWidth, blockHeight, 0);
+            block.GetBlockView().GetSpriteRenderer().DOFade(1f, 0f);
 
             var dBlock = block as DestroyableBlock;
             if (!(dBlock is null))
+            {
                 dBlock.OnHealthValueChanged += BlockOnOnHealthValueChanged;
+                dBlock.GetBlockDestructibility().InitValues();
+            }
+
             return block;
         }
 
@@ -96,6 +105,13 @@ namespace Scenes.Game.Blocks
         public void DeleteBlock(Block block)
         {
             if ((Object) block == null) return;
+            
+            var dBlock = block as DestroyableBlock;
+            if (!(dBlock is null))
+            {
+                dBlock.OnHealthValueChanged -= BlockOnOnHealthValueChanged;
+            }
+            
             _poolManager.Remove(block);
 
             for (int i = 0; i < _blocks.GetLength(0); ++i)
