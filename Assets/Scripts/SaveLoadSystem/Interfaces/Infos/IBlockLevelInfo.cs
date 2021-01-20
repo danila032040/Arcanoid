@@ -1,4 +1,5 @@
 using Scenes.Game.Blocks;
+using Scenes.Game.Blocks.Base;
 
 namespace SaveLoadSystem.Interfaces.Infos
 {

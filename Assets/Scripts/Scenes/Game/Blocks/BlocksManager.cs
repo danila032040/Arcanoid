@@ -1,5 +1,7 @@
 ﻿using DG.Tweening;
 using SaveLoadSystem.Interfaces.Infos;
+using Scenes.Game.Blocks.Base;
+using Scenes.Game.Blocks.BoostedBlocks.Bombs.Base;
 using Scenes.Game.Blocks.Pool;
 using Scenes.Game.Services.Cameras.Implementations;
 using Scenes.Game.Services.Cameras.Interfaces;
@@ -16,6 +18,8 @@ namespace Scenes.Game.Blocks
         private ICameraService _cameraService;
         private Camera _camera;
         private BlocksPoolManager _poolManager;
+
+        public Block[,] GetBlocks() => _blocks;
 
         public void Init(ICameraService cameraService, Camera camera, BlocksPoolManager poolManager)
         {
@@ -92,6 +96,9 @@ namespace Scenes.Game.Blocks
                 dBlock.GetBlockDestructibility().InitValues();
             }
 
+            var bBlock = block as Bomb;
+            bBlock?.GetBombExplosiveness().Init(this);
+
             return block;
         }
 
@@ -113,6 +120,9 @@ namespace Scenes.Game.Blocks
             {
                 dBlock.OnHealthValueChanged -= BlockOnOnHealthValueChanged;
             }
+
+            var bBlock = block as Bomb;
+            bBlock?.GetBombExplosiveness().Use();
             
             _poolManager.Remove(block);
 

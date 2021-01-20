@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using SaveLoadSystem.Interfaces.Infos;
 using Scenes.Game.Blocks;
+using Scenes.Game.Blocks.Base;
 using UnityEngine;
 
 namespace SaveLoadSystem.Data
