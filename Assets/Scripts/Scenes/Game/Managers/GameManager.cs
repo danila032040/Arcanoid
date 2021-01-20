@@ -68,14 +68,16 @@ namespace Scenes.Game.Managers
 
         private void LoadNextLevel()
         {
+            _blocksManager.DeleteBlocks();
             if (++_currentLevelInfo >= _levelInfos.Length)
             {
                 _dataProvider.SetSelectedPackNumber(_dataProvider.GetSelectedPackNumber() + 1);
                 LoadPack();
             }
-
-            _blocksManager.DeleteBlocks();
-            _blocksManager.SpawnBlocks(_levelInfos[_currentLevelInfo]);
+            else
+            {
+                 _blocksManager.SpawnBlocks(_levelInfos[_currentLevelInfo]);
+            }
         }
 
         private void AttachBall()

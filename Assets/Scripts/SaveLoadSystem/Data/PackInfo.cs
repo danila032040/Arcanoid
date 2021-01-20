@@ -13,32 +13,30 @@ namespace SaveLoadSystem.Data
 
 
         private ILevelInfoSaveLoader _levelInfoSaveLoader;
-        private LevelInfo[] _levelInfos;
 
         public PackInfo()
         {
             Init(new InfoSaveLoader());
         }
-        
+
         public void Init(ILevelInfoSaveLoader levelInfoSaveLoader)
         {
             _levelInfoSaveLoader = levelInfoSaveLoader;
         }
-        
+
         public string GetPackName() => _packName;
 
         public LevelInfo[] GetLevelInfos()
         {
-            if (_levelInfos == null || _levelInfos.Length != _levelFiles.Length)
+            LevelInfo[] levelInfos;
+            int n = _levelFiles.Length;
+            levelInfos = new LevelInfo[n];
+            for (int i = 0; i < n; ++i)
             {
-                int n = _levelFiles.Length;
-                _levelInfos = new LevelInfo[n];
-                for (int i = 0; i < n; ++i)
-                {
-                    _levelInfos[i] = _levelInfoSaveLoader.LoadLevelInfo(_levelFiles[i]);
-                }
+                levelInfos[i] = _levelInfoSaveLoader.LoadLevelInfo(_levelFiles[i]);
             }
-            return _levelInfos;
+
+            return levelInfos;
         }
 
         public int GetLevelsCount() => _levelFiles.Length;

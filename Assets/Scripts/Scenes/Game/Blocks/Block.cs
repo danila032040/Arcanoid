@@ -1,10 +1,11 @@
-﻿using Scenes.Game.Utils;
+﻿using Pool.Interfaces;
+using Scenes.Game.Utils;
 using UnityEngine;
 
 namespace Scenes.Game.Blocks
 {
     [RequireComponent(typeof(BlockView))]
-    public class Block : MonoBehaviour
+    public class Block : MonoBehaviour, IPoolable
     {
         [SerializeField] private BlockType _type;
 
@@ -14,6 +15,8 @@ namespace Scenes.Game.Blocks
         {
             _blockView = GetComponent<BlockView>();
         }
+
+        public BlockType GetBlockType() => _type;
 
         public BlockView GetBlockView() => _blockView;
     }

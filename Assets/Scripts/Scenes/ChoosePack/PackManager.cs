@@ -47,14 +47,21 @@ namespace Scenes.ChoosePack
             if (info.GetOpenedPacks() == null)
             {
                 info.SetOpenedPacks(new bool[n]);
-                info.GetOpenedPacks()[n - 1] = true;
+                info.GetOpenedPacks()[0] = true;
                 
-                _playerInfoSaveLoader.SavePlayerInfo(info);
             }
+
+            if (info.GetLastPlayedLevels() == null)
+            {
+                info.SetLastPlayedLevels(new int[n]);
+            }
+            
+            _playerInfoSaveLoader.SavePlayerInfo(info);
             
             for (int i = 0; i < n; ++i)
             {
                 _packs[i] = Instantiate(_packPrefab, _packsParent);
+                _packs[i].transform.SetAsFirstSibling();
                 _packs[i].Init(packInfos[i]);
 
                 _packs[i].OnClicked += PackClicked;

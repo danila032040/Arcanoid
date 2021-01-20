@@ -1,9 +1,8 @@
 ﻿using SaveLoadSystem.Interfaces.Infos;
+using Scenes.Game.Blocks.Pool;
 using Scenes.Game.Services.Cameras.Implementations;
 using Scenes.Game.Services.Cameras.Interfaces;
 using UnityEngine;
-using UnityEngine.Windows.WebCam;
-using Object = UnityEngine.Object;
 
 namespace Scenes.Game.Blocks
 {
@@ -15,22 +14,25 @@ namespace Scenes.Game.Blocks
 
         private ICameraService _cameraService;
         private Camera _camera;
+        private BlocksPoolManager _poolManager;
 
-        public void Init(ICameraService cameraService, Camera camera)
+        public void Init(ICameraService cameraService, Camera camera, BlocksPoolManager poolManager)
         {
             _cameraService = cameraService;
             _camera = camera;
+            _poolManager = poolManager;
         }
 
+        [SerializeField] private BlocksPoolManager _poolManagerImpl;
         public void Awake()
         {
-            Init(new CameraService(), Camera.main);
+            Init(new CameraService(), Camera.main, _poolManagerImpl);
         }
 
         public void SpawnBlocks(IBlockLevelInfo info)
         {
             int n = info.Map.GetLength(0);
-            int m = info.Map.GetLength(1);
+             int m = info.Map.GetLength(1);
 
             float blockWidth = Mathf.Max(0,
                 _cameraService.GetWorldPointWidth(_camera) - info.LeftOffset - info.RightOffset -
@@ -63,18 +65,18 @@ namespace Scenes.Game.Blocks
         }
 
 
-        //TODO: Make Pool 
-        [SerializeField] private Block _prefab;
 
         public Block SpawnBlock(Vector3 position, BlockType type, float blockHeight, float blockWidth)
         {
             if (type == BlockType.None) return null;
 
-            Block block = Instantiate(_prefab, position, Quaternion.identity);
+            Block block = _poolManager.Get(type);
+            
+            var blockTransform = block.gameObject.transform;
+            blockTransform.position = position;
+            blockTransform.rotation = Quaternion.identity;
 
             block.GetBlockView().Size = new Vector3(blockWidth, blockHeight, 0);
-
-            //TODO: Make Destroyment
 
             var dBlock = block as DestroyableBlock;
             if (!(dBlock is null))
@@ -82,20 +84,19 @@ namespace Scenes.Game.Blocks
             return block;
         }
 
-        private void BlockOnOnHealthValueChanged(object sender, int oldvalue, int newvalue)
+        private void BlockOnOnHealthValueChanged(object sender, int oldValue, int newValue)
         {
-            if (newvalue <= 0)
+            if (newValue <= 0)
             {
                 DeleteBlock(sender as Block);
             }
         }
 
 
-        //TODO: Make Pool 
         public void DeleteBlock(Block block)
         {
             if ((Object) block == null) return;
-            Destroy(block.gameObject);
+            _poolManager.Remove(block);
 
             for (int i = 0; i < _blocks.GetLength(0); ++i)
             for (int j = 0; j < _blocks.GetLength(1); ++j)
