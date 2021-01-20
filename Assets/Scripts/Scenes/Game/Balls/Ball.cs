@@ -1,3 +1,4 @@
+using Pool.Interfaces;
 using UnityEngine;
 
 namespace Scenes.Game.Balls
@@ -5,7 +6,7 @@ namespace Scenes.Game.Balls
     [RequireComponent(typeof(BallMovement))]
     [RequireComponent(typeof(BallAttachment))]
     [RequireComponent(typeof(BallCollision))]
-    public class Ball : MonoBehaviour
+    public class Ball : MonoBehaviour, IPoolable
     {
         private BallMovement _ballMovement;
         private BallAttachment _ballAttachment;
