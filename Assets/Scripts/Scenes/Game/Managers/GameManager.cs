@@ -4,6 +4,7 @@ using SaveLoadSystem.Interfaces;
 using Scenes.Game.Balls;
 using Scenes.Game.Balls.Pool;
 using Scenes.Game.Blocks;
+using Scenes.Game.Blocks.Base;
 using Scenes.Game.Paddles;
 using Scenes.Game.Services.Inputs.Implementations;
 using Scenes.Game.Services.Inputs.Interfaces;
@@ -39,6 +40,7 @@ namespace Scenes.Game.Managers
         public void Start()
         {
             Init(_inputServiceImpl, _packProviderImpl, _ballsPoolImpl, DataProviderBetweenScenes.Instance);
+            _blocksManager.OnBlocksChanged += BlocksManagerOnOnBlocksChanged;
             StartGame();
         }
 
@@ -51,11 +53,36 @@ namespace Scenes.Game.Managers
         }
 
         private Ball _startBall;
+
+        private int _maxDBlocksCount; 
         private void StartGame()
         {
             _startBall = _ballsPool.Get();
             AttachBall();
             LoadPack();
+            
+        }
+
+        private void BlocksManagerOnOnBlocksChanged(Block[,] blocks)
+        {
+            int n = GetDestroyableBlocksCount(blocks);
+            _startBall.GetBallMovement().SetCurrentSpeedProgress(1 - n * 1f /_maxDBlocksCount);
+        }
+
+        private int GetDestroyableBlocksCount(Block[,] blocks)
+        {
+            if (ReferenceEquals(blocks, null)) return 0;
+            int dBlocksCount = 0;
+            foreach (Block block in blocks)
+            {
+                var dBlock = block as DestroyableBlock;
+
+                if (!ReferenceEquals(dBlock, null))
+                {
+                    ++dBlocksCount;
+                }
+            }
+            return dBlocksCount;
         }
 
         private LevelInfo[] _levelInfos;
@@ -70,6 +97,7 @@ namespace Scenes.Game.Managers
             _currentLevelInfo = 0;
 
             _blocksManager.SpawnBlocks(_levelInfos[_currentLevelInfo]);
+            _maxDBlocksCount = GetDestroyableBlocksCount(_blocksManager.GetBlocks());
         }
 
         private void LoadNextLevel()
@@ -83,6 +111,7 @@ namespace Scenes.Game.Managers
             else
             {
                  _blocksManager.SpawnBlocks(_levelInfos[_currentLevelInfo]);
+                 _maxDBlocksCount = GetDestroyableBlocksCount(_blocksManager.GetBlocks());
             }
         }
 

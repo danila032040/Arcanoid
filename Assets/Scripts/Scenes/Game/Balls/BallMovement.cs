@@ -22,9 +22,8 @@ namespace Scenes.Game.Balls
         private void OnCollisionEnter2D(Collision2D collision)
         {
             ReflectBallVelocity(collision);
-            
+
             CheckCollisionWithPaddle(collision);
-            
         }
 
         private void ReflectBallVelocity(Collision2D collision)
@@ -39,7 +38,7 @@ namespace Scenes.Game.Balls
         {
             Paddle paddle = collision.gameObject.GetComponent<Paddle>();
             if (!paddle) return;
-            
+
             _rb.velocity = Vector2.zero;
 
             float x = (this.transform.position.x - collision.transform.position.x) / collision.collider.bounds.size.x;
@@ -53,8 +52,8 @@ namespace Scenes.Game.Balls
         private void NormalizeVelocity(Vector2 direction)
         {
             _rb.velocity = direction.normalized * GetCurrentVelocity();
-            
-            if (Vector2.Angle(_rb.velocity, Vector2.left) <= 10 || 
+
+            if (Vector2.Angle(_rb.velocity, Vector2.left) <= 10 ||
                 Vector2.Angle(_rb.velocity, Vector2.right) <= 10)
             {
                 _rb.velocity = Quaternion.Euler(0, 0, UnityEngine.Random.Range(15f, 30f)) * _rb.velocity;
@@ -68,5 +67,7 @@ namespace Scenes.Game.Balls
         {
             NormalizeVelocity(Vector2.up);
         }
+
+        public void SetCurrentSpeedProgress(float value) => _currentSpeedProgress = value;
     }
 }

@@ -1535,11 +1535,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1918581538267209557, guid: 51459a87a5f899449a1b379ffc7afa14,
-        type: 3}
-      propertyPath: m_LinearDrag
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 4370056192696929520, guid: 51459a87a5f899449a1b379ffc7afa14,
         type: 3}
       propertyPath: m_Name
@@ -1553,7 +1548,7 @@ PrefabInstance:
     - target: {fileID: 4370056192696929534, guid: 51459a87a5f899449a1b379ffc7afa14,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.842
+      value: -1.8
       objectReference: {fileID: 0}
     - target: {fileID: 4370056192696929534, guid: 51459a87a5f899449a1b379ffc7afa14,
         type: 3}

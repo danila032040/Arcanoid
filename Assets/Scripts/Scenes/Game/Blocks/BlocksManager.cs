@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using SaveLoadSystem.Interfaces.Infos;
 using Scenes.Game.Blocks.Base;
 using Scenes.Game.Blocks.BoostedBlocks.Bombs.Base;
@@ -6,6 +7,7 @@ using Scenes.Game.Blocks.Pool;
 using Scenes.Game.Services.Cameras.Implementations;
 using Scenes.Game.Services.Cameras.Interfaces;
 using UnityEngine;
+using Debug = System.Diagnostics.Debug;
 
 namespace Scenes.Game.Blocks
 {
@@ -20,6 +22,8 @@ namespace Scenes.Game.Blocks
         private BlocksPoolManager _poolManager;
 
         public Block[,] GetBlocks() => _blocks;
+
+        public event Action<Block[,]> OnBlocksChanged;
 
         public void Init(ICameraService cameraService, Camera camera, BlocksPoolManager poolManager)
         {
@@ -59,24 +63,49 @@ namespace Scenes.Game.Blocks
                     currPosition.x += j * (blockWidth + info.OffsetBetweenRows) + blockWidth / 2;
                     currPosition.y -= i * (info.BlockHeight + info.OffsetBetweenCols) + info.BlockHeight / 2;
 
-                    _blocks[i, j] = SpawnBlock(currPosition, info.Map[i, j], info.BlockHeight, blockWidth);
+                    _blocks[i, j] = SpawnOneBlock(currPosition, info.Map[i, j], info.BlockHeight, blockWidth);
                 }
             }
+            OnBlocksChanged?.Invoke(_blocks);
+        }
+
+        public Block SpawnBlock(Vector3 position, BlockType type, float blockHeight, float blockWidth)
+        {
+            Block res = SpawnOneBlock(position, type, blockHeight, blockWidth);
+            OnBlocksChanged?.Invoke(_blocks);
+            return res;
         }
 
         public void DeleteBlocks()
         {
             foreach (Block block in _blocks)
             {
-                DeleteBlock(block);
+                DeleteOneBlock(block);
             }
 
             _blocks = null;
+            OnBlocksChanged?.Invoke(_blocks);
+        }
+
+        public void DeleteBlock(Block block)
+        {
+            DeleteOneBlock(block);
+            OnBlocksChanged?.Invoke(_blocks);
         }
 
 
+        
 
-        public Block SpawnBlock(Vector3 position, BlockType type, float blockHeight, float blockWidth)
+        private void BlockOnOnHealthValueChanged(object sender, int oldValue, int newValue)
+        {
+            if (newValue <= 0)
+            {
+                DeleteOneBlock(sender as Block);
+                OnBlocksChanged?.Invoke(_blocks);
+            }
+        }
+
+        private Block SpawnOneBlock(Vector3 position, BlockType type, float blockHeight, float blockWidth)
         {
             if (type == BlockType.None) return null;
 
@@ -101,19 +130,9 @@ namespace Scenes.Game.Blocks
 
             return block;
         }
-
-        private void BlockOnOnHealthValueChanged(object sender, int oldValue, int newValue)
+        private void DeleteOneBlock(Block block)
         {
-            if (newValue <= 0)
-            {
-                DeleteBlock(sender as Block);
-            }
-        }
-
-
-        public void DeleteBlock(Block block)
-        {
-            if ((Object) block == null) return;
+            if (ReferenceEquals(block, null)) return;
             
             var dBlock = block as DestroyableBlock;
             if (!(dBlock is null))
@@ -123,7 +142,7 @@ namespace Scenes.Game.Blocks
 
             var bBlock = block as Bomb;
             bBlock?.GetBombExplosiveness().Use();
-            
+
             _poolManager.Remove(block);
 
             for (int i = 0; i < _blocks.GetLength(0); ++i)
