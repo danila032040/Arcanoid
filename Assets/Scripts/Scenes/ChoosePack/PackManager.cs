@@ -64,7 +64,7 @@ namespace Scenes.ChoosePack
                 _packs[i].transform.SetAsFirstSibling();
                 _packs[i].Init(packInfos[i]);
 
-                _packs[i].OnClicked += PackClicked;
+                _packs[i].Clicked += PackClicked;
                 
                 if (info.GetOpenedPacks()[i]) _packs[i].GetPackView().Show();
                 else _packs[i].GetPackView().Hide();

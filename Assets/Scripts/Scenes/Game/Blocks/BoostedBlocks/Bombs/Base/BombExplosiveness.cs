@@ -7,7 +7,7 @@ namespace Scenes.Game.Blocks.BoostedBlocks.Bombs.Base
     public abstract class BombExplosiveness : BoostEffect
     {
         [SerializeField] private int _damage;
-        
+
         private BlocksManager _blocksManager;
 
         public void Init(BlocksManager blocksManager)
@@ -43,8 +43,8 @@ namespace Scenes.Game.Blocks.BoostedBlocks.Bombs.Base
 
             throw new KeyNotFoundException();
         }
-        
-        
+
+
         protected abstract void Explode(Block[,] blocks, Vector2Int position);
     }
 }

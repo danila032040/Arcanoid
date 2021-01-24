@@ -7,7 +7,7 @@ namespace Scenes.ChoosePack.Packs
     [RequireComponent(typeof(PackView))]
     public class Pack : MonoBehaviour
     {
-        public event Action<PackInfo> OnClicked;
+        public event Action<PackInfo> Clicked;
         
         private PackInfo _packInfo;
         private PackView _packView;
@@ -25,10 +25,15 @@ namespace Scenes.ChoosePack.Packs
         private void Awake()
         {
             _packView = GetComponent<PackView>();
-            _packView.OnClicked += () => OnClicked?.Invoke(_packInfo);
+            _packView.Clicked += () => OnClicked(_packInfo);
         }
 
         public PackView GetPackView() => _packView;
         public PackInfo GetPackInfo() => _packInfo;
+
+        private void OnClicked(PackInfo obj)
+        {
+            Clicked?.Invoke(obj);
+        }
     }
 }

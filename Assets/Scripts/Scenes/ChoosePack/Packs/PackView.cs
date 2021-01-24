@@ -20,7 +20,7 @@ namespace Scenes.ChoosePack.Packs
         [SerializeField] private TextMeshProUGUI _packNameText;
         [SerializeField] private TextMeshProUGUI _packPassedLevelsInfoText;
 
-        public event Action OnClicked;
+        public event Action Clicked;
 
         public void SetPackName(string packName)
         {
@@ -80,7 +80,7 @@ namespace Scenes.ChoosePack.Packs
         {
             if (!_isHiding)
             {
-                OnClicked?.Invoke();
+                OnClicked();
             }
         }
 
@@ -98,6 +98,11 @@ namespace Scenes.ChoosePack.Packs
             {
                 this.transform.DOScale(1, 0.5f);
             }
+        }
+
+        private void OnClicked()
+        {
+            Clicked?.Invoke();
         }
     }
 }

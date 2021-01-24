@@ -1,4 +1,5 @@
-﻿using SaveLoadSystem;
+﻿using System.Collections.Generic;
+using SaveLoadSystem;
 using SaveLoadSystem.Data;
 using SaveLoadSystem.Interfaces;
 using Scenes.Game.Balls;
@@ -37,10 +38,11 @@ namespace Scenes.Game.Managers
         [SerializeField] private InputService _inputServiceImpl;
 
         [SerializeField] private BallsPool _ballsPoolImpl;
+
         public void Start()
         {
             Init(_inputServiceImpl, _packProviderImpl, _ballsPoolImpl, DataProviderBetweenScenes.Instance);
-            _blocksManager.OnBlocksChanged += BlocksManagerOnOnBlocksChanged;
+            _blocksManager.BlocksChanged += BlocksManagerBlocksChanged;
             StartGame();
         }
 
@@ -54,19 +56,19 @@ namespace Scenes.Game.Managers
 
         private Ball _startBall;
 
-        private int _maxDBlocksCount; 
+        private int _maxDBlocksCount;
+
         private void StartGame()
         {
             _startBall = _ballsPool.Get();
             AttachBall();
             LoadPack();
-            
         }
 
-        private void BlocksManagerOnOnBlocksChanged(Block[,] blocks)
+        private void BlocksManagerBlocksChanged(Block[,] blocks)
         {
             int n = GetDestroyableBlocksCount(blocks);
-            _startBall.GetBallMovement().SetCurrentSpeedProgress(1 - n * 1f /_maxDBlocksCount);
+            _startBall.GetBallMovement().SetCurrentSpeedProgress(1 - n * 1f / _maxDBlocksCount);
         }
 
         private int GetDestroyableBlocksCount(Block[,] blocks)
@@ -82,6 +84,7 @@ namespace Scenes.Game.Managers
                     ++dBlocksCount;
                 }
             }
+
             return dBlocksCount;
         }
 
@@ -103,27 +106,27 @@ namespace Scenes.Game.Managers
         private void LoadNextLevel()
         {
             _blocksManager.DeleteBlocks();
-             if (++_currentLevelInfo >= _levelInfos.Length)
+            if (++_currentLevelInfo >= _levelInfos.Length)
             {
                 _dataProvider.SetSelectedPackNumber(_dataProvider.GetSelectedPackNumber() + 1);
                 LoadPack();
             }
             else
             {
-                 _blocksManager.SpawnBlocks(_levelInfos[_currentLevelInfo]);
-                 _maxDBlocksCount = GetDestroyableBlocksCount(_blocksManager.GetBlocks());
+                _blocksManager.SpawnBlocks(_levelInfos[_currentLevelInfo]);
+                _maxDBlocksCount = GetDestroyableBlocksCount(_blocksManager.GetBlocks());
             }
         }
 
         private void AttachBall()
         {
             _startBall.GetBallAttachment().AttachTo(_paddle.transform);
-            _inputService.OnMouseButtonUp += DetachBall;
+            _inputService.MouseButtonUp += DetachBall;
         }
 
         private void DetachBall()
         {
-            _inputService.OnMouseButtonUp -= DetachBall;
+            _inputService.MouseButtonUp -= DetachBall;
             _startBall.GetBallAttachment().Detach();
             _startBall.GetBallMovement().StartMoving();
         }

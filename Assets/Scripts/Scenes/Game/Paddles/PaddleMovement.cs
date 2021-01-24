@@ -29,20 +29,22 @@ namespace Scenes.Game.Paddles
 
         private void Start()
         {
-            this.Init(FindObjectOfType<InputService>(),new CameraService(), Camera.main);
+            this.Init(FindObjectOfType<InputService>(), new CameraService(), Camera.main);
 
-            _inputService.OnMouseButtonDown += StartMovingPaddle;
-            _inputService.OnMouseButtonUp += EndMovingPaddle;
-            _inputService.OnMousePositionChanged += ChangeGoalPositionByMouse;
+            _inputService.MouseButtonDown += StartMovingPaddle;
+            _inputService.MouseButtonUp += EndMovingPaddle;
+            _inputService.MousePositionChanged += ChangeGoalPositionByMouse;
         }
+
         private void OnDestroy()
         {
             if (_inputService == null) return;
-            
-            _inputService.OnMouseButtonDown -= StartMovingPaddle;
-            _inputService.OnMouseButtonUp -= EndMovingPaddle;
-            _inputService.OnMousePositionChanged -= ChangeGoalPositionByMouse;
+
+            _inputService.MouseButtonDown -= StartMovingPaddle;
+            _inputService.MouseButtonUp -= EndMovingPaddle;
+            _inputService.MousePositionChanged -= ChangeGoalPositionByMouse;
         }
+
         private void FixedUpdate()
         {
             if (_movePaddle)
@@ -52,16 +54,18 @@ namespace Scenes.Game.Paddles
         }
 
 
-
         private bool _movePaddle;
+
         private void StartMovingPaddle()
         {
             _movePaddle = true;
         }
+
         private void EndMovingPaddle()
         {
             _movePaddle = false;
         }
+
         private void ChangeGoalPositionByMouse(Vector3 mousePosition)
         {
             SetGoalPosition(_camera.ScreenToWorldPoint(mousePosition).x);
@@ -78,16 +82,15 @@ namespace Scenes.Game.Paddles
 
             _goalXPosition = Mathf.Clamp(x, leftClamp, rightClamp);
         }
+
         private void MovePaddleToGoalPosition()
         {
-
             Vector3 nextPosition = this.transform.position;
 
             float nextXPosition = nextPosition.x;
 
             if (Math.Abs(nextXPosition - _goalXPosition) > 1e-2)
             {
-
                 float moveXDirection = nextXPosition > _goalXPosition ? -1 : +1;
 
                 float moveXDistance = _cameraService.GetWorldPointWidth(_camera) * _moveSpeed * Time.deltaTime;
@@ -104,13 +107,10 @@ namespace Scenes.Game.Paddles
 
                 Vector2 velocity = new Vector2(moveXDirection * _moveSpeed, 0);
                 _rb.velocity = velocity;
-                _rb.velocity = Vector2.Lerp(Vector2.zero, velocity, 
-                                            (1 - (velocity.magnitude * Time.deltaTime * Mathf.Clamp01(1f - _rb.drag * Time.deltaTime)
-                                                  ) / distanceToGoal));
+                _rb.velocity = Vector2.Lerp(Vector2.zero, velocity,
+                    (1 - (velocity.magnitude * Time.deltaTime * Mathf.Clamp01(1f - _rb.drag * Time.deltaTime)
+                        ) / distanceToGoal));
             }
         }
-
-
-        
     }
 }

@@ -23,7 +23,7 @@ namespace Scenes.Game.Blocks
 
         public Block[,] GetBlocks() => _blocks;
 
-        public event Action<Block[,]> OnBlocksChanged;
+        public event Action<Block[,]> BlocksChanged;
 
         public void Init(ICameraService cameraService, Camera camera, BlocksPoolManager poolManager)
         {
@@ -66,13 +66,13 @@ namespace Scenes.Game.Blocks
                     _blocks[i, j] = SpawnOneBlock(currPosition, info.Map[i, j], info.BlockHeight, blockWidth);
                 }
             }
-            OnBlocksChanged?.Invoke(_blocks);
+            OnBlocksChanged(_blocks);
         }
 
         public Block SpawnBlock(Vector3 position, BlockType type, float blockHeight, float blockWidth)
         {
             Block res = SpawnOneBlock(position, type, blockHeight, blockWidth);
-            OnBlocksChanged?.Invoke(_blocks);
+            OnBlocksChanged(_blocks);
             return res;
         }
 
@@ -84,24 +84,24 @@ namespace Scenes.Game.Blocks
             }
 
             _blocks = null;
-            OnBlocksChanged?.Invoke(_blocks);
+            OnBlocksChanged(_blocks);
         }
 
         public void DeleteBlock(Block block)
         {
             DeleteOneBlock(block);
-            OnBlocksChanged?.Invoke(_blocks);
+            OnBlocksChanged(_blocks);
         }
 
 
         
 
-        private void BlockOnOnHealthValueChanged(object sender, int oldValue, int newValue)
+        private void BlockHealthValueChanged(object sender, int oldValue, int newValue)
         {
             if (newValue <= 0)
             {
                 DeleteOneBlock(sender as Block);
-                OnBlocksChanged?.Invoke(_blocks);
+                OnBlocksChanged(_blocks);
             }
         }
 
@@ -121,7 +121,7 @@ namespace Scenes.Game.Blocks
             var dBlock = block as DestroyableBlock;
             if (!(dBlock is null))
             {
-                dBlock.OnHealthValueChanged += BlockOnOnHealthValueChanged;
+                dBlock.HealthValueChanged += BlockHealthValueChanged;
                 dBlock.GetBlockDestructibility().InitValues();
             }
 
@@ -137,7 +137,7 @@ namespace Scenes.Game.Blocks
             var dBlock = block as DestroyableBlock;
             if (!(dBlock is null))
             {
-                dBlock.OnHealthValueChanged -= BlockOnOnHealthValueChanged;
+                dBlock.HealthValueChanged -= BlockHealthValueChanged;
             }
 
             var bBlock = block as Bomb;
@@ -154,6 +154,11 @@ namespace Scenes.Game.Blocks
                         return;
                     }
             }
+        }
+
+        protected virtual void OnBlocksChanged(Block[,] obj)
+        {
+            BlocksChanged?.Invoke(obj);
         }
     }
 }

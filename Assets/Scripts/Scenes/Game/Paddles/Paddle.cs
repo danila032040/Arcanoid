@@ -8,13 +8,13 @@ namespace Scenes.Game.Paddles
     {
         private PaddleMovement _paddleMovement;
         private PaddleView _paddleView;
-        
+
         public void Awake()
         {
             _paddleMovement = GetComponent<PaddleMovement>();
             _paddleView = GetComponent<PaddleView>();
         }
-        
+
         public PaddleMovement GetPaddleMovement() => _paddleMovement;
         public PaddleView GetPaddleView() => _paddleView;
     }

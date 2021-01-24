@@ -9,12 +9,12 @@ namespace Scenes.Game.Blocks.Pool
     public class BlocksPool : Pool<Block>
     {
         [SerializeField] private Block _prefab;
-        
+
         private void Awake()
         {
             base.Init(new PrefabPoolFactory<Block>(_prefab));
         }
-        
+
         protected override void OnPoolEnter(Block obj)
         {
             obj.gameObject.transform.SetParent(transform);

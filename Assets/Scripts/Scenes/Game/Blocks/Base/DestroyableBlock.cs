@@ -9,7 +9,7 @@ namespace Scenes.Game.Blocks.Base
     {
         private BlockDestructibility _blockDestructibility;
 
-        public event OnIntValueChanged OnHealthValueChanged;
+        public event OnIntValueChanged HealthValueChanged;
 
         protected override void Awake()
         {
@@ -17,13 +17,18 @@ namespace Scenes.Game.Blocks.Base
 
             _blockDestructibility = GetComponent<BlockDestructibility>();
 
-            _blockDestructibility.OnHealthValueChanged += (sender, value, newValue) =>
+            _blockDestructibility.HealthValueChanged += (sender, value, newValue) =>
             {
                 GetBlockView().GetSpriteRenderer().DOFade(_blockDestructibility.GetHealthPercentage(), 0f);
-                OnHealthValueChanged?.Invoke(this, value, newValue); 
+                OnHealthValueChanged(value, newValue);
             };
         }
 
         public BlockDestructibility GetBlockDestructibility() => _blockDestructibility;
+
+        private void OnHealthValueChanged(int oldvalue, int newvalue)
+        {
+            HealthValueChanged?.Invoke(this, oldvalue, newvalue);
+        }
     }
 }

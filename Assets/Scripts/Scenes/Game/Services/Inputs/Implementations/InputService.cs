@@ -6,10 +6,9 @@ namespace Scenes.Game.Services.Inputs.Implementations
 {
     public class InputService : MonoBehaviour, IInputService
     {
-
-        public event Action OnMouseButtonDown;
-        public event Action OnMouseButtonUp;
-        public event Action<Vector3> OnMousePositionChanged;
+        public event Action MouseButtonDown;
+        public event Action MouseButtonUp;
+        public event Action<Vector3> MousePositionChanged;
 
         private void Update()
         {
@@ -21,12 +20,12 @@ namespace Scenes.Game.Services.Inputs.Implementations
 
         private void CheckMouseButtonDown()
         {
-            if (Input.GetMouseButtonDown(0)) OnMouseButtonDown?.Invoke();
+            if (Input.GetMouseButtonDown(0)) OnMouseButtonDown();
         }
 
         private void CheckMouseButtonUp()
         {
-            if (Input.GetMouseButtonUp(0)) OnMouseButtonUp?.Invoke();
+            if (Input.GetMouseButtonUp(0)) OnMouseButtonUp();
         }
 
 
@@ -37,9 +36,25 @@ namespace Scenes.Game.Services.Inputs.Implementations
             Vector3 currentMousePos = Input.mousePosition;
             if (_oldMousePos != currentMousePos)
             {
-                OnMousePositionChanged?.Invoke(currentMousePos);
+                OnMousePositionChanged(currentMousePos);
             }
+
             _oldMousePos = currentMousePos;
+        }
+
+        private void OnMouseButtonDown()
+        {
+            MouseButtonDown?.Invoke();
+        }
+
+        private void OnMouseButtonUp()
+        {
+            MouseButtonUp?.Invoke();
+        }
+
+        private void OnMousePositionChanged(Vector3 obj)
+        {
+            MousePositionChanged?.Invoke(obj);
         }
     }
 }

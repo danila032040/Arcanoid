@@ -28,7 +28,7 @@ namespace Scenes.Game.Walls
         {
             Init(_screenServiceImpl, Camera.main);
 
-            _screenService.OnScreenResolutionChanged += (orientation) => ArrangeWall();
+            _screenService.ScreenResolutionChanged += (orientation) => ArrangeWall();
 
             ArrangeWall();
         }

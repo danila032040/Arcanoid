@@ -6,7 +6,7 @@ namespace Scenes.Game.Services.Screens.Implementations
 {
     public class ScreenService : MonoBehaviour, IScreenService
     {
-        public event Action<Vector2> OnScreenResolutionChanged;
+        public event Action<Vector2> ScreenResolutionChanged;
 
         private void Update()
         {
@@ -14,15 +14,21 @@ namespace Scenes.Game.Services.Screens.Implementations
         }
 
         private Vector2 _oldScreenResolution;
+
         private void CheckScreenResolutionChanged()
         {
-
             Vector2 currentScreenResolution = new Vector2(Screen.width, Screen.height);
             if (currentScreenResolution != _oldScreenResolution)
             {
-                OnScreenResolutionChanged?.Invoke(currentScreenResolution);
+                OnScreenResolutionChanged(currentScreenResolution);
             }
+
             _oldScreenResolution = currentScreenResolution;
+        }
+
+        protected virtual void OnScreenResolutionChanged(Vector2 obj)
+        {
+            ScreenResolutionChanged?.Invoke(obj);
         }
     }
 }
