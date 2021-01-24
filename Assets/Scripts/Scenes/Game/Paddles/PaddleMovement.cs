@@ -20,11 +20,11 @@ namespace Scenes.Game.Paddles
         private ICameraService _cameraService;
         private Camera _camera;
 
-        public void Init(IInputService inputService, ICameraService cameraService, Camera camera)
+        public void Init(IInputService inputService, ICameraService cameraService, Camera currentCamera)
         {
             _inputService = inputService;
             _cameraService = cameraService;
-            _camera = camera;
+            _camera = currentCamera;
         }
 
         private void Start()

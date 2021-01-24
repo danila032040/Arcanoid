@@ -1,9 +1,7 @@
-﻿using Localization;
-using SaveLoadSystem;
+﻿using SaveLoadSystem;
 using SaveLoadSystem.Data;
 using SaveLoadSystem.Interfaces.SaveLoaders;
 using SceneLoader;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -12,15 +12,15 @@ namespace Scenes.Game.Walls
         [SerializeField] private Vector2 _endWallViewportPoint;
 
         [SerializeField] private float _width = 1f;
-        [SerializeField] private float _zPosition = 0f;
+        [SerializeField] private float _zPosition;
 
         private IScreenService _screenService;
         private Camera _camera;
 
-        public void Init(IScreenService screenService, Camera camera)
+        public void Init(IScreenService screenService, Camera currentCamera)
         {
             _screenService = screenService;
-            _camera = camera;
+            _camera = currentCamera;
         }
 
         [SerializeField] private ScreenService _screenServiceImpl;

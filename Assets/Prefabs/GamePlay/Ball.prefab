@@ -165,6 +165,9 @@ MonoBehaviour:
   _rb: {fileID: 479106398499040807}
   _initialSpeed: 1
   _maxSpeed: 3
+  _angleWithHorToChangeDirection: 20
+  _minChangeAngle: 30
+  _maxChangeAngle: 45
 --- !u!114 &1247726266883167337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,3 +180,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e5695e6f2c4db696eb1a8dcacbbcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthConfiguration: {fileID: 11400000, guid: 000fdd9a4266f2745ba2062eb4882a86,
+    type: 2}

@@ -62,7 +62,7 @@ namespace Scenes.ChoosePack
             {
                 _packs[i] = Instantiate(_packPrefab, _packsParent);
                 _packs[i].transform.SetAsFirstSibling();
-                _packs[i].Init(packInfos[i]);
+                _packs[i].Init(packInfos[i], _playerInfoSaveLoader.LoadPlayerInfo(), _packProvider);
 
                 _packs[i].Clicked += PackClicked;
                 

@@ -1,16 +1,16 @@
 ﻿using System;
 using System.IO;
 using SaveLoadSystem.Data;
-using SaveLoadSystem.Interfaces.Infos;
 using SaveLoadSystem.Interfaces.SaveLoaders;
 using UnityEngine;
 
 namespace SaveLoadSystem
 {
+    //TODO: Divide logic into 2 different classes, serialize and deserialize arrays into json prefabs.
     public class InfoSaveLoader : ILevelInfoSaveLoader, IPlayerInfoSaveLoader
     {
-        private const string openedPackKey = "openedPack";
-        private const string lastPlayedLevelKey = "lastPlayed";
+        private const string OpenedPackKey = "openedPack";
+        private const string LastPlayedLevelKey = "lastPlayed";
         
         #region ILevelInfoSaveLoader
 
@@ -54,26 +54,26 @@ namespace SaveLoadSystem
 
         private bool[] LoadOpenedPacksForPlayerInfo()
         {
-            if (!PlayerPrefs.HasKey(openedPackKey + "Count")) return null;
-            int n = PlayerPrefs.GetInt(openedPackKey + "Count");
+            if (!PlayerPrefs.HasKey(OpenedPackKey + "Count")) return null;
+            int n = PlayerPrefs.GetInt(OpenedPackKey + "Count");
             bool[] openedPacks = new bool[n];
 
             for (int i = 0; i < n; ++i)
             {
-                openedPacks[i] = Convert.ToBoolean(PlayerPrefs.GetInt(openedPackKey + i));
+                openedPacks[i] = Convert.ToBoolean(PlayerPrefs.GetInt(OpenedPackKey + i));
             }
 
             return openedPacks;
         }
         private int[] LoadLastPlayedLevelsForPlayerInfo()
         {
-            if (!PlayerPrefs.HasKey(lastPlayedLevelKey + "Count")) return null;
-            int n = PlayerPrefs.GetInt(lastPlayedLevelKey + "Count");
+            if (!PlayerPrefs.HasKey(LastPlayedLevelKey + "Count")) return null;
+            int n = PlayerPrefs.GetInt(LastPlayedLevelKey + "Count");
             int[] data = new int[n];
 
             for (int i = 0; i < n; ++i)
             {
-                data[i] = PlayerPrefs.GetInt(lastPlayedLevelKey + i);
+                data[i] = PlayerPrefs.GetInt(LastPlayedLevelKey + i);
             }
 
             return data;
@@ -92,22 +92,22 @@ namespace SaveLoadSystem
         {
             bool[] openedPacks = info.GetOpenedPacks();
             int n = openedPacks.Length;
-            PlayerPrefs.SetInt(openedPackKey + "Count", n);
+            PlayerPrefs.SetInt(OpenedPackKey + "Count", n);
 
             for (int i = 0; i < n; ++i)
             {
-                PlayerPrefs.SetInt(openedPackKey + i, Convert.ToInt32(openedPacks[i]));
+                PlayerPrefs.SetInt(OpenedPackKey + i, Convert.ToInt32(openedPacks[i]));
             }
         }
         private void SaveLastPlayedLevelsByPlayerInfo(PlayerInfo info)
         {
             int[] data = info.GetLastPlayedLevels();
             int n = data.Length;
-            PlayerPrefs.SetInt(lastPlayedLevelKey + "Count", n);
+            PlayerPrefs.SetInt(LastPlayedLevelKey + "Count", n);
 
             for (int i = 0; i < n; ++i)
             {
-                PlayerPrefs.SetInt(lastPlayedLevelKey + i, data[i]);
+                PlayerPrefs.SetInt(LastPlayedLevelKey + i, data[i]);
             }
         }
 

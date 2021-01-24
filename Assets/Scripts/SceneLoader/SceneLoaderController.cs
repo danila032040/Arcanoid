@@ -11,7 +11,7 @@ namespace SceneLoader
         StartScene = 1,
         ChoosePackScene = 2
     }
-
+    //TODO: Use singleton.
     public class SceneLoaderController : MonoBehaviour
     {
         [SerializeField] private CanvasGroup _sceneChangingCanvasGroup;

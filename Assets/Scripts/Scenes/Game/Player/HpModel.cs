@@ -1,5 +1,4 @@
 using Scenes.Game.Utils;
-using UnityEngine;
 
 namespace Scenes.Game.Player
 {

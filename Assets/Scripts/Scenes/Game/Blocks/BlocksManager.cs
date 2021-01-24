@@ -7,7 +7,6 @@ using Scenes.Game.Blocks.Pool;
 using Scenes.Game.Services.Cameras.Implementations;
 using Scenes.Game.Services.Cameras.Interfaces;
 using UnityEngine;
-using Debug = System.Diagnostics.Debug;
 
 namespace Scenes.Game.Blocks
 {
@@ -25,10 +24,10 @@ namespace Scenes.Game.Blocks
 
         public event Action<Block[,]> BlocksChanged;
 
-        public void Init(ICameraService cameraService, Camera camera, BlocksPoolManager poolManager)
+        public void Init(ICameraService cameraService, Camera currentCamera, BlocksPoolManager poolManager)
         {
             _cameraService = cameraService;
-            _camera = camera;
+            _camera = currentCamera;
             _poolManager = poolManager;
         }
 
@@ -126,7 +125,8 @@ namespace Scenes.Game.Blocks
             }
 
             var bBlock = block as Bomb;
-            bBlock?.GetBombExplosiveness().Init(this);
+            if (!(bBlock is null))
+                bBlock.GetBombExplosiveness().Init(this);
 
             return block;
         }
@@ -141,7 +141,8 @@ namespace Scenes.Game.Blocks
             }
 
             var bBlock = block as Bomb;
-            bBlock?.GetBombExplosiveness().Use();
+            if (!(bBlock is null)) 
+                bBlock.GetBombExplosiveness().Use();
 
             _poolManager.Remove(block);
 

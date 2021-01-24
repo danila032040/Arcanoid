@@ -25,8 +25,8 @@ namespace Scenes.Game.Blocks.BoostedBlocks.Bombs.Base
 
         protected void DoDamage(Block block)
         {
-            DestroyableBlock db = (block as DestroyableBlock);
-            db?.GetBlockDestructibility().AddHealth(-_damage);
+            DestroyableBlock db = (DestroyableBlock)block;
+            db.GetBlockDestructibility().AddHealth(-_damage);
         }
 
         private Vector2Int FindCurrentBombPosition(Block[,] blocks)
@@ -36,7 +36,7 @@ namespace Scenes.Game.Blocks.BoostedBlocks.Bombs.Base
                 for (int j = 0; j < blocks.GetLength(1); ++j)
                 {
                     Bomb bomb = blocks[i, j] as Bomb;
-                    if (bomb != null && bomb.GetBombExplosiveness() == this)
+                    if (!ReferenceEquals(bomb,null) && bomb.GetBombExplosiveness() == this)
                         return new Vector2Int(i, j);
                 }
             }

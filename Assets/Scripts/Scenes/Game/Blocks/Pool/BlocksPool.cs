@@ -1,4 +1,3 @@
-using System;
 using Pool.Abstracts;
 using Pool.Factories;
 using Scenes.Game.Blocks.Base;
@@ -12,7 +11,7 @@ namespace Scenes.Game.Blocks.Pool
 
         private void Awake()
         {
-            base.Init(new PrefabPoolFactory<Block>(_prefab));
+            Init(new PrefabPoolFactory<Block>(_prefab));
         }
 
         protected override void OnPoolEnter(Block obj)

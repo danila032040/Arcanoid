@@ -1,5 +1,7 @@
 using System;
 using SaveLoadSystem.Data;
+using SaveLoadSystem.Interfaces;
+using SaveLoadSystem.Interfaces.Infos;
 using UnityEngine;
 
 namespace Scenes.ChoosePack.Packs
@@ -12,13 +14,14 @@ namespace Scenes.ChoosePack.Packs
         private PackInfo _packInfo;
         private PackView _packView;
 
-        public void Init(PackInfo packInfo)
+        public void Init(PackInfo packInfo, IPlayerPackInfo playerInfo, IPackProvider packProvider)
         {
             _packInfo = packInfo;
             
             
             _packView.SetPackName(_packInfo.GetPackName());
-            _packView.SetPassedLevelsInfo($"0/{_packInfo.GetLevelsCount()}");
+            int lastPlayedLevel = playerInfo.GetLastPlayedLevels()[packProvider.GetPackNumber(_packInfo)];
+            _packView.SetPassedLevelsInfo($"{lastPlayedLevel}/{_packInfo.GetLevelsCount()}");
             _packView.SetPackSprite(_packInfo.GetPackSprite());
         }
         

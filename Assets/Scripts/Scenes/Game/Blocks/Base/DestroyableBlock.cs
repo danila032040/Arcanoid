@@ -26,9 +26,9 @@ namespace Scenes.Game.Blocks.Base
 
         public BlockDestructibility GetBlockDestructibility() => _blockDestructibility;
 
-        private void OnHealthValueChanged(int oldvalue, int newvalue)
+        private void OnHealthValueChanged(int oldValue, int newValue)
         {
-            HealthValueChanged?.Invoke(this, oldvalue, newvalue);
+            HealthValueChanged?.Invoke(this, oldValue, newValue);
         }
     }
 }
