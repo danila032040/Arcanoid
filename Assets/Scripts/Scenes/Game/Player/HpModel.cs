@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Scenes.Game.Player
 {
-    public class HpManager : MonoBehaviour
+    public class HpModel
     {
         private int _health;
 
@@ -26,5 +26,7 @@ namespace Scenes.Game.Player
         {
             HealthValueChanged?.Invoke(this, oldValue, newValue);
         }
+
+        public int GetHpValue() => _health;
     }
 }

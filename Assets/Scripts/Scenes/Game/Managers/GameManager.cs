@@ -7,8 +7,11 @@ using Scenes.Game.Balls.Pool;
 using Scenes.Game.Blocks;
 using Scenes.Game.Blocks.Base;
 using Scenes.Game.Paddles;
+using Scenes.Game.Player;
 using Scenes.Game.Services.Inputs.Implementations;
 using Scenes.Game.Services.Inputs.Interfaces;
+using Scenes.Game.Walls;
+using TMPro;
 using UnityEngine;
 
 namespace Scenes.Game.Managers
@@ -18,6 +21,8 @@ namespace Scenes.Game.Managers
         [SerializeField] private Paddle _paddle;
 
         [SerializeField] private BlocksManager _blocksManager;
+        [SerializeField] private HpController _hp;
+        [SerializeField] private OutOfBoundsWall _outOfBoundsWall;
 
         private IInputService _inputService;
         private IPackProvider _packProvider;
@@ -42,8 +47,38 @@ namespace Scenes.Game.Managers
         public void Start()
         {
             Init(_inputServiceImpl, _packProviderImpl, _ballsPoolImpl, DataProviderBetweenScenes.Instance);
-            _blocksManager.BlocksChanged += BlocksManagerBlocksChanged;
+            _blocksManager.BlocksChanged += ChangedSpeedOnBlocksCount;
+            _hp.HealthValueChanged += HpOnHealthValueChanged;
+            _outOfBoundsWall.OutOfBounds += obj =>
+            {
+                Ball ball = obj.GetComponent<Ball>();
+                if (!ReferenceEquals(ball, null))
+                {
+                    _ballsPool.Remove(ball);
+                    --_ballsInSceneCount;
+                    if (_ballsInSceneCount <= 0)
+                    {
+                        _hp.AddHpValue(-1);
+                        _startBall = _ballsPool.Get();
+                        AttachBall();
+                        ChangedSpeedOnBlocksCount(_blocksManager.GetBlocks());
+                    }
+                }
+            };
             StartGame();
+        }
+
+        private void HpOnHealthValueChanged(object sender, int oldValue, int newValue)
+        {
+            if (newValue <= 0)
+            {
+                GameOver();
+            }
+        }
+
+        private void GameOver()
+        {
+            
         }
 
         public void Update()
@@ -55,17 +90,20 @@ namespace Scenes.Game.Managers
         }
 
         private Ball _startBall;
+        private int _ballsInSceneCount;
 
         private int _maxDBlocksCount;
 
         private void StartGame()
         {
             _startBall = _ballsPool.Get();
+            _ballsInSceneCount = 1;
             AttachBall();
             LoadPack();
+            _hp.SetHpValue(3);
         }
 
-        private void BlocksManagerBlocksChanged(Block[,] blocks)
+        private void ChangedSpeedOnBlocksCount(Block[,] blocks)
         {
             int n = GetDestroyableBlocksCount(blocks);
             _startBall.GetBallMovement().SetCurrentSpeedProgress(1 - n * 1f / _maxDBlocksCount);
@@ -88,6 +126,10 @@ namespace Scenes.Game.Managers
             return dBlocksCount;
         }
 
+        
+
+        #region Temporary
+        
         private LevelInfo[] _levelInfos;
         private uint _currentLevelInfo;
 
@@ -117,6 +159,8 @@ namespace Scenes.Game.Managers
                 _maxDBlocksCount = GetDestroyableBlocksCount(_blocksManager.GetBlocks());
             }
         }
+
+        #endregion
 
         private void AttachBall()
         {
