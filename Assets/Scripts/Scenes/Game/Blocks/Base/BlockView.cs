@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Scenes.Game.Blocks
+namespace Scenes.Game.Blocks.Base
 {
     public class BlockView : MonoBehaviour
     {

@@ -1,10 +1,7 @@
-﻿using DG.Tweening;
-using Pool.Interfaces;
-using Scenes.Game.Blocks.Base;
-using Scenes.Game.Utils;
+﻿using Pool.Interfaces;
 using UnityEngine;
 
-namespace Scenes.Game.Blocks
+namespace Scenes.Game.Blocks.Base
 {
     [RequireComponent(typeof(BlockView))]
     public class Block : MonoBehaviour, IPoolable

@@ -4,9 +4,9 @@
     public enum BlockType
     {
         None,
-        Granite = 1,
-        White = 2,
-        Yellow,
+        GraniteBlock = 1,
+        WhiteDestroyableBlock = 2,
+        YellowDestroyableBlock,
         NormalBomb = 100,
         ColorBomb,
         HorizontalBomb,

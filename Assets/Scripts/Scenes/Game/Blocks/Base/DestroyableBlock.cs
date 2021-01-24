@@ -1,9 +1,8 @@
-using System;
 using DG.Tweening;
 using Scenes.Game.Utils;
 using UnityEngine;
 
-namespace Scenes.Game.Blocks
+namespace Scenes.Game.Blocks.Base
 {
     [RequireComponent(typeof(BlockDestructibility))]
     public class DestroyableBlock : Block

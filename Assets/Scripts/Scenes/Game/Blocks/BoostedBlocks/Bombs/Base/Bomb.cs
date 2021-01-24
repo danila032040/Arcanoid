@@ -1,3 +1,4 @@
+using Scenes.Game.Blocks.Base;
 using UnityEngine;
 
 namespace Scenes.Game.Blocks.BoostedBlocks.Bombs.Base

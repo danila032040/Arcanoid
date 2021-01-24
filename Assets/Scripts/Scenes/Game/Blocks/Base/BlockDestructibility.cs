@@ -1,8 +1,7 @@
-using System;
 using Scenes.Game.Utils;
 using UnityEngine;
 
-namespace Scenes.Game.Blocks
+namespace Scenes.Game.Blocks.Base
 {
     public class BlockDestructibility : MonoBehaviour
     {

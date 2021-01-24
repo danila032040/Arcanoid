@@ -1,3 +1,4 @@
+using Scenes.Game.Blocks.Base;
 using Scenes.Game.Blocks.BoostedBlocks.Bombs.Base;
 using UnityEngine;
 
