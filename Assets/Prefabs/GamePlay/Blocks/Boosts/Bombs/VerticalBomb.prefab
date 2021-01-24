@@ -79,14 +79,14 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2318517945836119733}
-  m_Text: Vertical
+  m_Text: "\u0412\u0435\u0440\u0442\u0438\u043A."
   m_OffsetZ: 0
-  m_CharacterSize: 0.1
+  m_CharacterSize: 0.07
   m_LineSpacing: 2
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 20
+  m_FontSize: 24
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 12800000, guid: 3a6ac1d7c8fb61c4d9318250797e5844, type: 3}

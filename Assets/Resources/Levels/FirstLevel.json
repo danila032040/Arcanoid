@@ -2,9 +2,9 @@
   "_name": "First Level",
   "_fileName": "FirstLevel",
   "_bricks": [
-    0, 2, 0,
-    2, 100, 2,
-    0, 2, 0
+    2, 2, 2,
+    3, 3, 2,
+    3, 101, 2
   ],
   "_n": 3,
   "_m": 3,

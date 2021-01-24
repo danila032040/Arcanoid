@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93de6959cbb047dabda331429773479b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 100
+  _type: 101
 --- !u!114 &456897903706050340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,10 +275,10 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8872621852133541818}
-  m_Text: Bomb
+  m_Text: "\u0426\u0432\u0435\u0442\u043D\u0430\u044F"
   m_OffsetZ: 0
-  m_CharacterSize: 0.1
-  m_LineSpacing: 1
+  m_CharacterSize: 0.07
+  m_LineSpacing: 2
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
