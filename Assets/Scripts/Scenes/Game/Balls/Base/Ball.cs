@@ -1,7 +1,7 @@
 using Pool.Interfaces;
 using UnityEngine;
 
-namespace Scenes.Game.Balls
+namespace Scenes.Game.Balls.Base
 {
     [RequireComponent(typeof(BallMovement))]
     [RequireComponent(typeof(BallAttachment))]

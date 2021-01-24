@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Scenes.Game.Balls
+namespace Scenes.Game.Balls.Base
 {
     public class BallAttachment : MonoBehaviour
     {

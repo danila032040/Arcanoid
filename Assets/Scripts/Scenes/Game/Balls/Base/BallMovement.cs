@@ -1,8 +1,7 @@
-﻿using System;
-using Scenes.Game.Paddles;
+﻿using Scenes.Game.Paddles;
 using UnityEngine;
 
-namespace Scenes.Game.Balls
+namespace Scenes.Game.Balls.Base
 {
     public class BallMovement : MonoBehaviour
     {
@@ -12,7 +11,7 @@ namespace Scenes.Game.Balls
         [SerializeField] private float _initialSpeed;
         [SerializeField] private float _maxSpeed;
 
-        private float _currentSpeedProgress = 0f;
+        private float _currentSpeedProgress;
 
         private void Update()
         {
@@ -56,7 +55,7 @@ namespace Scenes.Game.Balls
             if (Vector2.Angle(_rb.velocity, Vector2.left) <= 10 ||
                 Vector2.Angle(_rb.velocity, Vector2.right) <= 10)
             {
-                _rb.velocity = Quaternion.Euler(0, 0, UnityEngine.Random.Range(15f, 30f)) * _rb.velocity;
+                _rb.velocity = Quaternion.Euler(0, 0, Random.Range(15f, 30f)) * _rb.velocity;
             }
         }
 
