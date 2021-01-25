@@ -21,7 +21,7 @@ namespace Scenes.ChoosePack.Packs
             
             _packView.SetPackName(_packInfo.GetPackName());
             int lastPlayedLevel = playerInfo.GetLastPlayedLevels()[packProvider.GetPackNumber(_packInfo)];
-            _packView.SetPassedLevelsInfo($"{lastPlayedLevel}/{_packInfo.GetLevelsCount()}");
+            _packView.SetPassedLevelsInfo($"{lastPlayedLevel + 1}/{_packInfo.GetLevelsCount()}");
             _packView.SetPackSprite(_packInfo.GetPackSprite());
         }
         

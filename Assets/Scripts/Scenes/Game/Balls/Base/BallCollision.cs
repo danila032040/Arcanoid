@@ -17,7 +17,7 @@ namespace Scenes.Game.Balls.Base
             DestroyableBlock block = collision.gameObject.GetComponent<DestroyableBlock>();
             if (!block) return;
             
-            block.GetBlockDestructibility().AddHealth(_healthConfiguration.AddHealthForCollisionWithBall);
+            block.GetBlockDestructibility().AddHealth(_healthConfiguration.AddHealthToBlockForCollisionWithBall);
         }
     }
 }

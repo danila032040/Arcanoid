@@ -53,6 +53,8 @@ namespace Scenes.ChoosePack.Packs
         {
             _backgroundImage.DOColor(_hideColor, duration);
             _canvasGroup.DOFade(.5f, duration);
+            _packPassedLevelsInfoText.DOFade(0f, duration);
+            _packImage.DOFade(0f, duration);
             _canvasGroup.interactable = false;
             _isHiding = true;
         }
@@ -71,6 +73,8 @@ namespace Scenes.ChoosePack.Packs
         {
             _backgroundImage.DOColor(_showColor, duration);
             _canvasGroup.DOFade(1f, duration);
+            _packPassedLevelsInfoText.DOFade(1f, duration);
+            _packImage.DOFade(1f, duration);
             _canvasGroup.interactable = true;
 
             _isHiding = false;

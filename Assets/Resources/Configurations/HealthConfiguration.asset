@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb5235269f2434ea02a473f3ded2c66, type: 3}
   m_Name: HealthConfiguration
   m_EditorClassIdentifier: 
-  _addHealthForCollisionWithBall: -1
+  _addHealthToBlockForCollisionWithBall: -1
+  _addHealthToPlayerForLoosingAllBalls: -1
+  _initialPlayerHealthValue: 1
+  _minPlayerHealthValue: 0

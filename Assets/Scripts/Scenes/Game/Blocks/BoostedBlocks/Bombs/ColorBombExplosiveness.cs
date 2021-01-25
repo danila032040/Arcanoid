@@ -86,6 +86,7 @@ namespace Scenes.Game.Blocks.BoostedBlocks.Bombs
 
         private bool IsEqualBlocksType(Block block1,Block block2)
         {
+            if (ReferenceEquals(block1,null) || ReferenceEquals(block2,null)) return false;
             return block1.GetBlockType() == block2.GetBlockType();
         }
 

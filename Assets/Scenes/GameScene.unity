@@ -240,7 +240,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 218246558}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1047297795}
@@ -282,7 +282,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 15, y: 1}
+  m_Size: {x: 10, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &373824457
 GameObject:
@@ -524,11 +524,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d91f1d96de5f49e4dafb1cf6d1978412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthConfiguration: {fileID: 11400000, guid: 000fdd9a4266f2745ba2062eb4882a86,
+    type: 2}
   _paddle: {fileID: 1745430903}
   _blocksManager: {fileID: 881123440}
   _ballsManager: {fileID: 881123442}
   _hp: {fileID: 912555191}
   _outOfBoundsWall: {fileID: 218246560}
+  _sceneLoader: {fileID: 1666463111}
   _packProviderImpl: {fileID: 11400000, guid: 81796acd2a97c0141899201c2a6a2bea, type: 2}
   _inputServiceImpl: {fileID: 881123437}
 --- !u!114 &881123440
@@ -1204,6 +1207,18 @@ Transform:
   m_Father: {fileID: 2022209581}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1666463111 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1723296714323885018, guid: f2bf96c2f50650e438b711ec434bcdba,
+    type: 3}
+  m_PrefabInstance: {fileID: 1723296713718084104}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec3e70fb625ddc24c840057ad3dc764f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1718736028
 GameObject:
   m_ObjectHideFlags: 0

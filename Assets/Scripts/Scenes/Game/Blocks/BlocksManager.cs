@@ -77,6 +77,7 @@ namespace Scenes.Game.Blocks
 
         public void DeleteBlocks()
         {
+            if (_blocks == null) return;
             foreach (Block block in _blocks)
             {
                 DeleteOneBlock(block);

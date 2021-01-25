@@ -1,6 +1,9 @@
-﻿using SaveLoadSystem;
+﻿using Configurations;
+using SaveLoadSystem;
 using SaveLoadSystem.Data;
 using SaveLoadSystem.Interfaces;
+using SaveLoadSystem.Interfaces.SaveLoaders;
+using SceneLoader;
 using Scenes.Game.Balls;
 using Scenes.Game.Balls.Base;
 using Scenes.Game.Blocks;
@@ -16,22 +19,31 @@ namespace Scenes.Game.Managers
 {
     public class GameManager : MonoBehaviour
     {
+        [SerializeField] private HealthConfiguration _healthConfiguration;
+
+
         [SerializeField] private Paddle _paddle;
 
         [SerializeField] private BlocksManager _blocksManager;
         [SerializeField] private BallsManager _ballsManager;
+        
         [SerializeField] private HpController _hp;
         [SerializeField] private OutOfBoundsWall _outOfBoundsWall;
 
+        [SerializeField] private SceneLoaderController _sceneLoader; 
+        
         private IInputService _inputService;
         private IPackProvider _packProvider;
+        private IPlayerInfoSaveLoader _playerInfoSaveLoader;
         private DataProviderBetweenScenes _dataProvider;
 
         private void Init(IInputService inputService, IPackProvider packProvider,
+            IPlayerInfoSaveLoader playerInfoSaveLoader,
             DataProviderBetweenScenes dataProvider)
         {
             _inputService = inputService;
             _packProvider = packProvider;
+            _playerInfoSaveLoader = playerInfoSaveLoader;
             _dataProvider = dataProvider;
         }
 
@@ -40,41 +52,16 @@ namespace Scenes.Game.Managers
 
         public void Start()
         {
-            Init(_inputServiceImpl, _packProviderImpl, DataProviderBetweenScenes.Instance);
-            _blocksManager.BlocksChanged += ChangedSpeedOnBlocksCount;
+            Init(_inputServiceImpl, _packProviderImpl, new InfoSaveLoader(), DataProviderBetweenScenes.Instance);
+
+            _blocksManager.BlocksChanged += BlocksManagerOnBlocksChanged;
             _hp.HealthValueChanged += HpOnHealthValueChanged;
-            _outOfBoundsWall.OutOfBounds += obj =>
-            {
-                Ball ball = obj.GetComponent<Ball>();
-                if (!ReferenceEquals(ball, null))
-                {
-                    _ballsManager.RemoveBall(ball);
-                    --_ballsInSceneCount;
-                    if (_ballsInSceneCount <= 0)
-                    {
-                        _hp.AddHpValue(-1);
-                        AttachBall(_ballsManager.SpawnBall());
-                        ChangedSpeedOnBlocksCount(_blocksManager.GetBlocks());
-                    }
-                }
-            };
-            StartGame();
+            _outOfBoundsWall.OutOfBounds += OnOutOfBounds;
+
+            ResetGame();
         }
 
-        private void HpOnHealthValueChanged(object sender, int oldValue, int newValue)
-        {
-            if (newValue <= 0)
-            {
-                GameOver();
-            }
-        }
-
-        private void GameOver()
-        {
-            
-        }
-
-        public void Update()
+        private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -82,24 +69,69 @@ namespace Scenes.Game.Managers
             }
         }
 
-        private int _ballsInSceneCount;
+        private void BlocksManagerOnBlocksChanged(Block[,] blocks)
+        {
+            if (blocks!=null && GetDestroyableBlocksCount(blocks) == 0)
+            {
+                LoadNextLevel();
+            }
+            else
+            {
+                ChangeBallSpeedOnBlocksCount(blocks);
+            }
+        }
+
+        private void OnOutOfBounds(GameObject obj)
+        {
+            Ball ball = obj.GetComponent<Ball>();
+            if (!ReferenceEquals(ball, null))
+            {
+                _ballsManager.RemoveBall(ball);
+                if (_ballsManager.GetBalls().Count <= 0)
+                {
+                    AttachBall(_ballsManager.SpawnBall());
+                    ChangeBallSpeedOnBlocksCount(_blocksManager.GetBlocks());
+                    _hp.AddHpValue(_healthConfiguration.AddHealthToPlayerForLoosingAllBalls);
+                }
+            }
+        }
+
+        private void HpOnHealthValueChanged(object sender, int oldValue, int newValue)
+        {
+            if (newValue <= _healthConfiguration.MinPlayerHealthValue)
+            {
+                GameOver();
+            }
+        }
+
+        private void GameOver()
+        {
+            ResetGame();
+        }
+
+        private void ResetGame()
+        {
+            _blocksManager.DeleteBlocks();
+            _ballsManager.DeleteBalls();
+            
+            AttachBall(_ballsManager.SpawnBall());
+
+            int currPackNumber = _dataProvider.GetSelectedPackNumber();
+            int currLvlNumber = _playerInfoSaveLoader.LoadPlayerInfo().GetLastPlayedLevels()[currPackNumber];
+            LoadLevel(currLvlNumber);
+
+            _hp.SetHpValue(_healthConfiguration.InitialPlayerHealthValue);
+        }
 
         private int _maxDBlocksCount;
 
-        private void StartGame()
-        {
-            _ballsInSceneCount = 1;
-            AttachBall(_ballsManager.SpawnBall());
-            LoadPack();
-            _hp.SetHpValue(3);
-        }
 
-        private void ChangedSpeedOnBlocksCount(Block[,] blocks)
+        private void ChangeBallSpeedOnBlocksCount(Block[,] blocks)
         {
             int n = GetDestroyableBlocksCount(blocks);
             foreach (Ball ball in _ballsManager.GetBalls())
             {
-                ball.GetBallMovement().SetCurrentSpeedProgress(1 - n * 1f / _maxDBlocksCount);
+                ball.GetBallMovement().SetCurrentSpeedProgress(1 - Mathf.Clamp01(n * 1f / _maxDBlocksCount));
             }
         }
 
@@ -120,43 +152,81 @@ namespace Scenes.Game.Managers
             return dBlocksCount;
         }
 
-        
 
-        #region Temporary
-        
+
         private LevelInfo[] _levelInfos;
-        private uint _currentLevelInfo;
 
-        private void LoadPack()
+        private void LoadPack(int packNumber)
         {
-            int packNumber = _dataProvider.GetSelectedPackNumber();
+            packNumber = Mathf.Clamp(packNumber, 0, _packProvider.GetPackInfos().Length - 1);
 
             _levelInfos = _packProvider.GetPackInfo(packNumber).GetLevelInfos();
+        }
 
-            _currentLevelInfo = 0;
-
-            _blocksManager.SpawnBlocks(_levelInfos[_currentLevelInfo]);
+        private void SpawnBlocksByLevelInfo(LevelInfo levelInfo)
+        {
+            _blocksManager.SpawnBlocks(levelInfo);
             _maxDBlocksCount = GetDestroyableBlocksCount(_blocksManager.GetBlocks());
+        }
+
+        private void LoadLevel(int levelNumber)
+        {
+            if (_levelInfos == null)
+            {
+                int packNumber = _dataProvider.GetSelectedPackNumber();
+                LoadPack(packNumber);
+                levelNumber = _playerInfoSaveLoader.LoadPlayerInfo().GetLastPlayedLevels()[packNumber];
+            }
+
+            levelNumber = Mathf.Clamp(levelNumber, 0, _levelInfos.Length - 1);
+
+            SpawnBlocksByLevelInfo(_levelInfos[levelNumber]);
         }
 
         private void LoadNextLevel()
         {
-            _blocksManager.DeleteBlocks();
-            if (++_currentLevelInfo >= _levelInfos.Length)
+            PlayerInfo playerInfo = _playerInfoSaveLoader.LoadPlayerInfo();
+            int[] lastPlayedLevels = playerInfo.GetLastPlayedLevels();
+            bool[] openedPacks = playerInfo.GetOpenedPacks();
+            
+            int packNumber = _dataProvider.GetSelectedPackNumber();
+            int levelNumber = ++lastPlayedLevels[packNumber];
+
+            if (levelNumber >= _levelInfos.Length)
             {
-                _dataProvider.SetSelectedPackNumber(_dataProvider.GetSelectedPackNumber() + 1);
-                LoadPack();
+                lastPlayedLevels[packNumber] = _levelInfos.Length - 1;
+                ++packNumber;
+                if (packNumber >= _packProvider.GetPackInfos().Length)
+                {
+                    PassedAllPacks();
+                    return;
+                }
+
+                openedPacks[packNumber] = true;
+                
+                playerInfo.SetOpenedPacks(openedPacks);
+                _dataProvider.SetSelectedPackNumber(packNumber);
+                
+                LoadPack(packNumber);
             }
-            else
-            {
-                _blocksManager.SpawnBlocks(_levelInfos[_currentLevelInfo]);
-                _maxDBlocksCount = GetDestroyableBlocksCount(_blocksManager.GetBlocks());
-            }
+
+            playerInfo.SetLastPlayedLevels(lastPlayedLevels);
+            
+            _playerInfoSaveLoader.SavePlayerInfo(playerInfo);
+            
+            ResetGame();
         }
 
-        #endregion
+        private void PassedAllPacks()
+        {
+            //TODO: Use PopUp.
+            Debug.Log("Congratulations!!!");
+            _sceneLoader.LoadScene(LoadingScene.ChoosePackScene);
+        }
+
 
         private Ball _attachedBall;
+
         private void AttachBall(Ball ball)
         {
             _attachedBall = ball;
