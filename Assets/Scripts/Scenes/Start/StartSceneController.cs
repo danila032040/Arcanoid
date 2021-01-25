@@ -11,7 +11,6 @@ namespace Scenes.Start
     {
         [SerializeField] private Button _buttonStartGame;
 
-        [SerializeField] private SceneLoaderController _sceneLoader;
 
         private IPlayerInfoSaveLoader _playerInfoSaveLoader;
 
@@ -29,8 +28,8 @@ namespace Scenes.Start
         private void StartGame()
         {
             PlayerInfo info = _playerInfoSaveLoader.LoadPlayerInfo(); 
-            if (info.GetOpenedPacks() == null) _sceneLoader.LoadScene(LoadingScene.GameScene);
-            else _sceneLoader.LoadScene(LoadingScene.ChoosePackScene);
+            if (info.GetOpenedPacks() == null) SceneLoaderController.Instance.LoadScene(LoadingScene.GameScene);
+            else SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene);
         }
     }
 }

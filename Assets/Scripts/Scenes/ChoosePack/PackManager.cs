@@ -16,7 +16,6 @@ namespace Scenes.ChoosePack
         [SerializeField] private Transform _packsParent;
 
         [SerializeField] private PackProvider _test;
-        [SerializeField] private SceneLoaderController _sceneLoader;
         
         private IPackProvider _packProvider;
         private IPlayerInfoSaveLoader _playerInfoSaveLoader;
@@ -75,7 +74,7 @@ namespace Scenes.ChoosePack
         {
             int packNumber = _packProvider.GetPackNumber(packInfo);
             _dataProvider.SetSelectedPackNumber(packNumber);
-            _sceneLoader.LoadScene(LoadingScene.GameScene);
+            SceneLoaderController.Instance.LoadScene(LoadingScene.GameScene);
         }
     }
 }

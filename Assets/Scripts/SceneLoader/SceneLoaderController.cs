@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
+using Singleton;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,14 +12,30 @@ namespace SceneLoader
         StartScene = 1,
         ChoosePackScene = 2
     }
-    //TODO: Use singleton.
-    public class SceneLoaderController : MonoBehaviour
+
+    public class SceneLoaderController : MonoBehaviourSingletonPersistent<SceneLoaderController>
     {
         [SerializeField] private CanvasGroup _sceneChangingCanvasGroup;
 
         [SerializeField] private float _fadeDuration;
 
-        private void Awake()
+        public void LoadScene(LoadingScene scene)
+        {
+            HideScene();
+            SceneManager.LoadSceneAsync((int) scene).completed += OnCompleted;
+        }
+
+        private IEnumerator LoadSceneCoroutine(LoadingScene scene)
+        {
+            yield return new WaitForSeconds(_fadeDuration);
+        }
+
+        private void OnCompleted(AsyncOperation obj)
+        {
+            ShowScene();
+        }
+
+        private void ShowScene()
         {
             _sceneChangingCanvasGroup.blocksRaycasts = true;
             _sceneChangingCanvasGroup.alpha = 1;
@@ -26,17 +43,10 @@ namespace SceneLoader
             _sceneChangingCanvasGroup.blocksRaycasts = false;
         }
 
-        public void LoadScene(LoadingScene scene)
-        {
-            StartCoroutine(LoadSceneCoroutine(scene));
-        }
-
-        private IEnumerator LoadSceneCoroutine(LoadingScene scene)
+        private void HideScene()
         {
             _sceneChangingCanvasGroup.DOFade(1f, _fadeDuration);
             _sceneChangingCanvasGroup.blocksRaycasts = false;
-            yield return new WaitForSeconds(_fadeDuration);
-            SceneManager.LoadScene((int)scene);
         }
     }
 }

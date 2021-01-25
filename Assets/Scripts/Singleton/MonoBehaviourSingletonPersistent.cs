@@ -2,24 +2,25 @@ using UnityEngine;
 
 namespace Singleton
 {
-    public abstract class MonoBehaviourSingletonPersistent<T> : MonoBehaviour where T : Component
+    [RequireComponent(typeof(MonoBehaviourSingletonPersistentPrefabManager))]
+    public abstract class MonoBehaviourSingletonPersistent<T> : MonoBehaviour, ISerializationCallbackReceiver
+        where T : Component
     {
         private static T _instance;
 
-        public static T Instance
+        private static T _staticPrefab;
+        public void OnBeforeSerialize()
         {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new GameObject().AddComponent<T>();
-                    _instance.gameObject.name = typeof(T).Name;
-                }
-
-                return _instance;
-            }
         }
-        public void Awake()
+
+        public void OnAfterDeserialize()
+        {
+            _staticPrefab = GetComponent<MonoBehaviourSingletonPersistentPrefabManager>().GetPrefab().GetComponent<T>();
+        }
+
+        public static T Instance => _instance ? _instance : (_instance = Instantiate(_staticPrefab));
+
+        protected virtual void Awake()
         {
             if (_instance == null)
             {
