@@ -1,6 +1,7 @@
 ﻿using System;
 using Scenes.Game.Services.Inputs.Interfaces;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Scenes.Game.Services.Inputs.Implementations
 {
@@ -20,12 +21,12 @@ namespace Scenes.Game.Services.Inputs.Implementations
 
         private void CheckMouseButtonDown()
         {
-            if (Input.GetMouseButtonDown(0)) OnMouseButtonDown();
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) OnMouseButtonDown();
         }
 
         private void CheckMouseButtonUp()
         {
-            if (Input.GetMouseButtonUp(0)) OnMouseButtonUp();
+            if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject()) OnMouseButtonUp();
         }
 
 

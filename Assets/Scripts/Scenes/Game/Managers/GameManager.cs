@@ -1,4 +1,5 @@
 ﻿using Configurations;
+using PopUpSystems;
 using SaveLoadSystem;
 using SaveLoadSystem.Data;
 using SaveLoadSystem.Interfaces;
@@ -10,6 +11,7 @@ using Scenes.Game.Blocks;
 using Scenes.Game.Blocks.Base;
 using Scenes.Game.Paddles;
 using Scenes.Game.Player;
+using Scenes.Game.PopUps;
 using Scenes.Game.Services.Inputs.Implementations;
 using Scenes.Game.Services.Inputs.Interfaces;
 using Scenes.Game.Walls;

@@ -4,6 +4,7 @@ using Scenes.Game.Services.Cameras.Interfaces;
 using Scenes.Game.Services.Inputs.Implementations;
 using Scenes.Game.Services.Inputs.Interfaces;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Scenes.Game.Paddles
 {

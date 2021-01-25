@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Scenes.Context;
 using Singleton;
 using UnityEngine;
 
@@ -8,55 +7,85 @@ namespace PopUpSystems
 {
     public class PopUpSystem : MonoBehaviourSingletonPersistent<PopUpSystem>
     {
-        private readonly Stack<PopUp> _stack = new Stack<PopUp>();
+        private readonly Stack<PopUpSystemLayer> _layers = new Stack<PopUpSystemLayer>();
 
         [SerializeField] private List<PopUp> _popUpPrefabs;
 
         [SerializeField] private Canvas _canvas;
 
-
         public PopUp ShowPopUp(Type type)
         {
+            if (_layers.Count == 0) return ShowPopUpOnANewLayer(type);
+
             PopUp popUpPrefab = _popUpPrefabs.Find(a => a.GetType() == type);
             PopUp popUp = CreatePopUp(popUpPrefab);
-            
-            _stack.Peek().DisableInput();
-            _stack.Push(popUp);
+
+            _layers.Peek().Add(popUp);
 
             return popUp;
         }
+
+        public PopUp ShowPopUpOnANewLayer(Type type)
+        {
+            if (_layers.Count > 0) _layers.Peek().DisableInput();
+            
+            PopUpSystemLayer layer = new PopUpSystemLayer();
+            layer.EnableInput();
+            _layers.Push(layer);
+
+            return ShowPopUp(type);
+        }
+
 
         public T ShowPopUp<T>() where T : PopUp
         {
             return ShowPopUp(typeof(T)) as T;
         }
-        
-        
+
+
+        public T ShowPopUpOnANewLayer<T>() where T : PopUp
+        {
+            return ShowPopUpOnANewLayer(typeof(T)) as T;
+        }
+
 
         private PopUp CreatePopUp(PopUp popUpPrefab)
         {
-            PopUp popUp = Instantiate(popUpPrefab,_canvas.transform);
-            popUp.Closing += PopUpOnOnClosing;
+            PopUp popUp = Instantiate(popUpPrefab, _canvas.transform);
+            popUp.Closing += PopUpOnClosing;
             return popUp;
         }
 
         private void DeletePopUp(PopUp popUp)
         {
-            popUp.Closing -= PopUpOnOnClosing;
+            popUp.Closing -= PopUpOnClosing;
             Destroy(popUp.gameObject);
         }
 
-        private void PopUpOnOnClosing(PopUp obj)
+        private void PopUpOnClosing(PopUp popUp)
         {
-            PopUp currentPopUp;
-            do
+            PopUpSystemLayer currentLayer = _layers.Pop();
+            while (!currentLayer.GetPopUps().Contains(popUp))
             {
-                currentPopUp = _stack.Pop();
-                DeletePopUp(currentPopUp);
-            } while (currentPopUp != obj);
+                currentLayer = _layers.Pop();
+                if (!currentLayer.GetPopUps().Contains(popUp))
+                {
+                    foreach (PopUp item in currentLayer.GetPopUps())
+                    {
+                        currentLayer.Remove(item);
+                        DeletePopUp(item);
+                    }
+                }
+            }
             
-            currentPopUp = _stack.Peek();
-            currentPopUp.EnableInput();
+            currentLayer.Remove(popUp);
+            DeletePopUp(popUp);
+
+            if (currentLayer.GetPopUps().Count != 0)
+            {
+                _layers.Push(currentLayer);
+            }
+
         }
     }
 }

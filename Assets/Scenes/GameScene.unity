@@ -477,6 +477,7 @@ GameObject:
   - component: {fileID: 881123437}
   - component: {fileID: 881123441}
   - component: {fileID: 881123439}
+  - component: {fileID: 881123443}
   - component: {fileID: 881123440}
   - component: {fileID: 881123442}
   m_Layer: 0
@@ -531,7 +532,6 @@ MonoBehaviour:
   _ballsManager: {fileID: 881123442}
   _hp: {fileID: 912555191}
   _outOfBoundsWall: {fileID: 218246560}
-  _sceneLoader: {fileID: 0}
   _packProviderImpl: {fileID: 11400000, guid: 81796acd2a97c0141899201c2a6a2bea, type: 2}
   _inputServiceImpl: {fileID: 881123437}
 --- !u!114 &881123440
@@ -546,7 +546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b522fbc71494a8d4b88b6cfca7d98a71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _topOffset: 0.2
+  _topOffset: 0.225
   _poolManagerImpl: {fileID: 1609059193}
 --- !u!114 &881123441
 MonoBehaviour:
@@ -573,6 +573,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ballsPool: {fileID: 99516173}
+--- !u!114 &881123443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881123436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21c845c692f4db7b331045e78776445, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameManager: {fileID: 881123439}
 --- !u!1 &912555189
 GameObject:
   m_ObjectHideFlags: 0
