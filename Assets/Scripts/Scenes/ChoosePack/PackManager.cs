@@ -75,6 +75,16 @@ namespace Scenes.ChoosePack
         {
             int packNumber = _packProvider.GetPackNumber(packInfo);
             _dataProvider.SetSelectedPackNumber(packNumber);
+
+            PlayerInfo playerInfo = _playerInfoSaveLoader.LoadPlayerInfo();
+            int[] lastPlayedLevels = playerInfo.GetLastPlayedLevels();
+            if (lastPlayedLevels[packNumber] + 1 == packInfo.GetLevelsCount())
+            {
+                lastPlayedLevels[packNumber] = 0;
+            }
+            playerInfo.SetLastPlayedLevels(lastPlayedLevels);
+            _playerInfoSaveLoader.SavePlayerInfo(playerInfo);
+            
             _sceneLoader.LoadScene(LoadingScene.GameScene);
         }
     }
