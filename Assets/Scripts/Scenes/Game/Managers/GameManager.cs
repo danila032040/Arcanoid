@@ -129,10 +129,9 @@ namespace Scenes.Game.Managers
 
         private void ChangeBallSpeedOnBlocksCount(Block[,] blocks)
         {
-            int n = GetDestroyableBlocksCount(blocks);
             foreach (Ball ball in _ballsManager.GetBalls())
             {
-                ball.GetBallMovement().SetCurrentSpeedProgress(1 - Mathf.Clamp01(n * 1f / _maxDBlocksCount));
+                ball.GetBallMovement().SetCurrentSpeedProgress(GetCurrentProgress());
             }
         }
 
@@ -241,5 +240,13 @@ namespace Scenes.Game.Managers
             _attachedBall.GetBallAttachment().Detach();
             _attachedBall.GetBallMovement().StartMoving();
         }
+
+
+        public float GetCurrentProgress()
+        {
+            int n = GetDestroyableBlocksCount(_blocksManager.GetBlocks());
+            return 1 - Mathf.Clamp01(n * 1f / _maxDBlocksCount);
+        }
+        
     }
 }

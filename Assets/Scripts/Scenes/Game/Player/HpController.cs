@@ -1,17 +1,20 @@
+using Scenes.Game.Managers;
+using Scenes.Game.PopUps;
 using Scenes.Game.Utils;
 using UnityEngine;
 
 namespace Scenes.Game.Player
 {
-    [RequireComponent(typeof(HpPopUpView))]
     public class HpController : MonoBehaviour
     {
-        private HpPopUpView _view;
+        private HpPopUp _view;
         private HpModel _model;
+
+        [SerializeField] private PopUpsManager _popUpsManager;
 
         private void Awake()
         {
-            _view = GetComponent<HpPopUpView>();
+            _view = _popUpsManager.GetHpPopUp();
             _model = new HpModel();
             _model.HealthValueChanged += OnHealthValueChanged;
         }

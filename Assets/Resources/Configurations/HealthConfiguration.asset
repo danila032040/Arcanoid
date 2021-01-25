@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _addHealthToBlockForCollisionWithBall: -1
   _addHealthToPlayerForLoosingAllBalls: -1
-  _initialPlayerHealthValue: 1
+  _initialPlayerHealthValue: 3
   _minPlayerHealthValue: 0

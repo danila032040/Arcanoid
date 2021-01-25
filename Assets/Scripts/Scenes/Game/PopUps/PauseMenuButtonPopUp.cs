@@ -1,13 +1,12 @@
 using System;
 using PopUpSystems;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Scenes.Game.PopUps
 {
-    public class PauseMenuPopUp : PopUp
+    public class PauseMenuButtonPopUp : PopUp
     {
         [SerializeField] private Button _button;
 
@@ -22,7 +21,6 @@ namespace Scenes.Game.PopUps
 
         private void OnButtonPausePressed()
         {
-            this.OnClosing();
             ButtonPausePressed?.Invoke();
         }
 

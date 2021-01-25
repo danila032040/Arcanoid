@@ -586,6 +586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 881123439}
+  _blocksManager: {fileID: 881123440}
 --- !u!1 &912555189
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,7 +596,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 912555190}
-  - component: {fileID: 912555192}
   - component: {fileID: 912555191}
   m_Layer: 0
   m_Name: Player
@@ -630,18 +630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4042d1dd66641459b44c958dab4902c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &912555192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 912555189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41cad60222cd4ab0bf36d254812e67dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _popUpsManager: {fileID: 881123443}
 --- !u!1 &963232507
 GameObject:
   m_ObjectHideFlags: 0

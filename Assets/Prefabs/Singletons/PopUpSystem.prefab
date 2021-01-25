@@ -55,7 +55,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -144,4 +144,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _popUpPrefabs:
   - {fileID: 1363339986, guid: 5a399f76124910549a2330ed756be5e2, type: 3}
+  - {fileID: 8553592144315523452, guid: 99898a17b32fb1d47a91f0b95ed8c52b, type: 3}
+  - {fileID: 7613329073846963460, guid: fc0f6012bb7420249bbcdb53e51a18f0, type: 3}
   _canvas: {fileID: 973000482}
