@@ -1,3 +1,6 @@
+using System;
+using System.Runtime.CompilerServices;
+using Scenes.Context;
 using UnityEngine;
 
 namespace Singleton
@@ -12,14 +15,28 @@ namespace Singleton
             {
                 if (_instance == null)
                 {
-                    _instance = new GameObject().AddComponent<T>();
-                    _instance.gameObject.name = typeof(T).Name;
+                    if (typeof(T) == typeof(ProjectContext))
+                    {
+                        _instance = new GameObject().AddComponent<T>();
+                        _instance.gameObject.name = typeof(T).Name;
+                    }
+                    else
+                    {
+                        T prefab = ProjectContext.Instance.GetPrefabsConfig().GetPrefab<T>();
+                        _instance = Instantiate(prefab);
+                    }
                 }
 
                 return _instance;
             }
         }
-        public void Awake()
+
+        private void Awake()
+        {
+            Init();
+        }
+
+        protected virtual void Init()
         {
             if (_instance == null)
             {

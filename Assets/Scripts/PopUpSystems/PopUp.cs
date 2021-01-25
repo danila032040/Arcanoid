@@ -3,8 +3,16 @@ using UnityEngine;
 
 namespace PopUpSystems
 {
-    public class PopUp : MonoBehaviour
+    public abstract class PopUp : MonoBehaviour
     {
-        public event Action<PopUp> OnClosing;
+        public event Action<PopUp> Closing;
+
+        public abstract void DisableInput();
+        public abstract void EnableInput();
+
+        protected virtual void OnClosing(PopUp obj)
+        {
+            Closing?.Invoke(obj);
+        }
     }
 }
