@@ -30,7 +30,6 @@ namespace Scenes.Game.Managers
         [SerializeField] private HpController _hp;
         [SerializeField] private OutOfBoundsWall _outOfBoundsWall;
 
-        [SerializeField] private SceneLoaderController _sceneLoader; 
         
         private IInputService _inputService;
         private IPackProvider _packProvider;
@@ -221,7 +220,7 @@ namespace Scenes.Game.Managers
         {
             //TODO: Use PopUp.
             Debug.Log("Congratulations!!!");
-            _sceneLoader.LoadScene(LoadingScene.ChoosePackScene);
+            SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene);
         }
 
 
