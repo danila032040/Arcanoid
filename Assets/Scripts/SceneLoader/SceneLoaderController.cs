@@ -21,13 +21,14 @@ namespace SceneLoader
 
         public void LoadScene(LoadingScene scene)
         {
-            HideScene();
-            SceneManager.LoadSceneAsync((int) scene).completed += OnCompleted;
+            StartCoroutine(LoadSceneCoroutine(scene));
         }
 
         private IEnumerator LoadSceneCoroutine(LoadingScene scene)
         {
+            HideScene();
             yield return new WaitForSeconds(_fadeDuration);
+            SceneManager.LoadSceneAsync((int) scene).completed += OnCompleted;
         }
 
         private void OnCompleted(AsyncOperation obj)

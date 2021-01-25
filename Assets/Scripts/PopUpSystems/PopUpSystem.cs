@@ -12,7 +12,7 @@ namespace PopUpSystems
 
         [SerializeField] private List<PopUp> _popUpPrefabs;
 
-        private Canvas _canvas;
+        [SerializeField] private Canvas _canvas;
 
 
         public PopUp ShowPopUp(Type type)
@@ -35,11 +35,6 @@ namespace PopUpSystems
 
         private PopUp CreatePopUp(PopUp popUpPrefab)
         {
-            if (_canvas == null)
-            {
-                _canvas = new GameObject().AddComponent<Canvas>();
-                _canvas.name = name;
-            }
             PopUp popUp = Instantiate(popUpPrefab,_canvas.transform);
             popUp.Closing += PopUpOnOnClosing;
             return popUp;

@@ -13,7 +13,7 @@ namespace Singleton
         {
             get
             {
-                if (_instance == null)
+                if (ReferenceEquals(_instance,null))
                 {
                     if (typeof(T) == typeof(ProjectContext))
                     {
