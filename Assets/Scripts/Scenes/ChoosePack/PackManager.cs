@@ -73,7 +73,7 @@ namespace Scenes.ChoosePack
         private void PackClicked(PackInfo packInfo)
         {
             int packNumber = _packProvider.GetPackNumber(packInfo);
-            _dataProvider.SetSelectedPackNumber(packNumber);
+            _dataProvider.SetCurrentPackNumber(packNumber);
 
             PlayerInfo playerInfo = _playerInfoSaveLoader.LoadPlayerInfo();
             int[] lastPlayedLevels = playerInfo.GetLastPlayedLevels();

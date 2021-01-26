@@ -22,11 +22,12 @@ namespace SceneLoader
 
         public void InitSingleton()
         {
-            Instance = ProjectContext.Instance.GetPrefabsConfig().GetPrefab<SceneLoaderController>();
+            Instance = null;
+            Instantiate(ProjectContext.Instance.GetPrefabsConfig().GetPrefab<SceneLoaderController>());
         }
         
         public void LoadScene(LoadingScene scene)
-        {
+        { 
             StartCoroutine(LoadSceneCoroutine(scene));
         }
 

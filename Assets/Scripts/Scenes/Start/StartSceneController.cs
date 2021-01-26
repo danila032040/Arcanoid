@@ -31,5 +31,6 @@ namespace Scenes.Start
             if (info.GetOpenedPacks() == null) SceneLoaderController.Instance.LoadScene(LoadingScene.GameScene);
             else SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene);
         }
+
     }
 }

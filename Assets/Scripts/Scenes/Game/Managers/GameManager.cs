@@ -117,7 +117,7 @@ namespace Scenes.Game.Managers
             
             AttachBall(_ballsManager.SpawnBall());
 
-            int currPackNumber = _dataProvider.GetSelectedPackNumber();
+            int currPackNumber = _dataProvider.GetCurrentPackNumber();
             int currLvlNumber = _playerInfoSaveLoader.LoadPlayerInfo().GetLastPlayedLevels()[currPackNumber];
             LoadLevel(currLvlNumber);
 
@@ -173,7 +173,7 @@ namespace Scenes.Game.Managers
         {
             if (_levelInfos == null)
             {
-                int packNumber = _dataProvider.GetSelectedPackNumber();
+                int packNumber = _dataProvider.GetCurrentPackNumber();
                 LoadPack(packNumber);
                 levelNumber = _playerInfoSaveLoader.LoadPlayerInfo().GetLastPlayedLevels()[packNumber];
             }
@@ -189,7 +189,7 @@ namespace Scenes.Game.Managers
             int[] lastPlayedLevels = playerInfo.GetLastPlayedLevels();
             bool[] openedPacks = playerInfo.GetOpenedPacks();
             
-            int packNumber = _dataProvider.GetSelectedPackNumber();
+            int packNumber = _dataProvider.GetCurrentPackNumber();
             int levelNumber = ++lastPlayedLevels[packNumber];
 
             if (levelNumber >= _levelInfos.Length)
@@ -205,7 +205,7 @@ namespace Scenes.Game.Managers
                 openedPacks[packNumber] = true;
                 
                 playerInfo.SetOpenedPacks(openedPacks);
-                _dataProvider.SetSelectedPackNumber(packNumber);
+                _dataProvider.SetCurrentPackNumber(packNumber);
                 
                 LoadPack(packNumber);
             }

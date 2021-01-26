@@ -16,7 +16,8 @@ namespace PopUpSystems
 
         public void InitSingleton()
         {
-            Instance = Instantiate(ProjectContext.Instance.GetPrefabsConfig().GetPrefab<PopUpSystem>());
+            Instance = null;
+            Instantiate(ProjectContext.Instance.GetPrefabsConfig().GetPrefab<PopUpSystem>());
         }
         
         public PopUp ShowPopUp(Type type)
