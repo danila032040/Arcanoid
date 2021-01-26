@@ -67,6 +67,7 @@ namespace Scenes.Game.Managers
                 if (_ballsManager.GetBalls().Count <= 0)
                 {
                     AttachBall(_ballsManager.SpawnBall());
+                    _progressGameManager.ChangeBallSpeedOnBlocksCount();
                     _hpController.AddHpValue(ProjectContext.Instance.GetHealthConfig().AddHealthToPlayerForLoosingAllBalls);
                 }
             }
