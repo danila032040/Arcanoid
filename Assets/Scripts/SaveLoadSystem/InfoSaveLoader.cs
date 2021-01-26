@@ -47,6 +47,8 @@ namespace SaveLoadSystem
 
         public PlayerInfo LoadPlayerInfo()
         {
+            if (!PlayerPrefs.HasKey(OpenedPackKey + "Count") ||
+                !PlayerPrefs.HasKey(LastPlayedLevelKey + "Count")) return null;
             return new PlayerInfo(LoadOpenedPacksForPlayerInfo(), LoadLastPlayedLevelsForPlayerInfo());
         }
 
@@ -81,6 +83,11 @@ namespace SaveLoadSystem
 
         public void SavePlayerInfo(PlayerInfo info)
         {
+            if (info == null)
+            {
+                PlayerPrefs.DeleteAll();
+                return;
+            }
             SaveOpenedPacksByPlayerInfo(info);
             SaveLastPlayedLevelsByPlayerInfo(info);
             PlayerPrefs.Save();

@@ -1,6 +1,7 @@
 using PopUpSystems;
 using Scenes.Game.Blocks;
 using Scenes.Game.Blocks.Base;
+using Scenes.Game.Player;
 using Scenes.Game.PopUps;
 using UnityEngine;
 

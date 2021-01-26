@@ -730,6 +730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonStartGame: {fileID: 2107691033}
+  _packProviderImpl: {fileID: 11400000, guid: 81796acd2a97c0141899201c2a6a2bea, type: 2}
 --- !u!1 &2099586192
 GameObject:
   m_ObjectHideFlags: 0

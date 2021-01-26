@@ -1,7 +1,8 @@
+using SaveLoadSystem;
 using Singleton;
 using UnityEngine;
 
-namespace Scenes.Context
+namespace Context
 {
     public class ProjectContext : MonoBehaviourSingletonPersistent<ProjectContext>, IMonoBehaviourSingletonInitialize<ProjectContext>
     {
@@ -13,6 +14,13 @@ namespace Scenes.Context
         {
             _prefabsConfig = Resources.Load<ProjectPrefabsConfig>(ProjectPrefabsConfigPlace);
         }
+
+        public void ClearSaves()
+        {
+            InfoSaveLoader saveLoader = new InfoSaveLoader();
+            saveLoader.SavePlayerInfo(null);
+        }
+        
 
         public ProjectPrefabsConfig GetPrefabsConfig() => _prefabsConfig;
         

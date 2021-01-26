@@ -16,6 +16,19 @@ namespace SaveLoadSystem.Data
             _openedPacks = openedPacks;
             _lastPlayedLevels = lastPlayedLevels;
         }
+        
+        public static PlayerInfo GetDefault(int packsCount)
+        {
+            PlayerInfo playerInfo = new PlayerInfo();
+            bool[] openedPacks = new bool[packsCount];
+            openedPacks[0] = true;
+            int[] lastPlayedLevels = new int[packsCount];
+            
+            playerInfo.SetOpenedPacks(openedPacks);
+            playerInfo.SetLastPlayedLevels(lastPlayedLevels);
+            
+            return playerInfo;
+        }
 
         public void SetLastPlayedLevels(int[] lastPlayedLevels)
         {

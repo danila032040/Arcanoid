@@ -1,7 +1,10 @@
-﻿using SaveLoadSystem;
+﻿using Context;
+using SaveLoadSystem;
 using SaveLoadSystem.Data;
+using SaveLoadSystem.Interfaces;
 using SaveLoadSystem.Interfaces.SaveLoaders;
 using SceneLoader;
+using UnityEditor.Sprites;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,22 +16,29 @@ namespace Scenes.Start
 
 
         private IPlayerInfoSaveLoader _playerInfoSaveLoader;
+        private IPackProvider _packProvider;
 
-        public void Init(IPlayerInfoSaveLoader playerInfoSaveLoader)
+        [SerializeField] private PackProvider _packProviderImpl;
+        public void Init(IPlayerInfoSaveLoader playerInfoSaveLoader, IPackProvider packProvider)
         {
             _playerInfoSaveLoader = playerInfoSaveLoader;
+            _packProvider = packProvider;
         }
 
         private void Start()
         {
-            Init(new InfoSaveLoader());
+            Init(new InfoSaveLoader(), _packProviderImpl);
             _buttonStartGame.onClick.AddListener(StartGame);
         }
 
         private void StartGame()
         {
-            PlayerInfo info = _playerInfoSaveLoader.LoadPlayerInfo(); 
-            if (info.GetOpenedPacks() == null) SceneLoaderController.Instance.LoadScene(LoadingScene.GameScene);
+            PlayerInfo info = _playerInfoSaveLoader.LoadPlayerInfo();
+            if (info == null)
+            {
+                _playerInfoSaveLoader.SavePlayerInfo(PlayerInfo.GetDefault(_packProvider.GetPackInfos().Length));
+                SceneLoaderController.Instance.LoadScene(LoadingScene.GameScene);
+            }
             else SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene);
         }
 

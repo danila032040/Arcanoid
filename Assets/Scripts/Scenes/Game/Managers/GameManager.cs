@@ -118,7 +118,8 @@ namespace Scenes.Game.Managers
             AttachBall(_ballsManager.SpawnBall());
 
             int currPackNumber = _dataProvider.GetCurrentPackNumber();
-            int currLvlNumber = _playerInfoSaveLoader.LoadPlayerInfo().GetLastPlayedLevels()[currPackNumber];
+            int currLvlNumber = _dataProvider.GetCurrentLevelNumber();
+            
             LoadLevel(currLvlNumber);
 
             _hp.SetHpValue(_healthConfiguration.InitialPlayerHealthValue);
@@ -206,6 +207,7 @@ namespace Scenes.Game.Managers
                 
                 playerInfo.SetOpenedPacks(openedPacks);
                 _dataProvider.SetCurrentPackNumber(packNumber);
+                _dataProvider.SetCurrentLevelNumber(levelNumber);
                 
                 LoadPack(packNumber);
             }

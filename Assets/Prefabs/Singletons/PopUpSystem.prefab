@@ -143,5 +143,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _popUpPrefabs:
-  - {fileID: 2708612378478143225, guid: 278772fee8ae0e748866ca69f5b6e272, type: 3}
+  - {fileID: 4839676018153075566, guid: 278772fee8ae0e748866ca69f5b6e272, type: 3}
   _canvas: {fileID: 973000482}

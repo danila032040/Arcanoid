@@ -1,6 +1,5 @@
 using System;
 using System.Runtime.CompilerServices;
-using Scenes.Context;
 using UnityEngine;
 
 namespace Singleton

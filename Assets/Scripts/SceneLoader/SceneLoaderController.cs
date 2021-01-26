@@ -1,6 +1,6 @@
 ﻿using System.Collections;
+using Context;
 using DG.Tweening;
-using Scenes.Context;
 using Singleton;
 using UnityEngine;
 using UnityEngine.SceneManagement;
