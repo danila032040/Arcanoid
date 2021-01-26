@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
+using Scenes.Context;
 using Singleton;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,12 +14,17 @@ namespace SceneLoader
         ChoosePackScene = 2
     }
 
-    public class SceneLoaderController : MonoBehaviourSingletonPersistent<SceneLoaderController>
+    public class SceneLoaderController : MonoBehaviourSingletonPersistent<SceneLoaderController>, IMonoBehaviourSingletonInitialize<SceneLoaderController>
     {
         [SerializeField] private CanvasGroup _sceneChangingCanvasGroup;
 
         [SerializeField] private float _fadeDuration;
 
+        public void InitSingleton()
+        {
+            Instance = ProjectContext.Instance.GetPrefabsConfig().GetPrefab<SceneLoaderController>();
+        }
+        
         public void LoadScene(LoadingScene scene)
         {
             StartCoroutine(LoadSceneCoroutine(scene));
@@ -49,5 +55,7 @@ namespace SceneLoader
             _sceneChangingCanvasGroup.DOFade(1f, _fadeDuration);
             _sceneChangingCanvasGroup.blocksRaycasts = false;
         }
+
+        
     }
 }

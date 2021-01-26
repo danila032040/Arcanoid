@@ -3,18 +3,18 @@ using UnityEngine;
 
 namespace Scenes.Context
 {
-    public class ProjectContext : MonoBehaviourSingletonPersistent<ProjectContext>
+    public class ProjectContext : MonoBehaviourSingletonPersistent<ProjectContext>, IMonoBehaviourSingletonInitialize<ProjectContext>
     {
         private const string ProjectPrefabsConfigPlace = "Configurations/ProjectPrefabsConfiguration";
 
         private ProjectPrefabsConfig _prefabsConfig;
 
-        protected override void Init()
+        public void InitSingleton()
         {
-            base.Init();
             _prefabsConfig = Resources.Load<ProjectPrefabsConfig>(ProjectPrefabsConfigPlace);
         }
 
         public ProjectPrefabsConfig GetPrefabsConfig() => _prefabsConfig;
+        
     }
 }

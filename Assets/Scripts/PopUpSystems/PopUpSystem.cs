@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Scenes.Context;
 using Singleton;
 using UnityEngine;
 
 namespace PopUpSystems
 {
-    public class PopUpSystem : MonoBehaviourSingletonPersistent<PopUpSystem>
+    public class PopUpSystem : MonoBehaviourSingletonPersistent<PopUpSystem>, IMonoBehaviourSingletonInitialize<PopUpSystem>
     {
         private readonly Stack<PopUpSystemLayer> _layers = new Stack<PopUpSystemLayer>();
 
@@ -13,6 +14,11 @@ namespace PopUpSystems
 
         [SerializeField] private Canvas _canvas;
 
+        public void InitSingleton()
+        {
+            Instance = Instantiate(ProjectContext.Instance.GetPrefabsConfig().GetPrefab<PopUpSystem>());
+        }
+        
         public PopUp ShowPopUp(Type type)
         {
             if (_layers.Count == 0) return ShowPopUpOnANewLayer(type);
@@ -87,5 +93,7 @@ namespace PopUpSystems
             }
 
         }
+
+        
     }
 }

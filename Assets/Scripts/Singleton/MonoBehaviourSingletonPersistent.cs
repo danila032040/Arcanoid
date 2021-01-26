@@ -5,7 +5,8 @@ using UnityEngine;
 
 namespace Singleton
 {
-    public abstract class MonoBehaviourSingletonPersistent<T> : MonoBehaviour where T : Component
+    public abstract class MonoBehaviourSingletonPersistent<T> : MonoBehaviour
+        where T : Component, IMonoBehaviourSingletonInitialize<T>
     {
         private static T _instance;
 
@@ -13,37 +14,32 @@ namespace Singleton
         {
             get
             {
-                if (ReferenceEquals(_instance,null))
+                if (ReferenceEquals(_instance, null))
                 {
-                    if (typeof(T) == typeof(ProjectContext))
-                    {
-                        _instance = new GameObject().AddComponent<T>();
-                        _instance.gameObject.name = typeof(T).Name;
-                    }
-                    else
-                    {
-                        T prefab = ProjectContext.Instance.GetPrefabsConfig().GetPrefab<T>();
-                        _instance = Instantiate(prefab);
-                    }
+                    _instance = new GameObject().AddComponent<T>();
+                    _instance.gameObject.name = typeof(T).Name;
+
+                    _instance.InitSingleton();
                 }
 
                 return _instance;
+            }
+            protected set
+            {
+                if (!ReferenceEquals(_instance,null)) Destroy(_instance.gameObject);
+                _instance = value;
+                if (!ReferenceEquals(_instance,null)) DontDestroyOnLoad(_instance);
             }
         }
 
         private void Awake()
         {
-            Init();
-        }
-
-        protected virtual void Init()
-        {
             if (_instance == null)
             {
                 _instance = this as T;
-                DontDestroyOnLoad(this);
+                DontDestroyOnLoad(_instance);
             }
-            else Destroy(this);
+            else Destroy(_instance.gameObject);
         }
     }
 }

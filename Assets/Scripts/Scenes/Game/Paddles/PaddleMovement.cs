@@ -94,7 +94,7 @@ namespace Scenes.Game.Paddles
             {
                 float moveXDirection = nextXPosition > _goalXPosition ? -1 : +1;
 
-                float moveXDistance = _cameraService.GetWorldPointWidth(_camera) * _moveSpeed * Time.deltaTime;
+                float moveXDistance = _cameraService.GetWorldPointWidth(_camera) * _moveSpeed * Time.deltaTime * (1 + Mathf.Clamp01(1f - _rb.drag * Time.deltaTime));
 
                 nextXPosition = nextXPosition + moveXDirection * moveXDistance;
 
@@ -106,11 +106,12 @@ namespace Scenes.Game.Paddles
 
                 float distanceToGoal = Mathf.Abs(_goalXPosition - this.transform.position.x);
 
-                Vector2 velocity = new Vector2(moveXDirection * _moveSpeed, 0);
-                _rb.velocity = velocity;
+                Vector2 velocity = new Vector2(moveXDirection * _moveSpeed * _cameraService.GetWorldPointWidth(_camera),
+                    0);
+                
                 _rb.velocity = Vector2.Lerp(Vector2.zero, velocity,
-                    (1 - (velocity.magnitude * Time.deltaTime * Mathf.Clamp01(1f - _rb.drag * Time.deltaTime)
-                        ) / distanceToGoal));
+                        (1f - (velocity + (_rb.velocity * Mathf.Clamp01(1f - _rb.drag * Time.deltaTime)
+                           )).magnitude * Time.deltaTime / distanceToGoal));
             }
         }
     }
