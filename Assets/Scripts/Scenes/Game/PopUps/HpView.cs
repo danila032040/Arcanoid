@@ -4,30 +4,22 @@ using UnityEngine;
 
 namespace Scenes.Game.PopUps
 {
-    public class HpPopUp : PopUp
+    public class HpView : MonoBehaviour
     {
         private int _health;
 
-        [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private TextMeshProUGUI _textHealthCount;
         
         public void SetHealth(int value)
         {
             _health = value;
-            _text.text = _health.ToString();
+            _textHealthCount.text = _health.ToString();
         }
 
         public void AddHealth(int value)
         {
             _health += value;
-            _text.text = _health.ToString();
-        }
-
-        public override void DisableInput()
-        {
-        }
-
-        public override void EnableInput()
-        {
+            _textHealthCount.text = _health.ToString();
         }
     }
 }

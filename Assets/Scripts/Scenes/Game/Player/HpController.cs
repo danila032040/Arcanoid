@@ -7,14 +7,14 @@ namespace Scenes.Game.Player
 {
     public class HpController : MonoBehaviour
     {
-        private HpPopUp _view;
+        private HpView _view;
         private HpModel _model;
 
         [SerializeField] private PopUpsManager _popUpsManager;
 
         private void Awake()
         {
-            _view = _popUpsManager.GetHpPopUp();
+            _view = _popUpsManager.GetHpView();
             _model = new HpModel();
             _model.HealthValueChanged += OnHealthValueChanged;
         }

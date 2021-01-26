@@ -11,26 +11,21 @@ namespace Scenes.Game.Managers
         [SerializeField] private GameManager _gameManager;
         [SerializeField] private BlocksManager _blocksManager;
 
-        private PauseMenuButtonPopUp _pauseMenuButtonPopUp;
-        private ProgressGamePopUp _progressGamePopUp;
-        private HpPopUp _hpPopUp;
-
+        private MainGamePopUp _mainGamePopUp;
+        
         private void Awake()
         {
-            _pauseMenuButtonPopUp = PopUpSystem.Instance.ShowPopUp<PauseMenuButtonPopUp>();
-            _progressGamePopUp = PopUpSystem.Instance.ShowPopUp<ProgressGamePopUp>();
-            _hpPopUp = PopUpSystem.Instance.ShowPopUp<HpPopUp>();
+            _mainGamePopUp = PopUpSystem.Instance.ShowPopUpOnANewLayer<MainGamePopUp>();
 
             _blocksManager.BlocksChanged += BlocksManagerOnBlocksChanged;
         }
 
         private void BlocksManagerOnBlocksChanged(Block[,] obj)
         {
-            _progressGamePopUp.SetProgress(_gameManager.GetCurrentProgress());
+            GetProgressGameView().SetProgressGame(_gameManager.GetCurrentProgress());
         }
 
-        public PauseMenuButtonPopUp GetPauseMenuButtonPopUp() => _pauseMenuButtonPopUp;
-        public ProgressGamePopUp GetProgressGamePopUp() => _progressGamePopUp;
-        public HpPopUp GetHpPopUp() => _hpPopUp;
+        public ProgressGameView GetProgressGameView() => _mainGamePopUp.GetProgressGameView();
+        public HpView GetHpView() => _mainGamePopUp.GetHpView();
     }
 }

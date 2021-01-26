@@ -7,8 +7,8 @@ namespace PopUpSystems
     {
         public event Action<PopUp> Closing;
 
-        public abstract void DisableInput();
         public abstract void EnableInput();
+        public abstract void DisableInput();
 
         protected virtual void OnClosing()
         {
