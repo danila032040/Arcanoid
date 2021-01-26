@@ -35,6 +35,8 @@ namespace Scenes.Game.Balls.Base
 
         private void CheckCollisionWithPaddle(Collision2D collision)
         {
+            if (collision.GetContact(0).normal != Vector2.up) return;
+            
             Paddle paddle = collision.gameObject.GetComponent<Paddle>();
             if (!paddle) return;
 

@@ -16,21 +16,24 @@ namespace Scenes.Game.Player
         {
             _view = _popUpsManager.GetHpView();
             _model = new HpModel();
-            _model.HealthValueChanged += OnHealthValueChanged;
         }
 
         public int GetHpValue() => _model.GetHpValue();
 
         public void SetHpValue(int value)
         {
-            _model.SetHealth(value);
+            int oldValue = _model.GetHpValue();
             _view.SetHealth(value);
+            _model.SetHealth(value);
+            OnHealthValueChanged(_model, oldValue, _model.GetHpValue());
         }
 
         public void AddHpValue(int value)
         {
-            _model.AddHealth(value);
+            int oldValue = _model.GetHpValue();
             _view.AddHealth(value);
+            _model.AddHealth(value);
+            OnHealthValueChanged(_model, oldValue, _model.GetHpValue());
         }
 
         public event OnIntValueChanged HealthValueChanged;

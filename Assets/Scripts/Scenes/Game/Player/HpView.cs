@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Pool.Abstracts;
-using TMPro;
 using UnityEngine;
 
 namespace Scenes.Game.Player
@@ -62,7 +60,7 @@ namespace Scenes.Game.Player
             oneHpView.GetComponent<RectTransform>().DORotate(new Vector3(0, 0, 360), _animationDuration, RotateMode.LocalAxisAdd);
             oneHpView.transform.DOScale(0, _animationDuration);
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(_animationDuration);
             _pool.Remove(oneHpView);
         }
 

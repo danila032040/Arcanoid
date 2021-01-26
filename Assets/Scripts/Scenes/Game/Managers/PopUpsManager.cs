@@ -19,6 +19,7 @@ namespace Scenes.Game.Managers
             _mainGamePopUp = PopUpSystem.Instance.ShowPopUpOnANewLayer<MainGamePopUp>();
 
             _blocksManager.BlocksChanged += BlocksManagerOnBlocksChanged;
+            _mainGamePopUp.GetPackGameView().SetLevelName("Level Name");
         }
 
         private void BlocksManagerOnBlocksChanged(Block[,] obj)
