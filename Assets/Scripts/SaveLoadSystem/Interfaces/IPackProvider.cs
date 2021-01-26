@@ -7,5 +7,7 @@ namespace SaveLoadSystem.Interfaces
         PackInfo[] GetPackInfos();
         int GetPackNumber(PackInfo packInfo);
         PackInfo GetPackInfo(int packNumber);
+
+        int GetPacksCount();
     }
 }

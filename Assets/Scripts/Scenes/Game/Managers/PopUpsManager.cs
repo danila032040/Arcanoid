@@ -9,7 +9,6 @@ namespace Scenes.Game.Managers
 {
     public class PopUpsManager : MonoBehaviour
     {
-        [SerializeField] private GameManager _gameManager;
         [SerializeField] private BlocksManager _blocksManager;
 
         private MainGamePopUp _mainGamePopUp;
@@ -17,14 +16,6 @@ namespace Scenes.Game.Managers
         private void Awake()
         {
             _mainGamePopUp = PopUpSystem.Instance.ShowPopUpOnANewLayer<MainGamePopUp>();
-
-            _blocksManager.BlocksChanged += BlocksManagerOnBlocksChanged;
-            _mainGamePopUp.GetPackGameView().SetLevelName("Level Name");
-        }
-
-        private void BlocksManagerOnBlocksChanged(Block[,] obj)
-        {
-            GetProgressGameView().SetProgressGame(_gameManager.GetCurrentProgress());
         }
 
         public ProgressGameView GetProgressGameView() => _mainGamePopUp.GetProgressGameView();

@@ -14,5 +14,6 @@ namespace SaveLoadSystem
         
         public int GetPackNumber(PackInfo packInfo) => Array.IndexOf(_packs, packInfo);
         public PackInfo GetPackInfo(int packNumber) => _packs[packNumber];
+        public int GetPacksCount() => _packs.Length;
     }
 }
