@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 973000482}
   - component: {fileID: 973000484}
   - component: {fileID: 973000483}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,4 +145,5 @@ MonoBehaviour:
   _popUpPrefabs:
   - {fileID: 3278907778207926765, guid: 278772fee8ae0e748866ca69f5b6e272, type: 3}
   - {fileID: 6357860444884788816, guid: 398de336e71e7d24cb68331e3f411897, type: 3}
+  - {fileID: 7351420395257349033, guid: 6fe4ddcf06344bf48b37f5db445d4c2c, type: 3}
   _canvas: {fileID: 973000482}

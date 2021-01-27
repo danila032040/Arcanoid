@@ -1,16 +1,10 @@
-using System;
 using Context;
-using PopUpSystems;
+using SaveLoadSystem;
 using SceneLoader;
 using Scenes.Game.Balls;
-using Scenes.Game.Balls.Base;
 using Scenes.Game.Blocks;
-using Scenes.Game.Paddles;
-using Scenes.Game.Services.Inputs.Implementations;
-using Scenes.Game.Services.Inputs.Interfaces;
-using Scenes.Game.Walls;
+using Scenes.Game.Utils;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Scenes.Game.Managers
 {
@@ -25,42 +19,77 @@ namespace Scenes.Game.Managers
 
         private void Awake()
         {
-            _gameStatusManager.ProgressValueChanged += OnValueChanged; 
+            _levelsManager.Init(new InfoSaveLoader());
+        }
+
+        private void Subscribe()
+        {
+            _gameStatusManager.ProgressValueChanged += OnProgressValueChanged;
             _playerManager.HealthValueChanged += OnHealthValueChanged;
-            
+
             _popUpsManager.PauseGame += PopUpsManagerOnGamePause;
             _popUpsManager.UnPauseGame += PopUpsManagerOnUnPauseGame;
             _popUpsManager.RestartGame += PopUpsManagerOnRestartGame;
             _popUpsManager.ReturnGame += PopUpsManagerOnReturnGame;
         }
+        private void UnSubscribe()
+        {
+            _gameStatusManager.ProgressValueChanged -= OnProgressValueChanged;
+            _playerManager.HealthValueChanged -= OnHealthValueChanged;
 
-        
+            _popUpsManager.PauseGame -= PopUpsManagerOnGamePause;
+            _popUpsManager.UnPauseGame -= PopUpsManagerOnUnPauseGame;
+            _popUpsManager.RestartGame -= PopUpsManagerOnRestartGame;
+            _popUpsManager.ReturnGame -= PopUpsManagerOnReturnGame;
+        }
+
 
         private void Start()
         {
             StartGame();
         }
 
-        public void StartGame()
+        private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                GameWin();
+            }
+        }
+
+        private void StartGame()
+        {
+            UnSubscribe();
+            
             _blocksManager.DeleteBlocks();
             _ballsManager.DeleteBalls();
 
-            int currentLevelNumber = DataProviderBetweenScenes.Instance.GetCurrentLevelNumber();
-            int currentPackNumber = DataProviderBetweenScenes.Instance.GetCurrentPackNumber();
+            
+            _levelsManager.GetCurrentLevel(out int currentLevelNumber, out int currentPackNumber);
             
             _blocksManager.SpawnBlocks(_levelsManager.LoadLevel(currentLevelNumber, currentPackNumber));
             
             _gameStatusManager.Reset();
             _playerManager.Reset();
+            
+            Subscribe();
         }
 
-        public void GameOver()
+        private void GameOver()
         {
+            _popUpsManager.GameOver();
         }
-        
-        public void GameWin()
+
+        private void GameWin()
         {
+            _levelsManager.SaveInfo();
+
+            GameWinInfo gameWinInfo = new GameWinInfo();
+            
+            _levelsManager.GetCurrentLevel(out gameWinInfo._currentLevelNumber, out gameWinInfo._currentPackNumber);
+            _levelsManager.GetNextLevel(out gameWinInfo._nextLevelNumber, out gameWinInfo._nextPackNumber);
+
+            _popUpsManager.GameWin(gameWinInfo);
         }
         
         private void PopUpsManagerOnGamePause()
@@ -81,12 +110,16 @@ namespace Scenes.Game.Managers
         private void PopUpsManagerOnReturnGame()
         {
             Time.timeScale = 0f;
-            SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene);
+            SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene, OnOtherSceneLoaded);
         }
 
-        
-        
-        private void OnValueChanged(object sender, float oldValue, float newValue)
+        private void OnOtherSceneLoaded(AsyncOperation obj)
+        {
+            _popUpsManager.GetMainGamePopUp().Close();
+        }
+
+
+        private void OnProgressValueChanged(object sender, float oldValue, float newValue)
         {
             if (Mathf.Approximately(newValue, 1f))
             {

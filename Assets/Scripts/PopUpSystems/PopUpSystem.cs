@@ -6,7 +6,8 @@ using UnityEngine;
 
 namespace PopUpSystems
 {
-    public class PopUpSystem : MonoBehaviourSingletonPersistent<PopUpSystem>, IMonoBehaviourSingletonInitialize<PopUpSystem>
+    public class PopUpSystem : MonoBehaviourSingletonPersistent<PopUpSystem>,
+        IMonoBehaviourSingletonInitialize<PopUpSystem>
     {
         private readonly Stack<PopUpSystemLayer> _layers = new Stack<PopUpSystemLayer>();
 
@@ -19,7 +20,7 @@ namespace PopUpSystems
             Instance = null;
             Instantiate(ProjectContext.Instance.GetPrefabsConfig().GetPrefab<PopUpSystem>());
         }
-        
+
         public PopUp ShowPopUp(Type type)
         {
             if (_layers.Count == 0) return ShowPopUpOnANewLayer(type);
@@ -35,7 +36,7 @@ namespace PopUpSystems
         public PopUp ShowPopUpOnANewLayer(Type type)
         {
             if (_layers.Count > 0) _layers.Peek().DisableInput();
-            
+
             PopUpSystemLayer layer = new PopUpSystemLayer();
             layer.EnableInput();
             _layers.Push(layer);
@@ -74,17 +75,19 @@ namespace PopUpSystems
             PopUpSystemLayer currentLayer = _layers.Pop();
             while (!currentLayer.GetPopUps().Contains(popUp))
             {
-                currentLayer = _layers.Pop();
                 if (!currentLayer.GetPopUps().Contains(popUp))
                 {
-                    foreach (PopUp item in currentLayer.GetPopUps())
+                    while (currentLayer.GetPopUps().Count > 0)
                     {
+                        PopUp item = currentLayer.GetPopUps()[0];
                         currentLayer.Remove(item);
                         DeletePopUp(item);
                     }
                 }
+
+                currentLayer = _layers.Pop();
             }
-            
+
             currentLayer.Remove(popUp);
             DeletePopUp(popUp);
 
@@ -99,7 +102,5 @@ namespace PopUpSystems
                 currentLayer.EnableInput();
             }
         }
-
-        
     }
 }

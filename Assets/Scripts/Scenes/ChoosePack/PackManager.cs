@@ -21,19 +21,19 @@ namespace Scenes.ChoosePack
         [SerializeField] private ScrollRect _scrollRect;
 
 
-        
         private IPackProvider _packProvider;
         private IPlayerInfoSaveLoader _playerInfoSaveLoader;
         private DataProviderBetweenScenes _dataProvider;
 
-        
-        public void Init(IPackProvider packProvider, IPlayerInfoSaveLoader playerInfoSaveLoader, DataProviderBetweenScenes dataProvider)
+
+        public void Init(IPackProvider packProvider, IPlayerInfoSaveLoader playerInfoSaveLoader,
+            DataProviderBetweenScenes dataProvider)
         {
             _packProvider = packProvider;
             _playerInfoSaveLoader = playerInfoSaveLoader;
             _dataProvider = dataProvider;
         }
-        
+
         private void Start()
         {
             Init(ProjectContext.Instance.GetPackProvider(), new InfoSaveLoader(), DataProviderBetweenScenes.Instance);
@@ -42,6 +42,7 @@ namespace Scenes.ChoosePack
         }
 
         private Pack[] _packs;
+
         public void SpawnPacks()
         {
             PackInfo[] packInfos = _packProvider.GetPackInfos();
@@ -50,11 +51,11 @@ namespace Scenes.ChoosePack
             _packs = new Pack[n];
 
 
-            info = PlayerInfo.GetDefault(n);
-                
+            if (info == null) info = PlayerInfo.GetDefault(n);
+
             _playerInfoSaveLoader.SavePlayerInfo(info);
-            
-            
+
+
             for (int i = 0; i < n; ++i)
             {
                 _packs[i] = Instantiate(_packPrefab, _packsParent);
@@ -70,14 +71,14 @@ namespace Scenes.ChoosePack
                 else _packs[i].GetPackView().Hide();
             }
         }
-        
+
         private void ScrollToLastOpenedPack()
         {
             Pack lastOpenedPack = _packs[0];
 
             PlayerInfo info = _playerInfoSaveLoader.LoadPlayerInfo();
-            
-            for (int i=0; i<info.GetOpenedPacks().Length; ++i)
+
+            for (int i = 0; i < info.GetOpenedPacks().Length; ++i)
                 if (info.GetOpenedPacks()[i])
                 {
                     lastOpenedPack = _packs[i];
@@ -95,12 +96,12 @@ namespace Scenes.ChoosePack
 
             PlayerInfo playerInfo = _playerInfoSaveLoader.LoadPlayerInfo();
             int levelNumber = playerInfo.GetLastPlayedLevels()[packNumber];
-            
+
             if (levelNumber == packInfo.GetLevelsCount()) levelNumber = 0;
-            
+
             _dataProvider.SetCurrentLevelNumber(levelNumber);
             _dataProvider.SetCurrentPackNumber(packNumber);
-            
+
             SceneLoaderController.Instance.LoadScene(LoadingScene.GameScene);
         }
     }

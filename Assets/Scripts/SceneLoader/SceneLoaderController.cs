@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Context;
 using DG.Tweening;
 using Singleton;
@@ -26,21 +27,20 @@ namespace SceneLoader
             Instantiate(ProjectContext.Instance.GetPrefabsConfig().GetPrefab<SceneLoaderController>());
         }
         
-        public void LoadScene(LoadingScene scene)
+        public void LoadScene(LoadingScene scene, Action<AsyncOperation> onCompleted = null)
         { 
-            StartCoroutine(LoadSceneCoroutine(scene));
+            StartCoroutine(LoadSceneCoroutine(scene, onCompleted));
         }
 
-        private IEnumerator LoadSceneCoroutine(LoadingScene scene)
+        private IEnumerator LoadSceneCoroutine(LoadingScene scene, Action<AsyncOperation> onCompleted)
         {
             HideScene();
             yield return new WaitForSecondsRealtime(_fadeDuration);
-            SceneManager.LoadSceneAsync((int) scene).completed += OnCompleted;
-        }
-
-        private void OnCompleted(AsyncOperation obj)
-        {
-            ShowScene();
+            SceneManager.LoadSceneAsync((int) scene).completed += (asyncOperation)=>
+            {
+                onCompleted?.Invoke(asyncOperation);
+                ShowScene();
+            };
         }
 
         private void ShowScene()

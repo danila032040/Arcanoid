@@ -1,30 +1,25 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using PopUpSystems;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scenes.Game.PopUps.PauseGamePopUps
+namespace Scenes.Game.PopUps
 {
-    public class PauseGamePopUp : PopUp
+    public class RestartGamePopUp : PopUp
     {
         [SerializeField] private CanvasGroup _canvasGroup;
-        [SerializeField] private Button _buttonContinue;
         [SerializeField] private Button _buttonRestart;
-        [SerializeField] private Button _buttonReturn;
         
         [SerializeField] private float _animationDuration;
 
-        public event Action ButtonContinuePressed;
         public event Action ButtonRestartPressed;
-        public event Action ButtonReturnPressed;
 
         private void Awake()
         {
-            _buttonContinue.onClick.AddListener(OnButtonContinuePressed);
             _buttonRestart.onClick.AddListener(OnButtonRestartPressed);
-            _buttonReturn.onClick.AddListener(OnButtonReturnPressed);
         }
         
 
@@ -58,24 +53,10 @@ namespace Scenes.Game.PopUps.PauseGamePopUps
             OnClosing();
         }
 
-        private void OnButtonContinuePressed()
-        {
-            ButtonContinuePressed?.Invoke();
-            StartCoroutine(CloseAnim());
-        }
-
         private void OnButtonRestartPressed()
         {
             ButtonRestartPressed?.Invoke();
             StartCoroutine(CloseAnim());
         }
-
-        private void OnButtonReturnPressed()
-        {
-            ButtonReturnPressed?.Invoke();
-            StartCoroutine(CloseAnim());
-        }
-
-        
     }
 }

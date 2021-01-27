@@ -1,7 +1,9 @@
 using System;
+using Context;
 using PopUpSystems;
+using Scenes.Game.PopUps;
 using Scenes.Game.PopUps.MainGamePopUps;
-using Scenes.Game.PopUps.PauseGamePopUps;
+using Scenes.Game.Utils;
 using UnityEngine;
 
 namespace Scenes.Game.Managers
@@ -14,17 +16,12 @@ namespace Scenes.Game.Managers
         public event Action ReturnGame;
 
         private MainGamePopUp _mainGamePopUp;
-        
+
         private void Awake()
         {
             _mainGamePopUp = PopUpSystem.Instance.ShowPopUpOnANewLayer<MainGamePopUp>();
 
             _mainGamePopUp.ButtonPauseGamePressed += GamePause;
-        }
-
-        public void OnDestroy()
-        {
-            _mainGamePopUp.Close();
         }
 
         public MainGamePopUp GetMainGamePopUp() => _mainGamePopUp;
@@ -35,40 +32,60 @@ namespace Scenes.Game.Managers
             PauseGamePopUp pauseGamePopUp = PopUpSystem.Instance.ShowPopUpOnANewLayer<PauseGamePopUp>();
 
             pauseGamePopUp.Open();
-            
-            pauseGamePopUp.ButtonContinuePressed += PauseGamePopUpOnButtonContinuePressed;
-            pauseGamePopUp.ButtonRestartPressed += PauseGamePopUpOnButtonRestartPressed;
-            pauseGamePopUp.ButtonReturnPressed += PauseGamePopUpOnButtonReturnPressed;
+
+            pauseGamePopUp.ButtonContinuePressed += UpOnButtonContinuePressed;
+            pauseGamePopUp.ButtonRestartPressed += OnButtonRestartPressed;
+            pauseGamePopUp.ButtonReturnPressed += OnButtonReturnPressed;
 
             pauseGamePopUp.Closing += (popUp) =>
             {
-                pauseGamePopUp.ButtonContinuePressed -= PauseGamePopUpOnButtonContinuePressed;
-                pauseGamePopUp.ButtonRestartPressed -= PauseGamePopUpOnButtonRestartPressed;
-                pauseGamePopUp.ButtonReturnPressed -= PauseGamePopUpOnButtonReturnPressed;
+                pauseGamePopUp.ButtonContinuePressed -= UpOnButtonContinuePressed;
+                pauseGamePopUp.ButtonRestartPressed -= OnButtonRestartPressed;
+                pauseGamePopUp.ButtonReturnPressed -= OnButtonReturnPressed;
             };
-
-
         }
-        private void PauseGamePopUpOnButtonContinuePressed()
+
+        public void GameOver()
+        {
+            OnPauseGame();
+            RestartGamePopUp restartGamePopUp = PopUpSystem.Instance.ShowPopUpOnANewLayer<RestartGamePopUp>();
+
+            restartGamePopUp.Open();
+            
+            restartGamePopUp.ButtonRestartPressed += OnButtonRestartPressed;
+            restartGamePopUp.Closing += (popUp) =>
+            {
+                restartGamePopUp.ButtonRestartPressed -= OnButtonRestartPressed;
+            };
+        }
+        
+        //TODO:
+        public void GameWin(GameWinInfo gameWinInfo)
+        {
+        }
+
+        private void UpOnButtonContinuePressed()
         {
             OnUnPauseGame();
         }
-        private void PauseGamePopUpOnButtonRestartPressed()
+
+        private void OnButtonRestartPressed()
         {
             OnUnPauseGame();
             OnRestartGame();
         }
-        private void PauseGamePopUpOnButtonReturnPressed()
+
+        private void OnButtonReturnPressed()
         {
             OnUnPauseGame();
             OnReturnGame();
         }
-        
+
         protected virtual void OnPauseGame()
         {
             PauseGame?.Invoke();
         }
-        
+
         protected virtual void OnUnPauseGame()
         {
             UnPauseGame?.Invoke();
@@ -84,6 +101,6 @@ namespace Scenes.Game.Managers
             ReturnGame?.Invoke();
         }
 
-        
+       
     }
 }
