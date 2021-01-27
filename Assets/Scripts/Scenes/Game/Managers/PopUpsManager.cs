@@ -35,13 +35,13 @@ namespace Scenes.Game.Managers
 
             pauseGamePopUp.ShowAnim();
 
-            pauseGamePopUp.ButtonContinuePressed += UpOnButtonContinuePressed;
+            pauseGamePopUp.ButtonContinuePressed += OnButtonContinuePressed;
             pauseGamePopUp.ButtonRestartPressed += OnButtonRestartPressed;
             pauseGamePopUp.ButtonReturnPressed += OnButtonReturnPressed;
 
             pauseGamePopUp.Closing += (popUp) =>
             {
-                pauseGamePopUp.ButtonContinuePressed -= UpOnButtonContinuePressed;
+                pauseGamePopUp.ButtonContinuePressed -= OnButtonContinuePressed;
                 pauseGamePopUp.ButtonRestartPressed -= OnButtonRestartPressed;
                 pauseGamePopUp.ButtonReturnPressed -= OnButtonReturnPressed;
             };
@@ -71,13 +71,16 @@ namespace Scenes.Game.Managers
             winGamePopUp.ShowAnim(gameWinInfo);
 
             winGamePopUp.ButtonNextLevelPressed += OnButtonNextLevelPressed;
+            winGamePopUp.ButtonChoosePackPressed += OnButtonReturnPressed;
             winGamePopUp.Closing += (popUp) =>
             {
                 winGamePopUp.ButtonNextLevelPressed -= OnButtonNextLevelPressed;
             };
         }
+
         
-        private void UpOnButtonContinuePressed()
+
+        private void OnButtonContinuePressed()
         {
             OnUnPauseGame();
         }
@@ -125,5 +128,6 @@ namespace Scenes.Game.Managers
         {
             NextLevelGame?.Invoke();
         }
+
     }
 }

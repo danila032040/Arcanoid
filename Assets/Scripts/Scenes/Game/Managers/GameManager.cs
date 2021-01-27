@@ -90,9 +90,21 @@ namespace Scenes.Game.Managers
             _levelsManager.SaveInfo();
 
             GameWinInfo gameWinInfo = new GameWinInfo();
+
+            int currentLevelNumber;
+            int currentPackNumber;
             
-            _levelsManager.GetCurrentLevel(out gameWinInfo._currentLevelNumber, out gameWinInfo._currentPackNumber);
-            _levelsManager.GetNextLevel(out gameWinInfo._nextLevelNumber, out gameWinInfo._nextPackNumber);
+            int nextPackNumber;
+            int nextLevelNumber;
+            
+            _levelsManager.GetCurrentLevel(out currentLevelNumber, out currentPackNumber);
+            _levelsManager.GetNextLevel(out nextLevelNumber, out nextPackNumber);
+
+            gameWinInfo._currentLevelNumber = currentLevelNumber;
+            gameWinInfo._nextLevelNumber = nextLevelNumber;
+
+            gameWinInfo._currentPack = ProjectContext.Instance.GetPackProvider().GetPackInfo(currentPackNumber);
+            gameWinInfo._nextPack = ProjectContext.Instance.GetPackProvider().GetPackInfo(nextPackNumber);
 
             _popUpsManager.GameWin(gameWinInfo);
         }
@@ -134,6 +146,7 @@ namespace Scenes.Game.Managers
 
         private void OnOtherSceneLoaded(AsyncOperation obj)
         {
+            Time.timeScale = 1f;
             _popUpsManager.GetMainGamePopUp().Close();
         }
 

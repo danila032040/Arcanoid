@@ -61,6 +61,10 @@ namespace Scenes.Game.Managers
             else
             {
                 lastPlayedLevels[nextPackNumber] = math.max(lastPlayedLevels[nextPackNumber], nextLevelNumber);
+                if (currPackNumber == nextPackNumber && currLevelNumber == nextLevelNumber)
+                {
+                    lastPlayedLevels[currPackNumber] = ++currLevelNumber;
+                }
             }
             
             _playerInfoSaveLoader.SavePlayerInfo(info);
