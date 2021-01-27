@@ -53,15 +53,6 @@ namespace Scenes.Game.Managers
             StartGame();
         }
 
-        private void Update()
-        {
-            //TODO: Remove
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                GameWin();
-            }
-        }
-
         private void StartGame()
         {
             UnSubscribe();
