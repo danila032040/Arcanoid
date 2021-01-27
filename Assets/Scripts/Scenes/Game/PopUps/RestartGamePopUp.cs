@@ -33,7 +33,7 @@ namespace Scenes.Game.PopUps
             _canvasGroup.interactable = false;
         }
         
-        public void Open()
+        public void ShowAnim()
         {
             StartCoroutine(OpenAnim());
         }

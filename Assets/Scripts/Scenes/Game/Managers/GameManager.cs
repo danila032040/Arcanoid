@@ -31,7 +31,9 @@ namespace Scenes.Game.Managers
             _popUpsManager.UnPauseGame += PopUpsManagerOnUnPauseGame;
             _popUpsManager.RestartGame += PopUpsManagerOnRestartGame;
             _popUpsManager.ReturnGame += PopUpsManagerOnReturnGame;
+            _popUpsManager.NextLevelGame += PopUpsManagerOnNextLevelGame;
         }
+        
         private void UnSubscribe()
         {
             _gameStatusManager.ProgressValueChanged -= OnProgressValueChanged;
@@ -41,6 +43,8 @@ namespace Scenes.Game.Managers
             _popUpsManager.UnPauseGame -= PopUpsManagerOnUnPauseGame;
             _popUpsManager.RestartGame -= PopUpsManagerOnRestartGame;
             _popUpsManager.ReturnGame -= PopUpsManagerOnReturnGame;
+            _popUpsManager.NextLevelGame -= PopUpsManagerOnNextLevelGame;
+
         }
 
 
@@ -51,6 +55,7 @@ namespace Scenes.Game.Managers
 
         private void Update()
         {
+            //TODO: Remove
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 GameWin();
@@ -112,6 +117,20 @@ namespace Scenes.Game.Managers
             Time.timeScale = 0f;
             SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene, OnOtherSceneLoaded);
         }
+        
+        private void PopUpsManagerOnNextLevelGame()
+        {
+            int nextLevelNumber;
+            int nextPackNumber;
+            
+            _levelsManager.GetNextLevel(out nextLevelNumber, out nextPackNumber);
+            
+            DataProviderBetweenScenes.Instance.SetCurrentLevelNumber(nextLevelNumber);
+            DataProviderBetweenScenes.Instance.SetCurrentPackNumber(nextPackNumber);
+            
+            StartGame();
+        }
+
 
         private void OnOtherSceneLoaded(AsyncOperation obj)
         {

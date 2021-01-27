@@ -15,6 +15,8 @@ namespace Scenes.Game.Managers
         public event Action RestartGame;
         public event Action ReturnGame;
 
+        public event Action NextLevelGame;
+
         private MainGamePopUp _mainGamePopUp;
 
         private void Awake()
@@ -31,7 +33,7 @@ namespace Scenes.Game.Managers
             OnPauseGame();
             PauseGamePopUp pauseGamePopUp = PopUpSystem.Instance.ShowPopUpOnANewLayer<PauseGamePopUp>();
 
-            pauseGamePopUp.Open();
+            pauseGamePopUp.ShowAnim();
 
             pauseGamePopUp.ButtonContinuePressed += UpOnButtonContinuePressed;
             pauseGamePopUp.ButtonRestartPressed += OnButtonRestartPressed;
@@ -50,7 +52,7 @@ namespace Scenes.Game.Managers
             OnPauseGame();
             RestartGamePopUp restartGamePopUp = PopUpSystem.Instance.ShowPopUpOnANewLayer<RestartGamePopUp>();
 
-            restartGamePopUp.Open();
+            restartGamePopUp.ShowAnim();
             
             restartGamePopUp.ButtonRestartPressed += OnButtonRestartPressed;
             restartGamePopUp.Closing += (popUp) =>
@@ -62,11 +64,28 @@ namespace Scenes.Game.Managers
         //TODO:
         public void GameWin(GameWinInfo gameWinInfo)
         {
-        }
+            OnPauseGame();
 
+            WinGamePopUp winGamePopUp = PopUpSystem.Instance.ShowPopUpOnANewLayer<WinGamePopUp>();
+
+            winGamePopUp.ShowAnim(gameWinInfo);
+
+            winGamePopUp.ButtonNextLevelPressed += OnButtonNextLevelPressed;
+            winGamePopUp.Closing += (popUp) =>
+            {
+                winGamePopUp.ButtonNextLevelPressed -= OnButtonNextLevelPressed;
+            };
+        }
+        
         private void UpOnButtonContinuePressed()
         {
             OnUnPauseGame();
+        }
+        
+        private void OnButtonNextLevelPressed()
+        {
+            OnUnPauseGame();
+            OnNextLevelGame();
         }
 
         private void OnButtonRestartPressed()
@@ -81,26 +100,30 @@ namespace Scenes.Game.Managers
             OnReturnGame();
         }
 
-        protected virtual void OnPauseGame()
+        private void OnPauseGame()
         {
             PauseGame?.Invoke();
         }
 
-        protected virtual void OnUnPauseGame()
+        private void OnUnPauseGame()
         {
             UnPauseGame?.Invoke();
         }
 
-        protected virtual void OnRestartGame()
+        private void OnRestartGame()
         {
             RestartGame?.Invoke();
         }
 
-        protected virtual void OnReturnGame()
+        private void OnReturnGame()
         {
             ReturnGame?.Invoke();
         }
 
-       
+
+        private void OnNextLevelGame()
+        {
+            NextLevelGame?.Invoke();
+        }
     }
 }

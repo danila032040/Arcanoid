@@ -30,6 +30,7 @@ namespace Scenes.Game.Managers
         public void Reset()
         {
             _maxDestroyableBlocksCount = GetDestroyableBlocksCount(_blocksManager.GetBlocks());
+            BlocksManagerOnBlocksChanged(_blocksManager.GetBlocks());
 
             int levelNumber = DataProviderBetweenScenes.Instance.GetCurrentLevelNumber();
             int packNumber = DataProviderBetweenScenes.Instance.GetCurrentPackNumber();
@@ -43,7 +44,6 @@ namespace Scenes.Game.Managers
         private float _lastProgress;
         private void BlocksManagerOnBlocksChanged(Block[,] blocks)
         {
-            
             ChangeBallSpeedOnBlocksCount();
             OnProgressValueChanged(this, _lastProgress, GetCurrentProgress());
             _lastProgress = GetCurrentProgress();
