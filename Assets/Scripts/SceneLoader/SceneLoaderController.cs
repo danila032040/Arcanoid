@@ -34,7 +34,7 @@ namespace SceneLoader
         private IEnumerator LoadSceneCoroutine(LoadingScene scene)
         {
             HideScene();
-            yield return new WaitForSeconds(_fadeDuration);
+            yield return new WaitForSecondsRealtime(_fadeDuration);
             SceneManager.LoadSceneAsync((int) scene).completed += OnCompleted;
         }
 

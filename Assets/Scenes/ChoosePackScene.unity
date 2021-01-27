@@ -519,8 +519,7 @@ MonoBehaviour:
   _packPrefab: {fileID: 4533836787972784983, guid: c6abeffbfdccd4a44a52effa74d65a67,
     type: 3}
   _packsParent: {fileID: 106029226}
-  _test: {fileID: 11400000, guid: 81796acd2a97c0141899201c2a6a2bea, type: 2}
-  _sceneLoader: {fileID: 0}
+  _scrollRect: {fileID: 653805404}
 --- !u!4 &334030510
 Transform:
   m_ObjectHideFlags: 0

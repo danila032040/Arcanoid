@@ -1,6 +1,7 @@
 using System;
 using Context;
 using PopUpSystems;
+using SceneLoader;
 using Scenes.Game.Balls;
 using Scenes.Game.Balls.Base;
 using Scenes.Game.Blocks;
@@ -9,6 +10,7 @@ using Scenes.Game.Services.Inputs.Implementations;
 using Scenes.Game.Services.Inputs.Interfaces;
 using Scenes.Game.Walls;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Scenes.Game.Managers
 {
@@ -26,7 +28,10 @@ namespace Scenes.Game.Managers
             _gameStatusManager.ProgressValueChanged += OnValueChanged; 
             _playerManager.HealthValueChanged += OnHealthValueChanged;
             
-            _popUpsManager.GetMainGamePopUp().ButtonPauseGamePressed += GamePause;
+            _popUpsManager.PauseGame += PopUpsManagerOnGamePause;
+            _popUpsManager.UnPauseGame += PopUpsManagerOnUnPauseGame;
+            _popUpsManager.RestartGame += PopUpsManagerOnRestartGame;
+            _popUpsManager.ReturnGame += PopUpsManagerOnReturnGame;
         }
 
         
@@ -58,16 +63,25 @@ namespace Scenes.Game.Managers
         {
         }
         
-        public void GamePause()
+        private void PopUpsManagerOnGamePause()
         {
-            _popUpsManager.GetMainGamePopUp().ButtonPauseGamePressed -= GamePause;
             Time.timeScale = 0f;
         }
 
-        public void GameUnPause()
+        private void PopUpsManagerOnUnPauseGame()
         {
             Time.timeScale = 1f;
-            _popUpsManager.GetMainGamePopUp().ButtonPauseGamePressed += GamePause;
+        }
+
+        private void PopUpsManagerOnRestartGame()
+        {
+            StartGame();
+        }
+
+        private void PopUpsManagerOnReturnGame()
+        {
+            Time.timeScale = 0f;
+            SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene);
         }
 
         

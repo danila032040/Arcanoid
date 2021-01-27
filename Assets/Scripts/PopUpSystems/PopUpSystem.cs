@@ -93,6 +93,11 @@ namespace PopUpSystems
                 _layers.Push(currentLayer);
             }
 
+            if (_layers.Count != 0)
+            {
+                currentLayer = _layers.Peek();
+                currentLayer.EnableInput();
+            }
         }
 
         

@@ -32,5 +32,10 @@ namespace Scenes.Game.PopUps.MainGamePopUps
         {
             ButtonPauseGamePressed?.Invoke();
         }
+
+        public void Close()
+        {
+            OnClosing();
+        }
     }
 }

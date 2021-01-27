@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
+  m_BlockingObjects: 3
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -144,4 +144,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _popUpPrefabs:
   - {fileID: 3278907778207926765, guid: 278772fee8ae0e748866ca69f5b6e272, type: 3}
+  - {fileID: 6357860444884788816, guid: 398de336e71e7d24cb68331e3f411897, type: 3}
   _canvas: {fileID: 973000482}

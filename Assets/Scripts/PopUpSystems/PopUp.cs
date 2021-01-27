@@ -10,7 +10,7 @@ namespace PopUpSystems
         public abstract void EnableInput();
         public abstract void DisableInput();
 
-        protected virtual void OnClosing()
+        protected void OnClosing()
         {
             Closing?.Invoke(this);
         }

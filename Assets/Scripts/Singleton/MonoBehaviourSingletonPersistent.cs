@@ -38,7 +38,7 @@ namespace Singleton
                 _instance = this as T;
                 DontDestroyOnLoad(_instance);
             }
-            else Destroy(_instance.gameObject);
+            else Destroy(gameObject);
         }
     }
 }
