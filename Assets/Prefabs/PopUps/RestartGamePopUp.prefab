@@ -399,7 +399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 7351420395257348936}
   _buttonRestart: {fileID: 7351420395259996505}
-  _animationDuration: 0.25
+  _animationDuration: 0.5
 --- !u!1 &7351420395259996583
 GameObject:
   m_ObjectHideFlags: 0

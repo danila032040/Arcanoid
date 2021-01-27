@@ -34,6 +34,9 @@ namespace Scenes.Start
         private void StartGame()
         {
             PlayerInfo info = _playerInfoSaveLoader.LoadPlayerInfo();
+            
+            _playerInfoSaveLoader.SavePlayerInfo(null);
+            
             if (info == null)
             {
                 _playerInfoSaveLoader.SavePlayerInfo(PlayerInfo.GetDefault(_packProvider.GetPackInfos().Length));

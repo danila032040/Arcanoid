@@ -41,6 +41,14 @@ namespace Scenes.ChoosePack
             ScrollToLastOpenedPack();
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                ScrollToLastOpenedPack();
+            }
+        }
+
         private Pack[] _packs;
 
         public void SpawnPacks()
@@ -87,7 +95,13 @@ namespace Scenes.ChoosePack
             Vector2 position =
                 _scrollRect.GetSnapToPositionToBringChildIntoView(lastOpenedPack.GetComponent<RectTransform>());
 
-            _scrollRect.content.transform.DOLocalMove(position, 0.5f);
+            if (position.y < 0) position.y = 0;
+
+            position = Vector2.ClampMagnitude(position, _scrollRect.content.rect.height - _scrollRect.viewport.rect.height);
+            
+            if (position.y < 0) position.y = 0;
+            
+            _scrollRect.content.transform.DOLocalMove(position, 1f);
         }
 
         private void PackClicked(PackInfo packInfo)

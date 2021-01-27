@@ -260,7 +260,7 @@ MonoBehaviour:
   _buttonContinue: {fileID: 6357860445477365036}
   _buttonRestart: {fileID: 6357860444924120128}
   _buttonReturn: {fileID: 6357860444550258737}
-  _animationDuration: 0.25
+  _animationDuration: 0.5
 --- !u!1 &6357860444924120254
 GameObject:
   m_ObjectHideFlags: 0
