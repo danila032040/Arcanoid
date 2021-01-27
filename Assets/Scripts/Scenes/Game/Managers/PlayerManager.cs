@@ -18,7 +18,7 @@ namespace Scenes.Game.Managers
         
         private IInputService _inputService;
 
-        [SerializeField] private ProgressGameManager _progressGameManager;
+        [SerializeField] private GameStatusManager _gameStatusManager;
         
         [SerializeField] private HpController _hpController;
         [SerializeField] private BallsManager _ballsManager;
@@ -55,7 +55,7 @@ namespace Scenes.Game.Managers
         {
             _hpController.SetHpValue(ProjectContext.Instance.GetHealthConfig().InitialPlayerHealthValue);
             AttachBall(_ballsManager.SpawnBall());
-            _progressGameManager.ChangeBallSpeedOnBlocksCount();
+            _gameStatusManager.ChangeBallSpeedOnBlocksCount();
         }
         
         private void OutOfBoundsWallOnOutOfBounds(GameObject obj)
@@ -67,7 +67,7 @@ namespace Scenes.Game.Managers
                 if (_ballsManager.GetBalls().Count <= 0)
                 {
                     AttachBall(_ballsManager.SpawnBall());
-                    _progressGameManager.ChangeBallSpeedOnBlocksCount();
+                    _gameStatusManager.ChangeBallSpeedOnBlocksCount();
                     _hpController.AddHpValue(ProjectContext.Instance.GetHealthConfig().AddHealthToPlayerForLoosingAllBalls);
                 }
             }

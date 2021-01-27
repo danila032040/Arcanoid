@@ -4,7 +4,7 @@ using Scenes.Game.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scenes.Game.PopUps
+namespace Scenes.Game.PopUps.MainGamePopUps
 {
     public class MainGamePopUp : PopUp
     {

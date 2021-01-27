@@ -1,15 +1,11 @@
 using PopUpSystems;
-using Scenes.Game.Blocks;
-using Scenes.Game.Blocks.Base;
-using Scenes.Game.Player;
-using Scenes.Game.PopUps;
+using Scenes.Game.PopUps.MainGamePopUps;
 using UnityEngine;
 
 namespace Scenes.Game.Managers
 {
     public class PopUpsManager : MonoBehaviour
     {
-        [SerializeField] private BlocksManager _blocksManager;
 
         private MainGamePopUp _mainGamePopUp;
         
@@ -17,8 +13,9 @@ namespace Scenes.Game.Managers
         {
             _mainGamePopUp = PopUpSystem.Instance.ShowPopUpOnANewLayer<MainGamePopUp>();
         }
+        
+        
 
-        public ProgressGameView GetProgressGameView() => _mainGamePopUp.GetProgressGameView();
-        public HpView GetHpView() => _mainGamePopUp.GetHpView();
+        public MainGamePopUp GetMainGamePopUp() => _mainGamePopUp;
     }
 }

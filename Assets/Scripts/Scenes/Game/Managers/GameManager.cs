@@ -1,5 +1,6 @@
 using System;
 using Context;
+using PopUpSystems;
 using Scenes.Game.Balls;
 using Scenes.Game.Balls.Base;
 using Scenes.Game.Blocks;
@@ -16,13 +17,16 @@ namespace Scenes.Game.Managers
         [SerializeField] private BlocksManager _blocksManager;
         [SerializeField] private BallsManager _ballsManager;
         [SerializeField] private LevelsManager _levelsManager;
-        [SerializeField] private ProgressGameManager _progressGameManager;
+        [SerializeField] private GameStatusManager _gameStatusManager;
         [SerializeField] private PlayerManager _playerManager;
+        [SerializeField] private PopUpsManager _popUpsManager;
 
         private void Awake()
         {
-            _progressGameManager.ProgressValueChanged += OnProgressValueChanged; 
+            _gameStatusManager.ProgressValueChanged += OnValueChanged; 
             _playerManager.HealthValueChanged += OnHealthValueChanged;
+            
+            _popUpsManager.GetMainGamePopUp().ButtonPauseGamePressed += GamePause;
         }
 
         
@@ -32,9 +36,6 @@ namespace Scenes.Game.Managers
             StartGame();
         }
 
-
-
-
         public void StartGame()
         {
             _blocksManager.DeleteBlocks();
@@ -42,10 +43,10 @@ namespace Scenes.Game.Managers
 
             int currentLevelNumber = DataProviderBetweenScenes.Instance.GetCurrentLevelNumber();
             int currentPackNumber = DataProviderBetweenScenes.Instance.GetCurrentPackNumber();
-
+            
             _blocksManager.SpawnBlocks(_levelsManager.LoadLevel(currentLevelNumber, currentPackNumber));
             
-            _progressGameManager.RecalculateMaxDestroyableBlocksCount();
+            _gameStatusManager.Reset();
             _playerManager.Reset();
         }
 
@@ -57,7 +58,21 @@ namespace Scenes.Game.Managers
         {
         }
         
-        private void OnProgressValueChanged(object sender, float oldValue, float newValue)
+        public void GamePause()
+        {
+            _popUpsManager.GetMainGamePopUp().ButtonPauseGamePressed -= GamePause;
+            Time.timeScale = 0f;
+        }
+
+        public void GameUnPause()
+        {
+            Time.timeScale = 1f;
+            _popUpsManager.GetMainGamePopUp().ButtonPauseGamePressed += GamePause;
+        }
+
+        
+        
+        private void OnValueChanged(object sender, float oldValue, float newValue)
         {
             if (Mathf.Approximately(newValue, 1f))
             {

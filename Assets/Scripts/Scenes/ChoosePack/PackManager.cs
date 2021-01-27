@@ -77,7 +77,7 @@ namespace Scenes.ChoosePack
             PlayerInfo playerInfo = _playerInfoSaveLoader.LoadPlayerInfo();
             int levelNumber = playerInfo.GetLastPlayedLevels()[packNumber];
             
-            if (levelNumber == packInfo.GetLevelsCount()) levelNumber = 0;
+            if (levelNumber == packInfo.GetLevelsCount() - 1) levelNumber = 0;
             
             _dataProvider.SetCurrentLevelNumber(levelNumber);
             _dataProvider.SetCurrentPackNumber(packNumber);

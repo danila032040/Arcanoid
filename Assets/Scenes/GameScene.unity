@@ -531,6 +531,7 @@ MonoBehaviour:
   _ballsManager: {fileID: 881123442}
   _blocksManager: {fileID: 881123440}
   _popUpsManager: {fileID: 881123443}
+  _levelsManager: {fileID: 881123445}
 --- !u!114 &881123440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -595,7 +596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263b8fc1b39b47e3b48313209100874b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _progressGameManager: {fileID: 881123439}
+  _gameStatusManager: {fileID: 881123439}
   _hpController: {fileID: 912555191}
   _ballsManager: {fileID: 881123442}
   _paddle: {fileID: 1745430903}
@@ -628,7 +629,7 @@ MonoBehaviour:
   _blocksManager: {fileID: 881123440}
   _ballsManager: {fileID: 881123442}
   _levelsManager: {fileID: 881123445}
-  _progressGameManager: {fileID: 881123439}
+  _gameStatusManager: {fileID: 881123439}
   _playerManager: {fileID: 881123444}
 --- !u!1 &912555189
 GameObject:

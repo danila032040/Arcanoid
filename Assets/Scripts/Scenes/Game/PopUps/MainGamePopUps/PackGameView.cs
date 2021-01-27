@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scenes.Game.PopUps
+namespace Scenes.Game.PopUps.MainGamePopUps
 {
     public class PackGameView : MonoBehaviour
     {

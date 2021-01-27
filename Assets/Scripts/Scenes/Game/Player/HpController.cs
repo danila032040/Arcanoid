@@ -14,7 +14,7 @@ namespace Scenes.Game.Player
 
         private void Awake()
         {
-            _view = _popUpsManager.GetHpView();
+            _view = _popUpsManager.GetMainGamePopUp().GetHpView();
             _model = new HpModel();
         }
 

@@ -11,20 +11,19 @@ namespace Scenes.Game.Managers
             return ProjectContext.Instance.GetPackProvider().GetPacksCount();
         }
 
-        public LevelInfo[] LoadPack(int packNumber)
+        public PackInfo LoadPack(int packNumber)
         {
             int packsCount = ProjectContext.Instance.GetPackProvider().GetPacksCount();
             packNumber = Mathf.Clamp(packNumber, 0, packsCount);
 
             return ProjectContext.Instance
                 .GetPackProvider()
-                .GetPackInfo(packNumber)
-                .GetLevelInfos();
+                .GetPackInfo(packNumber);
         }
 
         public LevelInfo LoadLevel(int levelNumber, int packNumber)
         {
-            LevelInfo[] currentLevelInfos = LoadPack(packNumber);
+            LevelInfo[] currentLevelInfos = LoadPack(packNumber).GetLevelInfos();
             int levelsCount = currentLevelInfos.Length;
             levelNumber = Mathf.Clamp(levelNumber, 0, levelsCount);
 

@@ -1,5 +1,6 @@
 using System;
 using PopUpSystems;
+using SaveLoadSystem.Data;
 using Scenes.Game.Balls;
 using Scenes.Game.Balls.Base;
 using Scenes.Game.Blocks;
@@ -9,13 +10,14 @@ using UnityEngine;
 
 namespace Scenes.Game.Managers
 {
-    public class ProgressGameManager : MonoBehaviour
+    public class GameStatusManager : MonoBehaviour
     {
         private int _maxDestroyableBlocksCount = 1;
         
         [SerializeField] private BallsManager _ballsManager;
         [SerializeField] private BlocksManager _blocksManager;
         [SerializeField] private PopUpsManager _popUpsManager;
+        [SerializeField] private LevelsManager _levelsManager;
 
         public event OnFloatValueChanged ProgressValueChanged;
 
@@ -25,9 +27,17 @@ namespace Scenes.Game.Managers
             _lastProgress = GetCurrentProgress();
         }
 
-        public void RecalculateMaxDestroyableBlocksCount()
+        public void Reset()
         {
             _maxDestroyableBlocksCount = GetDestroyableBlocksCount(_blocksManager.GetBlocks());
+
+            int levelNumber = DataProviderBetweenScenes.Instance.GetCurrentLevelNumber();
+            int packNumber = DataProviderBetweenScenes.Instance.GetCurrentPackNumber();
+
+            PackInfo packInfo = _levelsManager.LoadPack(packNumber);
+            
+            _popUpsManager.GetMainGamePopUp().GetPackGameView().SetLevelName(packInfo.GetLevelInfos()[levelNumber].Name);
+            _popUpsManager.GetMainGamePopUp().GetPackGameView().SetPackImage(packInfo.GetPackSprite());
         }
 
         private float _lastProgress;
@@ -69,9 +79,9 @@ namespace Scenes.Game.Managers
             return 1 - Mathf.Clamp01(n * 1f / _maxDestroyableBlocksCount);
         }
 
-        protected virtual void OnProgressValueChanged(object sender, float oldValue, float newValue)
+        private void OnProgressValueChanged(object sender, float oldValue, float newValue)
         {
-            _popUpsManager.GetProgressGameView().SetProgressGame(newValue);
+            _popUpsManager.GetMainGamePopUp().GetProgressGameView().SetProgressGame(newValue);
             
             ProgressValueChanged?.Invoke(sender, oldValue, newValue);
         }
