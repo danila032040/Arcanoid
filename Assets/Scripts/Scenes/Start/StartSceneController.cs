@@ -35,7 +35,6 @@ namespace Scenes.Start
             Init(new InfoSaveLoader(), _packProviderImpl);
             _buttonStartGame.onClick.AddListener(StartGame);
 
-
             StartCoroutine(UpdateEnergyPoints());
         }
 

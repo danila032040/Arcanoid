@@ -1,4 +1,5 @@
 using Context;
+using EnergySystem;
 using SaveLoadSystem;
 using SceneLoader;
 using Scenes.Game.Balls;
@@ -78,6 +79,8 @@ namespace Scenes.Game.Managers
 
         private void GameWin()
         {
+            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsForPassingLevel());
+                
             _levelsManager.SaveInfo();
 
             GameWinInfo gameWinInfo = new GameWinInfo();
@@ -97,6 +100,8 @@ namespace Scenes.Game.Managers
             gameWinInfo._currentPack = ProjectContext.Instance.GetPackProvider().GetPackInfo(currentPackNumber);
             gameWinInfo._nextPack = ProjectContext.Instance.GetPackProvider().GetPackInfo(nextPackNumber);
 
+            gameWinInfo._enoughEnergy = EnergyManager.Instance.CanPlayLevel();
+            
             _popUpsManager.GameWin(gameWinInfo);
         }
         
@@ -112,6 +117,7 @@ namespace Scenes.Game.Managers
 
         private void PopUpsManagerOnRestartGame()
         {
+            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsToPlayLevel());
             StartGame();
         }
 
@@ -123,6 +129,8 @@ namespace Scenes.Game.Managers
         
         private void PopUpsManagerOnNextLevelGame()
         {
+            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsToPlayLevel());
+            
             int nextLevelNumber;
             int nextPackNumber;
             

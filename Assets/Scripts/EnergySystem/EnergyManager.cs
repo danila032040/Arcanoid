@@ -63,16 +63,18 @@ namespace EnergySystem
             
             EnergyPoints ep = LoadEnergyPoints();
             ep.Count += value;
+            if (ep.Count <= 0) ep.Count = 0;
             SaveEnergyPoints(ep);
         }
 
         public bool CanPlayLevel()
         {
-            return GetEnergyPointsCount() >= _config.GetEnergyPointsToPlayLevel();
+            return GetEnergyPointsCount() + _config.GetEnergyPointsToPlayLevel() >= 0;
         }
 
         private void SaveEnergyPoints(EnergyPoints points)
         {
+            if (points == null) PlayerPrefs.DeleteKey(EnergyPointsKey);
             PlayerPrefs.SetString(EnergyPointsKey, JsonUtility.ToJson(points, true));
             PlayerPrefs.Save();
         }

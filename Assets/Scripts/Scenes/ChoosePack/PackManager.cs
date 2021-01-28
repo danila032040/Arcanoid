@@ -130,7 +130,7 @@ namespace Scenes.ChoosePack
         {
             if (EnergyManager.Instance.CanPlayLevel())
             {
-                EnergyManager.Instance.AddEnergyPoints(-ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsToPlayLevel());
+                EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsToPlayLevel());
                 int packNumber = _packProvider.GetPackNumber(packInfo);
 
                 PlayerInfo playerInfo = _playerInfoSaveLoader.LoadPlayerInfo();

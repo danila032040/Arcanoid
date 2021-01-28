@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Context;
 using DG.Tweening;
 using PopUpSystems;
 using Scenes.Game.Utils;
@@ -11,13 +9,13 @@ using UnityEngine.UI;
 
 namespace Scenes.Game.PopUps
 {
-    //TODO:
     public class WinGamePopUp : PopUp
     {
         [SerializeField] private CanvasGroup _canvasGroup;
 
         [SerializeField] private GameObject _levelInfos;
         [SerializeField] private GameObject _allPacksPassed;
+        [SerializeField] private GameObject _notEnoughEp;
 
         [SerializeField] private Button _buttonNextLevel;
         [SerializeField] private CanvasGroup _buttonNextLevelCanvasGroup;
@@ -64,7 +62,7 @@ namespace Scenes.Game.PopUps
             _canvasGroup.DOFade(0f, 0f);
             DisableInput();
 
-            if (IsLastLevel(gameWinInfo))
+            if (IsLastLevel(gameWinInfo) || !gameWinInfo._enoughEnergy)
             {
                 SetButtonActivity(false, true);
             }
@@ -77,7 +75,7 @@ namespace Scenes.Game.PopUps
 
             yield return _canvasGroup.DOFade(1f, _openAnimationDuration).WaitForCompletion();
 
-            if (IsLastLevel(gameWinInfo))
+            if (IsLastLevel(gameWinInfo) || !gameWinInfo._enoughEnergy)
             {
                 yield return StartCoroutine(AnimateChoosePack(gameWinInfo));
                 yield return _buttonChoosePackCanvasGroup.DOFade(1f, _showButtonAnimationDuration);
@@ -134,12 +132,20 @@ namespace Scenes.Game.PopUps
             yield return new WaitForSecondsRealtime(Mathf.Max(_scaleAnimationDuration, _rotationAnimationDuration));
 
             _levelInfos.SetActive(false);
-            _allPacksPassed.SetActive(true);
-            
-            AnimationRotateAndScale(_allPacksPassed.GetComponent<RectTransform>(), new Vector3(0, 0, -360), 1f,
-                _rotationAnimationDuration, _scaleAnimationDuration);
-            
-            
+
+            if (IsLastLevel(gameWinInfo))
+            {
+                _allPacksPassed.SetActive(true);
+                AnimationRotateAndScale(_allPacksPassed.GetComponent<RectTransform>(), new Vector3(0, 0, -360), 1f,
+                    _rotationAnimationDuration, _scaleAnimationDuration);
+            }
+            else
+            {
+                _notEnoughEp.SetActive(true);
+                AnimationRotateAndScale(_notEnoughEp.GetComponent<RectTransform>(), new Vector3(0, 0, -360), 1f,
+                    _rotationAnimationDuration, _scaleAnimationDuration);
+            }
+
             yield return new WaitForSecondsRealtime(Mathf.Max(_scaleAnimationDuration, _rotationAnimationDuration));
         }
 

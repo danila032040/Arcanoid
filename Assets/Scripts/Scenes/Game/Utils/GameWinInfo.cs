@@ -1,4 +1,5 @@
 using SaveLoadSystem.Data;
+using UnityEngine.Serialization;
 
 namespace Scenes.Game.Utils
 {
@@ -10,5 +11,7 @@ namespace Scenes.Game.Utils
         
         public PackInfo _nextPack;
         public int _nextLevelNumber;
+
+        public bool _enoughEnergy;
     }
 }
