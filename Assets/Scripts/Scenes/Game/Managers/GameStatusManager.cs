@@ -44,12 +44,12 @@ namespace Scenes.Game.Managers
         private float _lastProgress;
         private void BlocksManagerOnBlocksChanged(Block[,] blocks)
         {
-            ChangeBallSpeedOnBlocksCount();
+            ChangeBallsSpeedOnBlocksCount();
             OnProgressValueChanged(this, _lastProgress, GetCurrentProgress());
             _lastProgress = GetCurrentProgress();
         }
         
-        public void ChangeBallSpeedOnBlocksCount()
+        public void ChangeBallsSpeedOnBlocksCount()
         {
             Block[,] blocks = _blocksManager.GetBlocks();
             foreach (Ball ball in _ballsManager.GetBalls())

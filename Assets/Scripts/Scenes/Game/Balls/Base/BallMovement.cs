@@ -20,10 +20,21 @@ namespace Scenes.Game.Balls.Base
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+
+            if (!CheckCollisionWithPaddle(collision)) return;
+            
+            CheckCollisionWithBall(collision);
             ReflectBallVelocity(collision);
 
-            CheckCollisionWithPaddle(collision);
         }
+        private void CheckCollisionWithBall(Collision2D collision)
+        {
+            Ball ball = collision.gameObject.GetComponent<Ball>();
+            if (!ball) return;
+
+            Physics2D.IgnoreCollision(this.GetComponent<Collider2D>(), collision.collider);
+        }
+        
 
         private void ReflectBallVelocity(Collision2D collision)
         {
@@ -32,13 +43,15 @@ namespace Scenes.Game.Balls.Base
 
             _rb.velocity = Vector2.Reflect(velocity, normal);
         }
+        
 
-        private void CheckCollisionWithPaddle(Collision2D collision)
+        private bool CheckCollisionWithPaddle(Collision2D collision)
         {
-            if (collision.GetContact(0).normal != Vector2.up) return;
             
             Paddle paddle = collision.gameObject.GetComponent<Paddle>();
-            if (!paddle) return;
+            if (!paddle) return true;
+            
+            if (collision.GetContact(0).normal != Vector2.up) return false;
 
             _rb.velocity = Vector2.zero;
 
@@ -47,6 +60,7 @@ namespace Scenes.Game.Balls.Base
             Vector2 direction = new Vector2(x, 1).normalized;
 
             _rb.velocity = direction * GetCurrentVelocity();
+            return true;
         }
 
 

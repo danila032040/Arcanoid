@@ -10,9 +10,10 @@ namespace SceneLoader
 {
     public enum LoadingScene
     {
-        GameScene = 0,
-        StartScene = 1,
-        ChoosePackScene = 2
+        
+        StartScene = 0,
+        ChoosePackScene = 1,
+        GameScene = 2,
     }
 
     public class SceneLoaderController : MonoBehaviourSingletonPersistent<SceneLoaderController>, IMonoBehaviourSingletonInitialize<SceneLoaderController>

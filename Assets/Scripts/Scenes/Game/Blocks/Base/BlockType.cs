@@ -10,6 +10,8 @@
         NormalBomb = 100,
         ColorBomb,
         HorizontalBomb,
-        VerticalBomb
+        VerticalBomb,
+        CaptiveBall = 200,
+        
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Scenes.Game.Blocks.Base;
+using Scenes.Game.Blocks.BoostedBlocks.Base;
 using UnityEngine;
 
 namespace Scenes.Game.Blocks.BoostedBlocks.Bombs.Base

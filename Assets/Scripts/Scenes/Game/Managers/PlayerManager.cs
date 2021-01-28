@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Configurations;
 using Context;
 using Scenes.Game.Balls;
@@ -15,33 +16,38 @@ namespace Scenes.Game.Managers
 {
     public class PlayerManager : MonoBehaviour
     {
-        
         private IInputService _inputService;
 
         [SerializeField] private GameStatusManager _gameStatusManager;
-        
+
         [SerializeField] private HpController _hpController;
         [SerializeField] private BallsManager _ballsManager;
 
-        
+
         [SerializeField] private Paddle _paddle;
         [SerializeField] private OutOfBoundsWall _outOfBoundsWall;
-        
+
 
         public void Init(IInputService inputService)
         {
             _inputService = inputService;
         }
-        
-        
+
+
         [SerializeField] private InputService _inputServiceImpl;
+
         private void Awake()
         {
-            
             Init(_inputServiceImpl);
-            
+
             _hpController.HealthValueChanged += OnHealthValueChanged;
+            _ballsManager.BallsChanged += BallsManagerOnBallsChanged;
             _outOfBoundsWall.OutOfBounds += OutOfBoundsWallOnOutOfBounds;
+        }
+
+        private void BallsManagerOnBallsChanged(List<Ball> balls)
+        {
+            _gameStatusManager.ChangeBallsSpeedOnBlocksCount();
         }
 
         public event OnIntValueChanged HealthValueChanged;
@@ -55,9 +61,8 @@ namespace Scenes.Game.Managers
         {
             _hpController.SetHpValue(ProjectContext.Instance.GetHealthConfig().InitialPlayerHealthValue);
             AttachBall(_ballsManager.SpawnBall());
-            _gameStatusManager.ChangeBallSpeedOnBlocksCount();
         }
-        
+
         private void OutOfBoundsWallOnOutOfBounds(GameObject obj)
         {
             Ball ball = obj.GetComponent<Ball>();
@@ -67,8 +72,8 @@ namespace Scenes.Game.Managers
                 if (_ballsManager.GetBalls().Count <= 0)
                 {
                     AttachBall(_ballsManager.SpawnBall());
-                    _gameStatusManager.ChangeBallSpeedOnBlocksCount();
-                    _hpController.AddHpValue(ProjectContext.Instance.GetHealthConfig().AddHealthToPlayerForLoosingAllBalls);
+                    _hpController.AddHpValue(ProjectContext.Instance.GetHealthConfig()
+                        .AddHealthToPlayerForLoosingAllBalls);
                 }
             }
         }

@@ -1,7 +1,12 @@
 ﻿using System;
 using DG.Tweening;
 using SaveLoadSystem.Interfaces.Infos;
+using Scenes.Game.Balls;
 using Scenes.Game.Blocks.Base;
+using Scenes.Game.Blocks.BoostedBlocks;
+using Scenes.Game.Blocks.BoostedBlocks.BallBoostEffects;
+using Scenes.Game.Blocks.BoostedBlocks.BallBoostEffects.CaptiveBall;
+using Scenes.Game.Blocks.BoostedBlocks.Base;
 using Scenes.Game.Blocks.BoostedBlocks.Bombs.Base;
 using Scenes.Game.Blocks.Pool;
 using Scenes.Game.Services.Cameras.Implementations;
@@ -13,6 +18,8 @@ namespace Scenes.Game.Blocks
     public class BlocksManager : MonoBehaviour
     {
         [Range(0f, 1f)] [SerializeField] private float _topOffset;
+
+        [SerializeField] private BallsManager _ballsManager;
 
         private Block[,] _blocks;
 
@@ -126,8 +133,10 @@ namespace Scenes.Game.Blocks
             }
 
             var bBlock = block as Bomb;
-            if (!(bBlock is null))
-                bBlock.GetBombExplosiveness().Init(this);
+            bBlock?.GetBombExplosiveness().Init(this);
+
+            var cBallBlock = block as CaptiveBallBoostEffectBlock;
+            cBallBlock?.GetCaptiveBallBoostEffect().Init(_ballsManager);
 
             return block;
         }
@@ -141,9 +150,8 @@ namespace Scenes.Game.Blocks
                 dBlock.HealthValueChanged -= BlockHealthValueChanged;
             }
 
-            var bBlock = block as Bomb;
-            if (!(bBlock is null)) 
-                bBlock.GetBombExplosiveness().Use();
+            var bfBlock = block.GetComponent<BoostEffect>();
+            if (bfBlock) bfBlock.Use();
 
             _poolManager.Remove(block);
 
