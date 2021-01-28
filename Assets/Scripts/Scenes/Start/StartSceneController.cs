@@ -1,4 +1,6 @@
-﻿using Context;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Context;
 using EnergySystem;
 using SaveLoadSystem;
 using SaveLoadSystem.Data;
@@ -21,6 +23,7 @@ namespace Scenes.Start
         private IPackProvider _packProvider;
 
         [SerializeField] private PackProvider _packProviderImpl;
+
         public void Init(IPlayerInfoSaveLoader playerInfoSaveLoader, IPackProvider packProvider)
         {
             _playerInfoSaveLoader = playerInfoSaveLoader;
@@ -31,16 +34,28 @@ namespace Scenes.Start
         {
             Init(new InfoSaveLoader(), _packProviderImpl);
             _buttonStartGame.onClick.AddListener(StartGame);
-            _energyPointsCountText.text = $"{EnergyManager.Instance.GetEnergyPointsCount()}/" +
-                                          $"{ProjectContext.Instance.GetEnergyConfig().GetInitialEnergyPoints()}";
+
+
+            StartCoroutine(UpdateEnergyPoints());
+        }
+
+        private IEnumerator UpdateEnergyPoints()
+        {
+            while (true)
+            {
+                _energyPointsCountText.text = $"{EnergyManager.Instance.GetEnergyPointsCount()}/" +
+                                              $"{ProjectContext.Instance.GetEnergyConfig().GetInitialEnergyPoints()}";
+                yield return new WaitForSecondsRealtime(ProjectContext.Instance.GetEnergyConfig()
+                    .GetSecondsToRestoreOneEnergyPoint());
+            }
         }
 
         private void StartGame()
         {
             PlayerInfo info = _playerInfoSaveLoader.LoadPlayerInfo();
-            
+
             _playerInfoSaveLoader.SavePlayerInfo(null);
-            
+
             if (info == null)
             {
                 _playerInfoSaveLoader.SavePlayerInfo(PlayerInfo.GetDefault(_packProvider.GetPackInfos().Length));
@@ -48,6 +63,5 @@ namespace Scenes.Start
             }
             else SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene);
         }
-
     }
 }

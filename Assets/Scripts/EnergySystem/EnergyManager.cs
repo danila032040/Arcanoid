@@ -33,13 +33,13 @@ namespace EnergySystem
                 DateTime prevDate = DateTime.Parse(energyPoints.LastTimeUpdated);
                 DateTime currDate = DateTime.Now;
 
-                int passedSeconds = (prevDate - currDate).Seconds;
+                int passedSeconds = (currDate - prevDate).Seconds;
                 int restoredPoints = passedSeconds / _config.GetSecondsToRestoreOneEnergyPoint();
 
                 if (energyPoints.Count < _config.GetInitialEnergyPoints())
                 {
                     energyPoints.Count =
-                        math.max(energyPoints.Count + restoredPoints, _config.GetInitialEnergyPoints());
+                        math.min(energyPoints.Count + restoredPoints, _config.GetInitialEnergyPoints());
                 }
                 
                 energyPoints.LastTimeUpdated = currDate.ToString();
@@ -62,7 +62,12 @@ namespace EnergySystem
             ep.Count += value;
             SaveEnergyPoints(ep);
         }
-        
+
+        public bool CanPlayLevel()
+        {
+            return GetEnergyPointsCount() >= _config.GetEnergyPointsToPlayLevel();
+        }
+
         private void SaveEnergyPoints(EnergyPoints points)
         {
             PlayerPrefs.SetString(EnergyPointsKey, JsonUtility.ToJson(points, true));
