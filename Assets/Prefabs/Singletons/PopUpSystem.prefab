@@ -57,7 +57,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1000
   m_TargetDisplay: 0
 --- !u!114 &973000484
 MonoBehaviour:
@@ -147,4 +147,5 @@ MonoBehaviour:
   - {fileID: 6357860444884788816, guid: 398de336e71e7d24cb68331e3f411897, type: 3}
   - {fileID: 7351420395257349033, guid: 6fe4ddcf06344bf48b37f5db445d4c2c, type: 3}
   - {fileID: 4784902016141254987, guid: 3da852dc1560fc741b3d8725bf48128f, type: 3}
+  - {fileID: 362018284453256069, guid: 2b286583dfd150f488c7da70cdd591da, type: 3}
   _canvas: {fileID: 973000482}

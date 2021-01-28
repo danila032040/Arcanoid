@@ -6,12 +6,14 @@ using System.Runtime.CompilerServices;
 using Context;
 using DG.Tweening;
 using EnergySystem;
+using PopUpSystems;
 using SaveLoadSystem;
 using SaveLoadSystem.Data;
 using SaveLoadSystem.Interfaces;
 using SaveLoadSystem.Interfaces.SaveLoaders;
 using SceneLoader;
 using Scenes.ChoosePack.Packs;
+using Scenes.ChoosePack.PopUps;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -143,7 +145,8 @@ namespace Scenes.ChoosePack
             }
             else
             {
-                Debug.Log("Not enough EnergyPoints!!!");
+                PopUpSystem.Instance.ShowPopUpOnANewLayer<NotEnoughEnergyPointsPopUp>().ShowAnim();
+
             }
         }
     }

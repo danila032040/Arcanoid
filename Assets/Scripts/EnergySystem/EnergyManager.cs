@@ -26,15 +26,17 @@ namespace EnergySystem
 
             if (energyPoints == null)
             {
-                energyPoints = new EnergyPoints(_config.GetInitialEnergyPoints(), DateTime.Now.ToString());
+                energyPoints = new EnergyPoints(_config.GetInitialEnergyPoints(), DateTime.Now.ToString(), TimeSpan.Zero.ToString());
             }
             else
             {
                 DateTime prevDate = DateTime.Parse(energyPoints.LastTimeUpdated);
+                TimeSpan otherSeconds = TimeSpan.Parse(energyPoints.TimePassed);
                 DateTime currDate = DateTime.Now;
 
-                int passedSeconds = (currDate - prevDate).Seconds;
+                int passedSeconds = (int)math.round((currDate - prevDate).TotalSeconds + otherSeconds.TotalSeconds);
                 int restoredPoints = passedSeconds / _config.GetSecondsToRestoreOneEnergyPoint();
+                TimeSpan remainSeconds = new TimeSpan(0, 0, 0,passedSeconds % _config.GetSecondsToRestoreOneEnergyPoint());
 
                 if (energyPoints.Count < _config.GetInitialEnergyPoints())
                 {
@@ -43,6 +45,7 @@ namespace EnergySystem
                 }
                 
                 energyPoints.LastTimeUpdated = currDate.ToString();
+                energyPoints.TimePassed = remainSeconds.ToString();
             }
             
             SaveEnergyPoints(energyPoints);
