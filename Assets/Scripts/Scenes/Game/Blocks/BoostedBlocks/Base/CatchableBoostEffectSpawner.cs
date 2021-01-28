@@ -26,9 +26,12 @@ namespace Scenes.Game.Blocks.BoostedBlocks.Base
             CatchableBoostEffect effect = Instantiate(_catchableBoostEffectPrefab, transform.position, Quaternion.identity);
             
             (effect as AngryBallBoostEffect)?.Init(_ballsManager);
-            (effect as ChangeHealthBoostEffect)?.Init(_hpController);
+            (effect as ChangeBallsSpeedBoostEffect)?.Init(_ballsManager);
+            
             (effect as ChangePaddleSizeBoostEffect)?.Init(_paddle);
             (effect as ChangePaddleSpeedBoostEffect)?.Init(_paddle);
+            
+            (effect as ChangeHealthBoostEffect)?.Init(_hpController);
         }
     }
 }

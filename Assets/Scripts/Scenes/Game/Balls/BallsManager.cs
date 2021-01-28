@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Scenes.Game.Balls.Base;
 using Scenes.Game.Balls.Pool;
 using UnityEngine;
@@ -29,7 +30,7 @@ namespace Scenes.Game.Balls
             OnBallsChanged(_balls);
         }
 
-        public List<Ball> GetBalls() => _balls;
+        public int GetBallsCount() => _balls.Count;
 
         private void OnBallsChanged(List<Ball> obj)
         {
@@ -75,13 +76,13 @@ namespace Scenes.Game.Balls
         private IEnumerator AngryBallCoroutine(float duration)
         {
             SetAllBallsAngry(true)(_balls);
-            
+
             Action<List<Ball>> ballsChangedAction = SetAllBallsAngry(true);
 
             BallsChanged += ballsChangedAction;
             yield return new WaitForSeconds(duration);
             BallsChanged -= ballsChangedAction;
-            
+
             SetAllBallsAngry(false)(_balls);
         }
 
@@ -89,12 +90,83 @@ namespace Scenes.Game.Balls
         {
             return list =>
             {
-                
                 foreach (Ball ball in list)
                 {
                     ball.SetAngryBall(value);
                 }
             };
+        }
+
+        [SerializeField] private float _increasedSpeedProgress;
+        [SerializeField] private float _decreaseSpeedProgress;
+
+        private float _currentSpeedProgress;
+
+        private Coroutine _incDecSpeedCoroutine;
+
+        public void IncreaseSpeed(float effectDuration)
+        {
+            if (_incDecSpeedCoroutine != null)
+            {
+                StopCoroutine(_incDecSpeedCoroutine);
+                _incDecSpeedCoroutine = null;
+            }
+
+            _incDecSpeedCoroutine = StartCoroutine(ChangeSpeedForDuration(_increasedSpeedProgress, effectDuration));
+        }
+
+        public void DecreaseSpeed(float effectDuration)
+        {
+            if (_incDecSpeedCoroutine != null)
+            {
+                StopCoroutine(_incDecSpeedCoroutine);
+                _incDecSpeedCoroutine = null;
+            }
+
+            _incDecSpeedCoroutine = StartCoroutine(ChangeSpeedForDuration(_decreaseSpeedProgress, effectDuration));
+        }
+
+        [SerializeField] private float _changeSpeedAnimationDuration;
+
+        private IEnumerator ChangeSpeedForDuration(float speed, float effectDuration)
+        {
+            yield return DOTween.To(() => _currentSpeedProgress, x =>
+                {
+                    _currentSpeedProgress = x;
+                    ChangeBallsSpeedProgress(x);
+                }, speed, _changeSpeedAnimationDuration)
+                .WaitForCompletion();
+
+            yield return new WaitForSeconds(effectDuration);
+
+            yield return DOTween.To(() => _currentSpeedProgress, x =>
+                {
+                    _currentSpeedProgress = x;
+                    ChangeBallsSpeedProgress(x);
+                }, _newSpeedProgress, _changeSpeedAnimationDuration)
+                .WaitForCompletion();
+        }
+
+        private float _newSpeedProgress;
+
+        public void SetCurrentSpeedProgress(float speedProgress)
+        {
+            if (_incDecSpeedCoroutine == null)
+            {
+                _currentSpeedProgress = speedProgress;
+            }
+
+            _newSpeedProgress = speedProgress;
+
+            ChangeBallsSpeedProgress(_currentSpeedProgress);
+        }
+
+        private void ChangeBallsSpeedProgress(float speedProgress)
+        {
+            foreach (Ball ball in _balls)
+            {
+                ball.GetBallMovement().SetCurrentSpeedProgress(speedProgress);
+            }
         }
     }
 }

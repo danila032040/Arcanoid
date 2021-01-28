@@ -27,7 +27,7 @@ namespace Scenes.Game.Blocks.BoostedBlocks.Bombs.Base
         protected void DoDamage(Block block)
         {
             DestroyableBlock db = (DestroyableBlock)block;
-            db.GetBlockDestructibility().AddHealth(-_damage);
+            db?.GetBlockDestructibility().AddHealth(-_damage);
         }
 
         private Vector2Int FindCurrentBombPosition(Block[,] blocks)

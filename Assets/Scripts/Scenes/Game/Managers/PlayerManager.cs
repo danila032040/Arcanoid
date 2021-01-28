@@ -69,7 +69,7 @@ namespace Scenes.Game.Managers
             if (!ReferenceEquals(ball, null))
             {
                 _ballsManager.RemoveBall(ball);
-                if (_ballsManager.GetBalls().Count <= 0)
+                if (_ballsManager.GetBallsCount() <= 0)
                 {
                     AttachBall(_ballsManager.SpawnBall());
                     _hpController.AddHpValue(ProjectContext.Instance.GetHealthConfig()

@@ -1,12 +1,13 @@
 using Scenes.Game.Blocks.BoostedBlocks.Base;
 using Scenes.Game.Paddles;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Scenes.Game.Blocks.BoostedBlocks.CatchableBoosts
 {
     public class ChangePaddleSizeBoostEffect : CatchableBoostEffect
     {
-        [SerializeField] private bool _increasePaddle;
+        [FormerlySerializedAs("_increasePaddle")] [SerializeField] private bool _increasePaddleSize;
 
         [SerializeField] private float _effectDuration;
         private Paddle _paddle;
@@ -16,7 +17,7 @@ namespace Scenes.Game.Blocks.BoostedBlocks.CatchableBoosts
         }
         public override void Catch()
         {
-            if (_increasePaddle)
+            if (_increasePaddleSize)
             {
                 _paddle.GetPaddleView().IncreasePaddleSize(_effectDuration);
             }

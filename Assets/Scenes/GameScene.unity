@@ -364,6 +364,52 @@ Transform:
   m_Father: {fileID: 1609059194}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &309906033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 309906034}
+  - component: {fileID: 309906035}
+  m_Layer: 0
+  m_Name: IncreaseBallsSpeed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &309906034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309906033}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 613237577}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &309906035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309906033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6351a702f7da456da18fcd69e491113b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _amountToPool: 5
+  _canExpand: 1
+  _prefab: {fileID: 4138461033490113336, guid: 97445bec80cd3ab46a27c700c385166b, type: 3}
 --- !u!1 &373824457
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,6 +614,8 @@ Transform:
   m_Children:
   - {fileID: 737604214}
   - {fileID: 1605979179}
+  - {fileID: 309906034}
+  - {fileID: 2102738045}
   m_Father: {fileID: 1609059194}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -797,6 +845,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ballsPool: {fileID: 99516173}
+  _increasedSpeedProgress: 1
+  _decreaseSpeedProgress: 0
+  _changeSpeedAnimationDuration: 0.5
 --- !u!114 &881123443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1598,8 +1649,8 @@ MonoBehaviour:
   - {fileID: 373824459}
   - {fileID: 737604215}
   - {fileID: 1605979180}
-  - {fileID: 1605979180}
-  - {fileID: 1605979180}
+  - {fileID: 309906035}
+  - {fileID: 2102738046}
   - {fileID: 1624333938}
   - {fileID: 2069399203}
   - {fileID: 187817192}
@@ -2248,6 +2299,52 @@ MonoBehaviour:
   _amountToPool: 5
   _canExpand: 1
   _prefab: {fileID: 6048307929668008310, guid: 053f5a6510d2d1a4bbd9b90b5b09a184, type: 3}
+--- !u!1 &2102738044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2102738045}
+  - component: {fileID: 2102738046}
+  m_Layer: 0
+  m_Name: DecreaseBallsSpeed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2102738045
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102738044}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 613237577}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2102738046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102738044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6351a702f7da456da18fcd69e491113b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _amountToPool: 5
+  _canExpand: 1
+  _prefab: {fileID: 1172592508675245255, guid: a822d583781cb8141a880fb3f9c23e42, type: 3}
 --- !u!1001 &4370056193368614278
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2263,17 +2360,17 @@ PrefabInstance:
     - target: {fileID: 4370056192696929532, guid: 51459a87a5f899449a1b379ffc7afa14,
         type: 3}
       propertyPath: _initialMoveSpeed
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4370056192696929532, guid: 51459a87a5f899449a1b379ffc7afa14,
         type: 3}
       propertyPath: _increasedSpeed
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4370056192696929532, guid: 51459a87a5f899449a1b379ffc7afa14,
         type: 3}
       propertyPath: _decreaseSpeed
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4370056192696929532, guid: 51459a87a5f899449a1b379ffc7afa14,
         type: 3}

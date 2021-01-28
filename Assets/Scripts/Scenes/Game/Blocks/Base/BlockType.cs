@@ -15,8 +15,8 @@
         
         CaptiveBallBoost = 200,
         AngryBallBoost,
-        SlowDownBallBoost,
-        AccelerateBallBoost,
+        IncreaseBallsSpeedBoost,
+        DecreaseBallsSpeedBoost,
         
         IncreasePaddleSpeedBoost = 300,
         DecreasePaddleSpeedBoost,

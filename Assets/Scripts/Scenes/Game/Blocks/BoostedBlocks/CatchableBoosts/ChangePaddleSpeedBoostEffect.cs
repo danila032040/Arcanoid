@@ -1,12 +1,13 @@
 using Scenes.Game.Blocks.BoostedBlocks.Base;
 using Scenes.Game.Paddles;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Scenes.Game.Blocks.BoostedBlocks.CatchableBoosts
 {
     public class ChangePaddleSpeedBoostEffect : CatchableBoostEffect
     {
-        [SerializeField] private bool _increaseSpeed;
+        [FormerlySerializedAs("_increaseSpeed")] [SerializeField] private bool _increasePaddleSpeed;
         [SerializeField] private float _effectDuration;
 
         private Paddle _paddle;
@@ -18,7 +19,7 @@ namespace Scenes.Game.Blocks.BoostedBlocks.CatchableBoosts
 
         public override void Catch()
         {
-            if (_increaseSpeed)
+            if (_increasePaddleSpeed)
             {
                 _paddle.GetPaddleMovement().IncreaseSpeed(_effectDuration);
             }

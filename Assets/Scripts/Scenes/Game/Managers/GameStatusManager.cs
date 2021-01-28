@@ -52,8 +52,7 @@ namespace Scenes.Game.Managers
         public void ChangeBallsSpeedOnBlocksCount()
         {
             Block[,] blocks = _blocksManager.GetBlocks();
-            foreach (Ball ball in _ballsManager.GetBalls())
-                ball.GetBallMovement().SetCurrentSpeedProgress(GetCurrentProgress());
+            _ballsManager.SetCurrentSpeedProgress(GetCurrentProgress());
         }
         
         private int GetDestroyableBlocksCount(Block[,] blocks)
