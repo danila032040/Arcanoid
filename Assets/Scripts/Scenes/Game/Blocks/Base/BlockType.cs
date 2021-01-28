@@ -7,11 +7,23 @@
         GraniteBlock = 1,
         WhiteDestroyableBlock = 2,
         YellowDestroyableBlock,
+        
         NormalBomb = 100,
         ColorBomb,
         HorizontalBomb,
         VerticalBomb,
-        CaptiveBall = 200,
-        AngryBall,
+        
+        CaptiveBallBoost = 200,
+        AngryBallBoost,
+        SlowDownBallBoost,
+        AccelerateBallBoost,
+        
+        IncreasePaddleSpeedBoost = 300,
+        DecreasePaddleSpeedBoost,
+        IncreasePaddleSizeBoost,
+        DecreasePaddleSizeBoost,
+        
+        AddHealthBoost = 400,
+        RemoveHealthBoost
     }
 }

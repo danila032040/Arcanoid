@@ -2,7 +2,7 @@ using Scenes.Game.Balls;
 using Scenes.Game.Balls.Base;
 using Scenes.Game.Blocks.BoostedBlocks.Base;
 
-namespace Scenes.Game.Blocks.BoostedBlocks.BallBoostEffects.CaptiveBall
+namespace Scenes.Game.Blocks.BoostedBlocks.NonCatchableBoosts.CaptiveBall
 {
     public class CaptiveBallBoostEffect : BoostEffect
     {

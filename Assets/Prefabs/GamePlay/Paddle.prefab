@@ -74,7 +74,7 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
+  m_DrawMode: 1
   m_Size: {x: 0.52, y: 0.12}
   m_AdaptiveModeThreshold: 0.195
   m_SpriteTileMode: 0
@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 1721766515577042739}
   - component: {fileID: 4370056192696929532}
   - component: {fileID: 4370056192696929533}
+  - component: {fileID: 1435260356}
   m_Layer: 0
   m_Name: Paddle
   m_TagString: Paddle
@@ -162,8 +163,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.45348972, y: 0.046650026}
-  m_EdgeRadius: 0.01
+  m_Size: {x: 0.5, y: 0.1}
+  m_EdgeRadius: 0
 --- !u!114 &1721766515577042739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +177,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c444035475e94f041b0b606cf5769364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _increasedScale: {x: 1.5, y: 0.75, z: 1}
+  _decreasedScale: {x: 1, y: 0.75, z: 1}
+  _changePaddleSizeAnimationDuration: 0.5
 --- !u!114 &4370056192696929532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,3 +209,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _collider: {fileID: 4370056192696929535}
   _spriteRenderer: {fileID: 7767410802940046047}
+--- !u!114 &1435260356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4370056192696929520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b2001441f904471bfd8d476c50eb8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

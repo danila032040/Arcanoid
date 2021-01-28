@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using DG.Tweening;
+using UnityEngine;
 
 namespace Scenes.Game.Paddles
 {
@@ -21,5 +23,7 @@ namespace Scenes.Game.Paddles
         public PaddleMovement GetPaddleMovement() => _paddleMovement;
         public PaddleView GetPaddleView() => _paddleView;
         public PaddleCollision GetPaddleCollision() => _paddleCollision;
+        
+
     }
 }

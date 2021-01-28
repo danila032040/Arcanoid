@@ -1,7 +1,7 @@
 using Scenes.Game.Blocks.Base;
 using UnityEngine;
 
-namespace Scenes.Game.Blocks.BoostedBlocks.BallBoostEffects.CaptiveBall
+namespace Scenes.Game.Blocks.BoostedBlocks.NonCatchableBoosts.CaptiveBall
 {
     [RequireComponent(typeof(CaptiveBallBoostEffect))]
     public class CaptiveBallBoostEffectBlock : DestroyableBlock

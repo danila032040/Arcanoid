@@ -2,7 +2,7 @@ using Scenes.Game.Balls;
 using Scenes.Game.Blocks.BoostedBlocks.Base;
 using UnityEngine;
 
-namespace Scenes.Game.Blocks.BoostedBlocks.BallBoostEffects.AngerBall
+namespace Scenes.Game.Blocks.BoostedBlocks.CatchableBoosts
 {
     public class AngryBallBoostEffect : CatchableBoostEffect
     {
@@ -16,7 +16,7 @@ namespace Scenes.Game.Blocks.BoostedBlocks.BallBoostEffects.AngerBall
         public override void Catch()
         {
             _ballsManager.AngryBall(_angryBallDuration);
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }

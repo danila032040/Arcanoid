@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6987375317198443177
+--- !u!1001 &567253488116309451
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,22 +10,17 @@ PrefabInstance:
     - target: {fileID: 3766324661812631369, guid: 8a3e4bf181fadcb4983081d28dffb682,
         type: 3}
       propertyPath: m_Text
-      value: "\u0428\u0430\u0440\n\u042F\u0440\u043E\u0441\u0442\u0438"
+      value: "\u0423\u0432\u0435\u043B\u0438\u0447\u0435\u043D\u0438\u0435\n\u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B"
       objectReference: {fileID: 0}
-    - target: {fileID: 3766324661812631415, guid: 8a3e4bf181fadcb4983081d28dffb682,
+    - target: {fileID: 3766324661812631369, guid: 8a3e4bf181fadcb4983081d28dffb682,
         type: 3}
-      propertyPath: m_Layer
-      value: 9
+      propertyPath: m_CharacterSize
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5274406732908355564, guid: 8a3e4bf181fadcb4983081d28dffb682,
         type: 3}
       propertyPath: m_Name
-      value: AngryBallBlock
-      objectReference: {fileID: 0}
-    - target: {fileID: 5274406732908355564, guid: 8a3e4bf181fadcb4983081d28dffb682,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
+      value: IncPaddleSizeBlock
       objectReference: {fileID: 0}
     - target: {fileID: 5274406732908355566, guid: 8a3e4bf181fadcb4983081d28dffb682,
         type: 3}
@@ -85,33 +80,23 @@ PrefabInstance:
     - target: {fileID: 5274406732908355568, guid: 8a3e4bf181fadcb4983081d28dffb682,
         type: 3}
       propertyPath: _type
-      value: 201
+      value: 302
       objectReference: {fileID: 0}
     - target: {fileID: 5274406732908355569, guid: 8a3e4bf181fadcb4983081d28dffb682,
         type: 3}
       propertyPath: _catchableBoostEffectPrefab
       value: 
-      objectReference: {fileID: -5642157012083316105, guid: acc6822078933474ca1eadbf4ef8c5a3,
+      objectReference: {fileID: -7669694829352468296, guid: 9b0428c81f842de428c0ccab862743e7,
         type: 3}
-    - target: {fileID: 5274406734901280097, guid: 8a3e4bf181fadcb4983081d28dffb682,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 5274406734901280099, guid: 8a3e4bf181fadcb4983081d28dffb682,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.47058827
-      objectReference: {fileID: 0}
     - target: {fileID: 5274406734901280099, guid: 8a3e4bf181fadcb4983081d28dffb682,
         type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 0.49803925
       objectReference: {fileID: 0}
     - target: {fileID: 5274406734901280099, guid: 8a3e4bf181fadcb4983081d28dffb682,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.47058827
+      value: 0.10588236
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a3e4bf181fadcb4983081d28dffb682, type: 3}

@@ -3,12 +3,12 @@ using DG.Tweening;
 using SaveLoadSystem.Interfaces.Infos;
 using Scenes.Game.Balls;
 using Scenes.Game.Blocks.Base;
-using Scenes.Game.Blocks.BoostedBlocks;
-using Scenes.Game.Blocks.BoostedBlocks.BallBoostEffects;
-using Scenes.Game.Blocks.BoostedBlocks.BallBoostEffects.CaptiveBall;
 using Scenes.Game.Blocks.BoostedBlocks.Base;
 using Scenes.Game.Blocks.BoostedBlocks.Bombs.Base;
+using Scenes.Game.Blocks.BoostedBlocks.NonCatchableBoosts.CaptiveBall;
 using Scenes.Game.Blocks.Pool;
+using Scenes.Game.Paddles;
+using Scenes.Game.Player;
 using Scenes.Game.Services.Cameras.Implementations;
 using Scenes.Game.Services.Cameras.Interfaces;
 using UnityEngine;
@@ -20,6 +20,8 @@ namespace Scenes.Game.Blocks
         [Range(0f, 1f)] [SerializeField] private float _topOffset;
 
         [SerializeField] private BallsManager _ballsManager;
+        [SerializeField] private HpController _hpController;
+        [SerializeField] private Paddle _paddle;
 
         private Block[,] _blocks;
 
@@ -153,7 +155,7 @@ namespace Scenes.Game.Blocks
             var bfBlock = block.GetComponent<BoostEffect>();
             if (bfBlock)
             {
-                (bfBlock as CatchableBoostEffectSpawner)?.Init(_ballsManager);
+                (bfBlock as CatchableBoostEffectSpawner)?.Init(_ballsManager, _hpController, _paddle);
                 bfBlock.Use();
             }
 

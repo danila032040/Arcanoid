@@ -1,3 +1,4 @@
+using Context;
 using Scenes.Game.Managers;
 using Scenes.Game.PopUps;
 using Scenes.Game.Utils;
@@ -22,6 +23,8 @@ namespace Scenes.Game.Player
 
         public void SetHpValue(int value)
         {
+            if (value > ProjectContext.Instance.GetHealthConfig().InitialPlayerHealthValue) return;
+            
             int oldValue = _model.GetHpValue();
             _view.SetHealth(value);
             _model.SetHealth(value);
@@ -30,6 +33,8 @@ namespace Scenes.Game.Player
 
         public void AddHpValue(int value)
         {
+            if (_model.GetHpValue() + value > ProjectContext.Instance.GetHealthConfig().InitialPlayerHealthValue) return;
+            
             int oldValue = _model.GetHpValue();
             _view.AddHealth(value);
             _model.AddHealth(value);
