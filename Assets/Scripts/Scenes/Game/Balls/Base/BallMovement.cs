@@ -45,6 +45,7 @@ namespace Scenes.Game.Balls.Base
             Vector2 velocity = -collision.relativeVelocity;
 
             _rb.velocity = Vector2.Reflect(velocity, normal);
+            CorrectVelocity();
         }
 
 
@@ -76,12 +77,16 @@ namespace Scenes.Game.Balls.Base
         private void NormalizeVelocity(Vector2 direction)
         {
             _rb.velocity = direction.normalized * GetCurrentVelocity();
+        }
 
+        private void CorrectVelocity()
+        {
             if (Vector2.Angle(_rb.velocity, Vector2.left) <= _angleWithHorToChangeDirection ||
                 Vector2.Angle(_rb.velocity, Vector2.right) <= _angleWithHorToChangeDirection)
             {
                 _rb.velocity = Quaternion.Euler(0, 0, Random.Range(_minHorChangeAngle, _maxHorChangeAngle)) * _rb.velocity;
             }
+
             if (Vector2.Angle(_rb.velocity, Vector2.up) <= _angleWithVertToChangeDirection ||
                 Vector2.Angle(_rb.velocity, Vector2.down) <= _angleWithVertToChangeDirection)
             {

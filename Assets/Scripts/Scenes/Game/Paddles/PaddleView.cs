@@ -19,8 +19,8 @@ namespace Scenes.Game.Paddles
 
         public float Width => this.transform.localScale.x * _collider.size.x;
         public float Height => this.transform.localScale.y * _collider.size.y;
-        
-        
+
+
         [SerializeField] private Vector3 _increasedScale;
         [SerializeField] private Vector3 _decreasedScale;
         private Vector3 _normalScale;
@@ -34,8 +34,10 @@ namespace Scenes.Game.Paddles
                 StopCoroutine(_incDecSizeCoroutine);
                 _incDecSizeCoroutine = null;
             }
+
             _incDecSizeCoroutine = StartCoroutine(ChangePaddleSizeForDuration(_normalScale, _increasedScale, duration));
         }
+
         public void DecreasePaddleSize(float duration)
         {
             if (_incDecSizeCoroutine != null)
@@ -43,6 +45,7 @@ namespace Scenes.Game.Paddles
                 StopCoroutine(_incDecSizeCoroutine);
                 _incDecSizeCoroutine = null;
             }
+
             _incDecSizeCoroutine = StartCoroutine(ChangePaddleSizeForDuration(_normalScale, _decreasedScale, duration));
         }
 
@@ -53,6 +56,13 @@ namespace Scenes.Game.Paddles
             yield return transform.DOScale(scale, _changePaddleSizeAnimationDuration);
             yield return new WaitForSeconds(duration);
             yield return transform.DOScale(initialScale, _changePaddleSizeAnimationDuration);
+        }
+
+        public void ResetChangeSizeForDuration()
+        {
+            if (_incDecSizeCoroutine != null)
+                StopCoroutine(_incDecSizeCoroutine);
+            transform.localScale = _normalScale;
         }
     }
 }

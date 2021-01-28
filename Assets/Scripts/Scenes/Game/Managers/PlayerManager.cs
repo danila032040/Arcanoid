@@ -61,6 +61,8 @@ namespace Scenes.Game.Managers
         {
             _hpController.SetHpValue(ProjectContext.Instance.GetHealthConfig().InitialPlayerHealthValue);
             AttachBall(_ballsManager.SpawnBall());
+            _paddle.GetPaddleMovement().ResetChangeSpeedForDuration();
+            _paddle.GetPaddleView().ResetChangeSizeForDuration();
         }
 
         private void OutOfBoundsWallOnOutOfBounds(GameObject obj)

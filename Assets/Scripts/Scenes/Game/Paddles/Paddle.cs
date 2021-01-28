@@ -24,6 +24,5 @@ namespace Scenes.Game.Paddles
         public PaddleView GetPaddleView() => _paddleView;
         public PaddleCollision GetPaddleCollision() => _paddleCollision;
         
-
     }
 }

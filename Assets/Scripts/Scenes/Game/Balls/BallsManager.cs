@@ -153,6 +153,12 @@ namespace Scenes.Game.Balls
 
         private float _newSpeedProgress;
 
+        public void ResetChangeSpeedForDuration()
+        {
+            if (_incDecSpeedCoroutine != null)
+                StopCoroutine(_incDecSpeedCoroutine);
+        }
+
         public void SetCurrentSpeedProgress(float speedProgress)
         {
             if (_incDecSpeedCoroutine == null)

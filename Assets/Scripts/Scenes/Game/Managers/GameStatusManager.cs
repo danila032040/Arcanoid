@@ -30,6 +30,7 @@ namespace Scenes.Game.Managers
         public void Reset()
         {
             _maxDestroyableBlocksCount = GetDestroyableBlocksCount(_blocksManager.GetBlocks());
+            _ballsManager.ResetChangeSpeedForDuration();
             BlocksManagerOnBlocksChanged(_blocksManager.GetBlocks());
 
             int levelNumber = DataProviderBetweenScenes.Instance.GetCurrentLevelNumber();

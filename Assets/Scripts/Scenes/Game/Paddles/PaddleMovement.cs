@@ -155,13 +155,23 @@ namespace Scenes.Game.Paddles
 
 
         [SerializeField] private float _changeSpeedAnimationDuration;
+
         private IEnumerator ChangeSpeedForDuration(float initialSpeed, float speed, float effectDuration)
         {
-            yield return DOTween.To(() => _currentMoveSpeed, x => _currentMoveSpeed = x, speed, _changeSpeedAnimationDuration)
+            yield return DOTween.To(() => _currentMoveSpeed, x => _currentMoveSpeed = x, speed,
+                    _changeSpeedAnimationDuration)
                 .WaitForCompletion();
             yield return new WaitForSeconds(effectDuration);
-            yield return DOTween.To(() => _currentMoveSpeed, x => _currentMoveSpeed = x, initialSpeed, _changeSpeedAnimationDuration)
+            yield return DOTween.To(() => _currentMoveSpeed, x => _currentMoveSpeed = x, initialSpeed,
+                    _changeSpeedAnimationDuration)
                 .WaitForCompletion();
+        }
+
+        public void ResetChangeSpeedForDuration()
+        {
+            if (_incDecSpeedCoroutine != null)
+                StopCoroutine(_incDecSpeedCoroutine);
+            _currentMoveSpeed = _initialMoveSpeed;
         }
     }
 }
