@@ -53,14 +53,16 @@ namespace Scenes.Start
         {
             PlayerInfo info = _playerInfoSaveLoader.LoadPlayerInfo();
 
-            _playerInfoSaveLoader.SavePlayerInfo(null);
-
             if (info == null)
             {
+                EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsToPlayLevel());
                 _playerInfoSaveLoader.SavePlayerInfo(PlayerInfo.GetDefault(_packProvider.GetPackInfos().Length));
                 SceneLoaderController.Instance.LoadScene(LoadingScene.GameScene);
             }
-            else SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene);
+            else
+            {
+                SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene);
+            }
         }
     }
 }

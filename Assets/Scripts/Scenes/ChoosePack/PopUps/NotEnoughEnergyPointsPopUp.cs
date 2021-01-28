@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using PopUpSystems;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,13 +12,16 @@ namespace Scenes.ChoosePack.PopUps
     public class NotEnoughEnergyPointsPopUp : PopUp
     {
         [SerializeField] private Button _buttonOk;
+        [SerializeField] private TextMeshProUGUI _buttonOkText;
         [SerializeField] private CanvasGroup _canvasGroup;
 
         [SerializeField] private float _animationDuration;
 
+        public event Action ButtonOkPressed;
+
         private void Awake()
         {
-            _buttonOk.onClick.AddListener(() => StartCoroutine(CloseAnim()));
+            _buttonOk.onClick.AddListener(OnButtonOkPressed);
         }
 
         
@@ -48,6 +52,17 @@ namespace Scenes.ChoosePack.PopUps
         {
             yield return _canvasGroup.DOFade(0f, _animationDuration).WaitForCompletion();
             OnClosing();
+        }
+
+        protected virtual void OnButtonOkPressed()
+        {
+            ButtonOkPressed?.Invoke();
+            StartCoroutine(CloseAnim());
+        }
+
+        public void SetButtonText(string text)
+        {
+            _buttonOkText.text = text;
         }
     }
 }

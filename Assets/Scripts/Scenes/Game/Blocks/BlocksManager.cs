@@ -109,7 +109,14 @@ namespace Scenes.Game.Blocks
         {
             if (newValue <= 0)
             {
-                DeleteOneBlock(sender as Block);
+                Block block = sender as Block;
+                var bfBlock = block.GetComponent<BoostEffect>();
+                if (bfBlock)
+                {
+                    (bfBlock as CatchableBoostEffectSpawner)?.Init(_ballsManager, _hpController, _paddle);
+                    bfBlock.Use();
+                }
+                DeleteOneBlock(block);
                 OnBlocksChanged(_blocks);
             }
         }
@@ -151,14 +158,7 @@ namespace Scenes.Game.Blocks
             {
                 dBlock.HealthValueChanged -= BlockHealthValueChanged;
             }
-
-            var bfBlock = block.GetComponent<BoostEffect>();
-            if (bfBlock)
-            {
-                (bfBlock as CatchableBoostEffectSpawner)?.Init(_ballsManager, _hpController, _paddle);
-                bfBlock.Use();
-            }
-
+            
             _poolManager.Remove(block);
 
             for (int i = 0; i < _blocks.GetLength(0); ++i)

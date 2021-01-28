@@ -35,14 +35,6 @@ namespace Scenes.Game.Balls.Base
 
         private void CheckCollisionWithOtherObjects(Collision2D collision)
         {
-            if (collision.gameObject.GetComponent<Ball>() || collision.gameObject.GetComponent<Paddle>())  return;
-
-            if (_isAngryBall && collision.gameObject.GetComponent<Block>())
-            {
-                NormalizeVelocity(_velocityBeforeCollision);
-                return;
-            }
-            
             ReflectBallVelocity(collision);
         }
 
@@ -102,6 +94,7 @@ namespace Scenes.Game.Balls.Base
         private bool _isAngryBall;
         public void SetAngryBall(bool value)
         {
+            Physics2D.IgnoreLayerCollision(8,9, value);
             _isAngryBall = value;
         }
     }

@@ -50,12 +50,14 @@ namespace Scenes.Game.Balls
         private Ball SpawnOneBall()
         {
             Ball ball = _ballsPool.Get();
+            ball.SetAngryBall(false);
             _balls.Add(ball);
             return ball;
         }
 
         private void RemoveOneBall(Ball ball)
         {
+            ball.SetAngryBall(false);
             _ballsPool.Remove(ball);
             _balls.Remove(ball);
         }
@@ -67,7 +69,9 @@ namespace Scenes.Game.Balls
             if (_angryBallCoroutine != null)
             {
                 StopCoroutine(_angryBallCoroutine);
+                BallsChanged -= SetAllBallAngryTrue;
                 _angryBallCoroutine = null;
+                SetAllBallsAngry(false, _balls);
             }
 
             _angryBallCoroutine = StartCoroutine(AngryBallCoroutine(duration));
@@ -75,26 +79,26 @@ namespace Scenes.Game.Balls
 
         private IEnumerator AngryBallCoroutine(float duration)
         {
-            SetAllBallsAngry(true)(_balls);
+            SetAllBallsAngry(true, _balls);
 
-            Action<List<Ball>> ballsChangedAction = SetAllBallsAngry(true);
-
-            BallsChanged += ballsChangedAction;
+            BallsChanged += SetAllBallAngryTrue;
             yield return new WaitForSeconds(duration);
-            BallsChanged -= ballsChangedAction;
+            BallsChanged -= SetAllBallAngryTrue;
 
-            SetAllBallsAngry(false)(_balls);
+            SetAllBallsAngry(false, _balls);
         }
 
-        private Action<List<Ball>> SetAllBallsAngry(bool value)
+        private void SetAllBallAngryTrue(List<Ball> balls)
         {
-            return list =>
+            SetAllBallsAngry(true, balls);
+        }
+
+        private void SetAllBallsAngry(bool value, List<Ball> list)
+        {
+            foreach (Ball ball in list)
             {
-                foreach (Ball ball in list)
-                {
-                    ball.SetAngryBall(value);
-                }
-            };
+                ball.SetAngryBall(value);
+            }
         }
 
         [SerializeField] private float _increasedSpeedProgress;

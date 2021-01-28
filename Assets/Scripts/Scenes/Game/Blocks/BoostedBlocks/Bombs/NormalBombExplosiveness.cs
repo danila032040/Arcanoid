@@ -11,9 +11,18 @@ namespace Scenes.Game.Blocks.BoostedBlocks.Bombs
             int i = position.x;
             int j = position.y;
 
-            if (i - 1 >= 0) DoDamageToSiblingsOnLine(blocks, i - 1, j);
+            if (i - 1 >= 0)
+            {
+                DoDamageToSiblingsOnLine(blocks, i - 1, j);
+
+                DoDamage(blocks[i - 1, j]);
+            }
             DoDamageToSiblingsOnLine(blocks, i, j);
-            if (i + 1 <= blocks.GetLength(0) - 1) DoDamageToSiblingsOnLine(blocks, i + 1, j);
+            if (i + 1 <= blocks.GetLength(0) - 1)
+            {
+                DoDamageToSiblingsOnLine(blocks, i + 1, j);
+                DoDamage(blocks[i+1, j]);
+            }
         }
 
         private void DoDamageToSiblingsOnLine(Block[,] blocks, int i, int j)
@@ -22,8 +31,6 @@ namespace Scenes.Game.Blocks.BoostedBlocks.Bombs
             {
                 DoDamage(blocks[i, j - 1]);
             }
-
-            DoDamage(blocks[i, j]);
 
             if (j + 1 <= blocks.GetLength(1) - 1)
             {

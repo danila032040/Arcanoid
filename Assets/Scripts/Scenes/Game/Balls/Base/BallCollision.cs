@@ -11,10 +11,15 @@ namespace Scenes.Game.Balls.Base
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            CheckCollisionWithDestroyableBlock(collision);
+            CheckCollisionWithDestroyableBlock(collision.collider);
         }
 
-        private void CheckCollisionWithDestroyableBlock(Collision2D collision)
+        private void OnTriggerEnter2D(Collider2D collider)
+        {
+            CheckCollisionWithDestroyableBlock(collider);
+        }
+
+        private void CheckCollisionWithDestroyableBlock(Collider2D collision)
         {
             DestroyableBlock block = collision.gameObject.GetComponent<DestroyableBlock>();
             if (!block) return;

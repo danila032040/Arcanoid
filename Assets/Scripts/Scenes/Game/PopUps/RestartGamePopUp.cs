@@ -2,7 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using EnergySystem;
 using PopUpSystems;
+using SceneLoader;
+using Scenes.ChoosePack.PopUps;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,8 +58,21 @@ namespace Scenes.Game.PopUps
 
         private void OnButtonRestartPressed()
         {
-            ButtonRestartPressed?.Invoke();
-            StartCoroutine(CloseAnim());
+            if (EnergyManager.Instance.CanPlayLevel())
+            {
+                ButtonRestartPressed?.Invoke();
+                StartCoroutine(CloseAnim());
+            }
+            else
+            {
+                var popUp = PopUpSystem.Instance.ShowPopUpOnANewLayer<NotEnoughEnergyPointsPopUp>();
+                popUp.SetButtonText("Choose Pack");
+                popUp.ShowAnim();
+                popUp.ButtonOkPressed += () =>
+                {
+                    SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene);
+                };
+            }
         }
     }
 }

@@ -214,7 +214,7 @@ MonoBehaviour:
     spaceCount: 3
     wordCount: 4
     linkCount: 0
-    lineCount: 1
+    lineCount: 10
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -784,5 +784,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonOk: {fileID: 8483345690564855823}
+  _buttonOkText: {fileID: 8483345689319274535}
   _canvasGroup: {fileID: 8483345690601021982}
   _animationDuration: 0.5

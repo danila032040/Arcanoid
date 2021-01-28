@@ -4,6 +4,7 @@ using SaveLoadSystem;
 using SceneLoader;
 using Scenes.Game.Balls;
 using Scenes.Game.Blocks;
+using Scenes.Game.Blocks.BoostedBlocks.Base;
 using Scenes.Game.Utils;
 using UnityEngine;
 
@@ -60,6 +61,10 @@ namespace Scenes.Game.Managers
             
             _blocksManager.DeleteBlocks();
             _ballsManager.DeleteBalls();
+            foreach (CatchableBoostEffect effect in FindObjectsOfType<CatchableBoostEffect>())
+            {
+                Destroy(effect.gameObject);
+            }
 
             
             _levelsManager.GetCurrentLevel(out int currentLevelNumber, out int currentPackNumber);
