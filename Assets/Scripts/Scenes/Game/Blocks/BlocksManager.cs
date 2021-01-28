@@ -151,7 +151,11 @@ namespace Scenes.Game.Blocks
             }
 
             var bfBlock = block.GetComponent<BoostEffect>();
-            if (bfBlock) bfBlock.Use();
+            if (bfBlock)
+            {
+                (bfBlock as CatchableBoostEffectSpawner)?.Init(_ballsManager);
+                bfBlock.Use();
+            }
 
             _poolManager.Remove(block);
 

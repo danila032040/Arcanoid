@@ -1,5 +1,8 @@
-﻿using Scenes.Game.Paddles;
+﻿using System;
+using Scenes.Game.Blocks.Base;
+using Scenes.Game.Paddles;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Scenes.Game.Balls.Base
 {
@@ -18,23 +21,31 @@ namespace Scenes.Game.Balls.Base
             NormalizeVelocity(_rb.velocity.normalized);
         }
 
+        private Vector3 _velocityBeforeCollision;
+        private void FixedUpdate()
+        {
+            _velocityBeforeCollision = _rb.velocity;
+        }
+
         private void OnCollisionEnter2D(Collision2D collision)
         {
-
-            if (!CheckCollisionWithPaddle(collision)) return;
-            
-            CheckCollisionWithBall(collision);
-            ReflectBallVelocity(collision);
-
+            CheckCollisionWithOtherObjects(collision);
+            CheckCollisionWithPaddle(collision);
         }
-        private void CheckCollisionWithBall(Collision2D collision)
+
+        private void CheckCollisionWithOtherObjects(Collision2D collision)
         {
-            Ball ball = collision.gameObject.GetComponent<Ball>();
-            if (!ball) return;
+            if (collision.gameObject.GetComponent<Ball>() || collision.gameObject.GetComponent<Paddle>())  return;
 
-            Physics2D.IgnoreCollision(this.GetComponent<Collider2D>(), collision.collider);
+            if (_isAngryBall && collision.gameObject.GetComponent<Block>())
+            {
+                NormalizeVelocity(_velocityBeforeCollision);
+                return;
+            }
+            
+            ReflectBallVelocity(collision);
         }
-        
+
 
         private void ReflectBallVelocity(Collision2D collision)
         {
@@ -43,30 +54,29 @@ namespace Scenes.Game.Balls.Base
 
             _rb.velocity = Vector2.Reflect(velocity, normal);
         }
-        
 
-        private bool CheckCollisionWithPaddle(Collision2D collision)
+
+        private void CheckCollisionWithPaddle(Collision2D collision)
         {
-            
             Paddle paddle = collision.gameObject.GetComponent<Paddle>();
-            if (!paddle) return true;
-            
-            if (collision.GetContact(0).normal != Vector2.up) return false;
+            if (!paddle)  return;
+
+            if (collision.GetContact(0).normal != Vector2.up) return;
 
             _rb.velocity = Vector2.zero;
 
             float x = (this.transform.position.x - collision.transform.position.x) / collision.collider.bounds.size.x;
 
-            Vector2 direction = new Vector2(x, 1).normalized;
+            Vector2 direction = new Vector2(x, 0.75f).normalized;
 
             _rb.velocity = direction * GetCurrentVelocity();
-            return true;
         }
 
 
         [SerializeField] private float _angleWithHorToChangeDirection;
         [SerializeField] private float _minChangeAngle;
         [SerializeField] private float _maxChangeAngle;
+
         private void NormalizeVelocity(Vector2 direction)
         {
             _rb.velocity = direction.normalized * GetCurrentVelocity();
@@ -87,5 +97,12 @@ namespace Scenes.Game.Balls.Base
         }
 
         public void SetCurrentSpeedProgress(float value) => _currentSpeedProgress = value;
+
+
+        private bool _isAngryBall;
+        public void SetAngryBall(bool value)
+        {
+            _isAngryBall = value;
+        }
     }
 }

@@ -12,6 +12,6 @@
         HorizontalBomb,
         VerticalBomb,
         CaptiveBall = 200,
-        
+        AngryBall,
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3230836259218903637}
   - component: {fileID: 3230836259218903639}
   - component: {fileID: 3230836259218903636}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5881952746967709821}
   - component: {fileID: 5881952746967709822}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BlockView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 5881952749003545332}
   - component: {fileID: 5881952749003545333}
   - component: {fileID: 5881952749003545328}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HorizontalBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}

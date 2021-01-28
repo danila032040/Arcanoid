@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 8903819894426366160}
   - component: {fileID: 479106398499040811}
   - component: {fileID: 1247726266883167337}
-  m_Layer: 0
+  - component: {fileID: 648355273392576161}
+  m_Layer: 8
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,3 +183,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthConfiguration: {fileID: 11400000, guid: 000fdd9a4266f2745ba2062eb4882a86,
     type: 2}
+--- !u!114 &648355273392576161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479106398499040810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4bb4efc4fdc41ddbd93e8b821ef40e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 479106398499040805}
+  _angryColor: {r: 1, g: 0, b: 0, a: 1}
+  _normalColor: {r: 1, g: 1, b: 1, a: 1}

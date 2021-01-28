@@ -1,3 +1,4 @@
+using System;
 using Configurations;
 using Scenes.Game.Blocks.Base;
 using UnityEngine;
@@ -10,16 +11,7 @@ namespace Scenes.Game.Balls.Base
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            CheckCollisionWithBall(collision);
             CheckCollisionWithDestroyableBlock(collision);
-        }
-
-        private void CheckCollisionWithBall(Collision2D collision)
-        {
-            Ball ball = collision.gameObject.GetComponent<Ball>();
-            if (!ball) return;
-            
-            Physics2D.IgnoreCollision(this.GetComponent<Collider2D>(), collision.collider);
         }
 
         private void CheckCollisionWithDestroyableBlock(Collision2D collision)
@@ -27,7 +19,18 @@ namespace Scenes.Game.Balls.Base
             DestroyableBlock block = collision.gameObject.GetComponent<DestroyableBlock>();
             if (!block) return;
 
-            block.GetBlockDestructibility().AddHealth(_healthConfiguration.AddHealthToBlockForCollisionWithBall);
+            if (_isAngryBall)
+            {
+                block.GetBlockDestructibility().SetHealth(_healthConfiguration.MinPlayerHealthValue);
+            }
+            else
+            {
+                block.GetBlockDestructibility().AddHealth(_healthConfiguration.AddHealthToBlockForCollisionWithBall);
+            }
         }
+
+
+        private bool _isAngryBall = false;
+        public void SetAngryBall(bool value) =>_isAngryBall = value;
     }
 }

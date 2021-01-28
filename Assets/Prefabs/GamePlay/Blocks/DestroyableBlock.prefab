@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 81621840345489812}
   - component: {fileID: 3753516454069704733}
   - component: {fileID: 81621840345489813}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DestroyableBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 81621841540367207}
   - component: {fileID: 81621841540367204}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BlockView
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -28,11 +28,18 @@ namespace Scenes.Game.Blocks.Base
             
         }
 
+        public void SetHealth(int value)
+        {
+            int oldValue = _health;
+            _health = value;
+            OnHealthValueChanged(oldValue, _health);
+        }
+
         public float GetHealthPercentage() => _health * 1f / _maxHealth;
 
-        private void OnHealthValueChanged(int oldvalue, int newvalue)
+        private void OnHealthValueChanged(int oldValue, int newValue)
         {
-            HealthValueChanged?.Invoke(this, oldvalue, newvalue);
+            HealthValueChanged?.Invoke(this, oldValue, newValue);
         }
     }
 }
