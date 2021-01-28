@@ -1,8 +1,11 @@
-﻿using SaveLoadSystem;
+﻿using Context;
+using EnergySystem;
+using SaveLoadSystem;
 using SaveLoadSystem.Data;
 using SaveLoadSystem.Interfaces;
 using SaveLoadSystem.Interfaces.SaveLoaders;
 using SceneLoader;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +14,7 @@ namespace Scenes.Start
     public class StartSceneController : MonoBehaviour
     {
         [SerializeField] private Button _buttonStartGame;
+        [SerializeField] private TextMeshProUGUI _energyPointsCountText;
 
 
         private IPlayerInfoSaveLoader _playerInfoSaveLoader;
@@ -27,6 +31,8 @@ namespace Scenes.Start
         {
             Init(new InfoSaveLoader(), _packProviderImpl);
             _buttonStartGame.onClick.AddListener(StartGame);
+            _energyPointsCountText.text = $"{EnergyManager.Instance.GetEnergyPointsCount()}/" +
+                                          $"{ProjectContext.Instance.GetEnergyConfig().GetInitialEnergyPoints()}";
         }
 
         private void StartGame()

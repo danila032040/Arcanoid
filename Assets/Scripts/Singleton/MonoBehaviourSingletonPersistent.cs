@@ -35,6 +35,7 @@ namespace Singleton
         {
             if (_instance == null)
             {
+                //TODO: Init singleton required.
                 _instance = this as T;
                 DontDestroyOnLoad(_instance);
             }

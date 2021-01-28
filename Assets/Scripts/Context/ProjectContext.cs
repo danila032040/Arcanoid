@@ -1,4 +1,5 @@
 using Configurations;
+using EnergySystem;
 using SaveLoadSystem;
 using SaveLoadSystem.Interfaces;
 using Singleton;
@@ -10,11 +11,13 @@ namespace Context
     {
         private const string ProjectPrefabsConfigPlace = "Configurations/ProjectPrefabsConfiguration";
         private const string HealthConfigPlace = "Configurations/HealthConfiguration";
+        private const string EnergyConfigPlace = "Configurations/EnergyConfiguration";
         
         private const string PackProviderPlace = "Packs/PackProvider";
 
         private ProjectPrefabsConfig _prefabsConfig;
         private HealthConfiguration _healthConfig;
+        private EnergyConfiguration _energyConfig;
         
         private IPackProvider _packProvider;
 
@@ -22,6 +25,7 @@ namespace Context
         {
             _prefabsConfig = Resources.Load<ProjectPrefabsConfig>(ProjectPrefabsConfigPlace);
             _healthConfig = Resources.Load<HealthConfiguration>(HealthConfigPlace);
+            _energyConfig = Resources.Load<EnergyConfiguration>(EnergyConfigPlace);
             
             _packProvider = Resources.Load<PackProvider>(PackProviderPlace);
         }
@@ -29,6 +33,7 @@ namespace Context
         public ProjectPrefabsConfig GetPrefabsConfig() => _prefabsConfig;
 
         public HealthConfiguration GetHealthConfig() => _healthConfig;
+        public EnergyConfiguration GetEnergyConfig() => _energyConfig;
         
         public IPackProvider GetPackProvider() => _packProvider;
 

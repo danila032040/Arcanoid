@@ -3,12 +3,14 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Context;
 using DG.Tweening;
+using EnergySystem;
 using SaveLoadSystem;
 using SaveLoadSystem.Data;
 using SaveLoadSystem.Interfaces;
 using SaveLoadSystem.Interfaces.SaveLoaders;
 using SceneLoader;
 using Scenes.ChoosePack.Packs;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +21,8 @@ namespace Scenes.ChoosePack
         [SerializeField] private Pack _packPrefab;
         [SerializeField] private Transform _packsParent;
         [SerializeField] private ScrollRect _scrollRect;
+        [SerializeField] private TextMeshProUGUI _energyPointsCountText;
+        [SerializeField] private Button _buttonReturn;
 
 
         private IPackProvider _packProvider;
@@ -39,16 +43,16 @@ namespace Scenes.ChoosePack
             Init(ProjectContext.Instance.GetPackProvider(), new InfoSaveLoader(), DataProviderBetweenScenes.Instance);
             SpawnPacks();
             ScrollToLastOpenedPack();
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
+            
+            _energyPointsCountText.text = $"{EnergyManager.Instance.GetEnergyPointsCount()}/" +
+                                          $"{ProjectContext.Instance.GetEnergyConfig().GetInitialEnergyPoints()}";
+            _buttonReturn.onClick.AddListener(() =>
             {
-                ScrollToLastOpenedPack();
-            }
+                SceneLoaderController.Instance.LoadScene(LoadingScene.StartScene);
+            });
+            
         }
-
+        
         private Pack[] _packs;
 
         public void SpawnPacks()
