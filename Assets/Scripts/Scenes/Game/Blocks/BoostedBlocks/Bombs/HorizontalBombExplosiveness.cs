@@ -10,17 +10,15 @@ namespace Scenes.Game.Blocks.BoostedBlocks.Bombs
         {
             int i = position.x;
             int j = position.y;
-            while (j >= 0)
+            while (--j >= 0)
             {
                 DoDamage(blocks[i, j]);
-                --j;
             }
 
             j = position.y;
-            while (j <= blocks.GetLength(1) - 1)
+            while (++j <= blocks.GetLength(1) - 1)
             {
                 DoDamage(blocks[i, j]);
-                ++j;
             }
         }
     }

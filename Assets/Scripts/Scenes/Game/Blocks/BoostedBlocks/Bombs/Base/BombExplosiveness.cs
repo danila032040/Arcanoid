@@ -26,7 +26,7 @@ namespace Scenes.Game.Blocks.BoostedBlocks.Bombs.Base
 
         protected void DoDamage(Block block)
         {
-            DestroyableBlock db = (DestroyableBlock)block;
+            DestroyableBlock db = block as DestroyableBlock;
             db?.GetBlockDestructibility().AddHealth(-_damage);
         }
 

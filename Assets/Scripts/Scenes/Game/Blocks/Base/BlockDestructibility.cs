@@ -1,3 +1,4 @@
+using Context;
 using Scenes.Game.Utils;
 using UnityEngine;
 
@@ -23,6 +24,7 @@ namespace Scenes.Game.Blocks.Base
 
         public void AddHealth(int health)
         {
+            if (_health <= ProjectContext.Instance.GetHealthConfig().MinPlayerHealthValue) return;
             _health += health;
             OnHealthValueChanged(_health - health, _health);
             

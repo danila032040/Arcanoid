@@ -1,6 +1,6 @@
 {
-  "_name": "First Level",
-  "_fileName": "FirstLevel",
+  "_name": "Level 1",
+  "_fileName": "Level1",
   "_bricks": [
     2, 2, 2, 2, 400, 2, 2, 2, 2,
     2, 0, 0, 0, 0, 0, 0, 0, 2,
