@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 479106398499040811}
   - component: {fileID: 1247726266883167337}
   - component: {fileID: 648355273392576161}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 862f0f5f687fa2246a7e0b24a6cf9d18, type: 2}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -122,7 +122,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84279ff8ffd83894b895bf6b7dd9c317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attachOffset: {x: 0, y: 0.13, z: 0}
+  _attachOffset: {x: 0, y: 0.2, z: 0}
   _rb: {fileID: 479106398499040807}
 --- !u!114 &479106398499040811
 MonoBehaviour:
@@ -168,8 +168,11 @@ MonoBehaviour:
   _initialSpeed: 1
   _maxSpeed: 3
   _angleWithHorToChangeDirection: 20
-  _minChangeAngle: 30
-  _maxChangeAngle: 45
+  _minHorChangeAngle: 30
+  _maxHorChangeAngle: 45
+  _angleWithVertToChangeDirection: 5
+  _minVertChangeAngle: 10
+  _maxVertChangeAngle: 30
 --- !u!114 &1247726266883167337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1912977568811114435}
   - component: {fileID: 967973879023987275}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: BallTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,9 +243,9 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 862f0f5f687fa2246a7e0b24a6cf9d18, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.09
+  m_Radius: 0.05

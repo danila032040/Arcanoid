@@ -66,8 +66,12 @@ namespace Scenes.Game.Balls.Base
 
 
         [SerializeField] private float _angleWithHorToChangeDirection;
-        [SerializeField] private float _minChangeAngle;
-        [SerializeField] private float _maxChangeAngle;
+        [SerializeField] private float _minHorChangeAngle;
+        [SerializeField] private float _maxHorChangeAngle;
+
+        [SerializeField] private float _angleWithVertToChangeDirection;
+        [SerializeField] private float _minVertChangeAngle;
+        [SerializeField] private float _maxVertChangeAngle;
 
         private void NormalizeVelocity(Vector2 direction)
         {
@@ -76,7 +80,12 @@ namespace Scenes.Game.Balls.Base
             if (Vector2.Angle(_rb.velocity, Vector2.left) <= _angleWithHorToChangeDirection ||
                 Vector2.Angle(_rb.velocity, Vector2.right) <= _angleWithHorToChangeDirection)
             {
-                _rb.velocity = Quaternion.Euler(0, 0, Random.Range(_minChangeAngle, _maxChangeAngle)) * _rb.velocity;
+                _rb.velocity = Quaternion.Euler(0, 0, Random.Range(_minHorChangeAngle, _maxHorChangeAngle)) * _rb.velocity;
+            }
+            if (Vector2.Angle(_rb.velocity, Vector2.up) <= _angleWithVertToChangeDirection ||
+                Vector2.Angle(_rb.velocity, Vector2.down) <= _angleWithVertToChangeDirection)
+            {
+                _rb.velocity = Quaternion.Euler(0, 0, Random.Range(_minVertChangeAngle, _maxVertChangeAngle)) * _rb.velocity;
             }
         }
 
