@@ -1,16 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using SaveLoadSystem.Interfaces.Infos;
-using Scenes.Game.Balls;
 using Scenes.Game.Blocks.Base;
-using Scenes.Game.Blocks.BoostedBlocks.Base;
-using Scenes.Game.Blocks.BoostedBlocks.Bombs.Base;
-using Scenes.Game.Blocks.BoostedBlocks.NonCatchableBoosts.CaptiveBall;
+using Scenes.Game.Blocks.Boosters.Base;
 using Scenes.Game.Blocks.Pool;
-using Scenes.Game.Paddles;
-using Scenes.Game.Player;
-using Scenes.Game.Services.Cameras.Implementations;
-using Scenes.Game.Services.Cameras.Interfaces;
+using Scenes.Game.Contexts;
+using Scenes.Game.Contexts.InitializationInterfaces;
+using Scenes.Game.Utils;
 using UnityEngine;
 
 namespace Scenes.Game.Blocks
@@ -19,47 +16,31 @@ namespace Scenes.Game.Blocks
     {
         [Range(0f, 1f)] [SerializeField] private float _topOffset;
 
-        [SerializeField] private BallsManager _ballsManager;
-        [SerializeField] private HpController _hpController;
-        [SerializeField] private Paddle _paddle;
+        [SerializeField] private GameContext _gameContext;
+        [SerializeField] private BlocksPoolManager _poolManager;
+
 
         private Block[,] _blocks;
-
-        private ICameraService _cameraService;
-        private Camera _camera;
-        private BlocksPoolManager _poolManager;
 
         public Block[,] GetBlocks() => _blocks;
 
         public event Action<Block[,]> BlocksChanged;
 
-        public void Init(ICameraService cameraService, Camera currentCamera, BlocksPoolManager poolManager)
-        {
-            _cameraService = cameraService;
-            _camera = currentCamera;
-            _poolManager = poolManager;
-        }
-
-        [SerializeField] private BlocksPoolManager _poolManagerImpl;
-        public void Awake()
-        {
-            Init(new CameraService(), Camera.main, _poolManagerImpl);
-        }
-
         public void SpawnBlocks(IBlockLevelInfo info)
         {
             if (!(_blocks is null)) DeleteBlocks();
             int n = info.Map.GetLength(0);
-             int m = info.Map.GetLength(1);
+            int m = info.Map.GetLength(1);
 
             float blockWidth = Mathf.Max(0,
-                _cameraService.GetWorldPointWidth(_camera) - info.LeftOffset - info.RightOffset -
+                _gameContext.CameraService.GetWorldPointWidth(_gameContext.Camera) - info.LeftOffset -
+                info.RightOffset -
                 info.OffsetBetweenRows * (m - 1)) / m;
 
             _blocks = new Block[n, m];
 
 
-            Vector3 startPos = _camera.ViewportToWorldPoint(new Vector3(0, (1 - _topOffset), 0));
+            Vector3 startPos = _gameContext.Camera.ViewportToWorldPoint(new Vector3(0, (1 - _topOffset), 0));
             startPos.z = 0;
             startPos.x += info.LeftOffset;
 
@@ -74,6 +55,7 @@ namespace Scenes.Game.Blocks
                     _blocks[i, j] = SpawnOneBlock(currPosition, info.Map[i, j], info.BlockHeight, blockWidth);
                 }
             }
+
             OnBlocksChanged(_blocks);
         }
 
@@ -103,21 +85,20 @@ namespace Scenes.Game.Blocks
         }
 
 
-        
-
-        private void BlockHealthValueChanged(object sender, int oldValue, int newValue)
+        private void BlockHealthValueChanged(KeyValuePair<DestroyableBlock, int> info)
         {
+            Block block = info.Key;
+            int newValue = info.Value;
+
             if (newValue <= 0)
             {
-                Block block = sender as Block;
-                var bfBlock = block.GetComponent<BoostEffect>();
-                if (bfBlock)
+                if (!ReferenceEquals(block, null))
                 {
-                    (bfBlock as CatchableBoostEffectSpawner)?.Init(_ballsManager, _hpController, _paddle);
-                    bfBlock.Use();
+                    block.GetComponent<Boost>()?.Use();
+
+                    DeleteOneBlock(block);
+                    OnBlocksChanged(_blocks);
                 }
-                DeleteOneBlock(block);
-                OnBlocksChanged(_blocks);
             }
         }
 
@@ -126,7 +107,7 @@ namespace Scenes.Game.Blocks
             if (type == BlockType.None) return null;
 
             Block block = _poolManager.Get(type);
-            
+
             var blockTransform = block.gameObject.transform;
             blockTransform.position = position;
             blockTransform.rotation = Quaternion.identity;
@@ -141,30 +122,27 @@ namespace Scenes.Game.Blocks
                 dBlock.GetBlockDestructibility().InitValues();
             }
 
-            var bBlock = block as Bomb;
-            bBlock?.GetBombExplosiveness().Init(this);
-
-            var cBallBlock = block as CaptiveBallBoostEffectBlock;
-            cBallBlock?.GetCaptiveBallBoostEffect().Init(_ballsManager);
+            block.GetComponent<IInitContext<BoostContext>>()?.Init(_gameContext.BoostContext);
 
             return block;
         }
+
         private void DeleteOneBlock(Block block)
         {
             if (ReferenceEquals(block, null)) return;
-            
+
             var dBlock = block as DestroyableBlock;
             if (!(dBlock is null))
             {
                 dBlock.HealthValueChanged -= BlockHealthValueChanged;
             }
-            
+
             _poolManager.Remove(block);
 
             for (int i = 0; i < _blocks.GetLength(0); ++i)
             {
                 for (int j = 0; j < _blocks.GetLength(1); ++j)
-                    if (_blocks[i, j] == block)
+                    if (ReferenceEquals(_blocks[i, j], block))
                     {
                         _blocks[i, j] = null;
                         return;
@@ -172,7 +150,7 @@ namespace Scenes.Game.Blocks
             }
         }
 
-        protected virtual void OnBlocksChanged(Block[,] obj)
+        private void OnBlocksChanged(Block[,] obj)
         {
             BlocksChanged?.Invoke(obj);
         }

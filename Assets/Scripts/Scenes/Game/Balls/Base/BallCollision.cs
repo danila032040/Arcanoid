@@ -9,6 +9,8 @@ namespace Scenes.Game.Balls.Base
     {
         [SerializeField] private HealthConfiguration _healthConfiguration;
 
+        public event Action<DestroyableBlock> CollisionWithDestroyableBlock;
+        
         private void OnCollisionEnter2D(Collision2D collision)
         {
             CheckCollisionWithDestroyableBlock(collision.collider);
@@ -23,19 +25,13 @@ namespace Scenes.Game.Balls.Base
         {
             DestroyableBlock block = collision.gameObject.GetComponent<DestroyableBlock>();
             if (!block) return;
-
-            if (_isAngryBall)
-            {
-                block.GetBlockDestructibility().SetHealth(_healthConfiguration.MinPlayerHealthValue);
-            }
-            else
-            {
-                block.GetBlockDestructibility().AddHealth(_healthConfiguration.AddHealthToBlockForCollisionWithBall);
-            }
+            block.GetBlockDestructibility().AddHealth(_healthConfiguration.AddHealthToBlockForCollisionWithBall);
+            OnCollisionWithDestroyableBlock(block);
         }
 
-
-        private bool _isAngryBall = false;
-        public void SetAngryBall(bool value) =>_isAngryBall = value;
+        private void OnCollisionWithDestroyableBlock(DestroyableBlock block)
+        {
+            CollisionWithDestroyableBlock?.Invoke(block);
+        }
     }
 }

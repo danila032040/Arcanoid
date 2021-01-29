@@ -8,18 +8,19 @@ namespace Scenes.Game.Blocks.Pool
     {
         [SerializeField] private BlocksPool[] _pools;
 
+        private readonly Dictionary<BlockType, BlocksPool> _dictionary = new Dictionary<BlockType, BlocksPool>();
+        private void Awake()
+        {
+            foreach (BlocksPool pool in _pools)
+            {
+                _dictionary.Add(pool.GetBlockType(), pool);
+            }
+        }
+
         public Block Get(BlockType type) => GetPool(type).Get();
 
         public void Remove(Block block) => GetPool(block.GetBlockType()).Remove(block);
 
-        private BlocksPool GetPool(BlockType type)
-        {
-            foreach (BlocksPool pool in _pools)
-            {
-                if (pool.GetBlockType() == type) return pool;
-            }
-
-            throw new KeyNotFoundException(type.ToString());
-        }
+        private BlocksPool GetPool(BlockType type) => _dictionary[type];
     }
 }

@@ -1,4 +1,5 @@
 using Scenes.Game.Utils;
+using Unity.Mathematics;
 
 namespace Scenes.Game.Player
 {
@@ -6,11 +7,12 @@ namespace Scenes.Game.Player
     {
         private int _health;
 
-        public event OnIntValueChanged HealthValueChanged;
+        public event OnValueChanged<int> HealthValueChanged;
 
         public void AddHealth(int value)
         {
             _health += value;
+            _health = math.max(_health, 0);
             OnHealthValueChanged(_health - value, _health);
         }
 
@@ -23,7 +25,7 @@ namespace Scenes.Game.Player
 
         private void OnHealthValueChanged(int oldValue, int newValue)
         {
-            HealthValueChanged?.Invoke(this, oldValue, newValue);
+            HealthValueChanged?.Invoke(oldValue, newValue);
         }
 
         public int GetHpValue() => _health;

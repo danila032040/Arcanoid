@@ -10,7 +10,7 @@ namespace Scenes.Game.Blocks.Base
         
         private int _health;
         
-        public event OnIntValueChanged HealthValueChanged;
+        public event OnValueChanged<int> HealthValueChanged;
 
         private void Awake()
         {
@@ -41,7 +41,7 @@ namespace Scenes.Game.Blocks.Base
 
         private void OnHealthValueChanged(int oldValue, int newValue)
         {
-            HealthValueChanged?.Invoke(this, oldValue, newValue);
+            HealthValueChanged?.Invoke(oldValue, newValue);
         }
     }
 }

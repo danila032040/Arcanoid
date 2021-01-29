@@ -88,6 +88,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6507056376657177669, guid: 82b03961d24e14d41a283cb733e041a7,
         type: 3}
+    - target: {fileID: 5274406732908355569, guid: 8a3e4bf181fadcb4983081d28dffb682,
+        type: 3}
+      propertyPath: _catchableBoostPrefab
+      value: 
+      objectReference: {fileID: 6507056376657177669, guid: 82b03961d24e14d41a283cb733e041a7,
+        type: 3}
     - target: {fileID: 5274406734901280099, guid: 8a3e4bf181fadcb4983081d28dffb682,
         type: 3}
       propertyPath: m_Color.r

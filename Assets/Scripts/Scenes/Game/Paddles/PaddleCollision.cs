@@ -1,5 +1,5 @@
 using System;
-using Scenes.Game.Blocks.BoostedBlocks.Base;
+using Scenes.Game.Blocks.Boosters.Base;
 using UnityEngine;
 
 namespace Scenes.Game.Paddles
@@ -14,10 +14,10 @@ namespace Scenes.Game.Paddles
 
         private void CheckTriggerWithCatchableBoostEffect(Collider2D triggeredCollider)
         {
-            CatchableBoostEffect catchableBoostEffect = triggeredCollider.gameObject.GetComponent<CatchableBoostEffect>();
-            if (!catchableBoostEffect) return;
+            CatchableBoost catchableBoost = triggeredCollider.gameObject.GetComponent<CatchableBoost>();
+            if (!catchableBoost) return;
             
-            catchableBoostEffect.Catch();
+            catchableBoost.Use();
         }
     }
 }

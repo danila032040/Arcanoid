@@ -13,8 +13,6 @@ namespace Scenes.Game.Paddles
     public class PaddleMovement : MonoBehaviour
     {
         [SerializeField] private float _initialMoveSpeed;
-        [SerializeField] private float _increasedSpeed;
-        [SerializeField] private float _decreaseSpeed;
 
 
         [SerializeField] private PaddleView _paddleView;
@@ -127,51 +125,8 @@ namespace Scenes.Game.Paddles
         }
 
 
-        private Coroutine _incDecSpeedCoroutine;
-
-        public void DecreaseSpeed(float effectDuration)
-        {
-            if (_incDecSpeedCoroutine != null)
-            {
-                StopCoroutine(_incDecSpeedCoroutine);
-                _incDecSpeedCoroutine = null;
-            }
-
-            _incDecSpeedCoroutine =
-                StartCoroutine(ChangeSpeedForDuration(_initialMoveSpeed, _decreaseSpeed, effectDuration));
-        }
-
-        public void IncreaseSpeed(float effectDuration)
-        {
-            if (_incDecSpeedCoroutine != null)
-            {
-                StopCoroutine(_incDecSpeedCoroutine);
-                _incDecSpeedCoroutine = null;
-            }
-
-            _incDecSpeedCoroutine =
-                StartCoroutine(ChangeSpeedForDuration(_initialMoveSpeed, _increasedSpeed, effectDuration));
-        }
-
-
-        [SerializeField] private float _changeSpeedAnimationDuration;
-
-        private IEnumerator ChangeSpeedForDuration(float initialSpeed, float speed, float effectDuration)
-        {
-            yield return DOTween.To(() => _currentMoveSpeed, x => _currentMoveSpeed = x, speed,
-                    _changeSpeedAnimationDuration)
-                .WaitForCompletion();
-            yield return new WaitForSeconds(effectDuration);
-            yield return DOTween.To(() => _currentMoveSpeed, x => _currentMoveSpeed = x, initialSpeed,
-                    _changeSpeedAnimationDuration)
-                .WaitForCompletion();
-        }
-
-        public void ResetChangeSpeedForDuration()
-        {
-            if (_incDecSpeedCoroutine != null)
-                StopCoroutine(_incDecSpeedCoroutine);
-            _currentMoveSpeed = _initialMoveSpeed;
-        }
+        public float GetInitialSpeed() => _initialMoveSpeed;
+        public float GetCurrentSpeed() => _currentMoveSpeed;
+        public void SetSpeed(float value) => _currentMoveSpeed = value;
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Pool.Abstracts;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Scenes.Game.Player
@@ -31,6 +32,7 @@ namespace Scenes.Game.Player
         public void AddHealth(int value)
         {
             _health += value;
+            _health = math.max(_health, 0);
             SetEqualOneHpViewCount();
         }
 

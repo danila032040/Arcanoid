@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using Scenes.Game.Utils;
 using UnityEngine;
@@ -9,7 +11,7 @@ namespace Scenes.Game.Blocks.Base
     {
         private BlockDestructibility _blockDestructibility;
 
-        public event OnIntValueChanged HealthValueChanged;
+        public event Action<KeyValuePair<DestroyableBlock, int>> HealthValueChanged;
 
         protected override void Awake()
         {
@@ -17,18 +19,18 @@ namespace Scenes.Game.Blocks.Base
 
             _blockDestructibility = GetComponent<BlockDestructibility>();
 
-            _blockDestructibility.HealthValueChanged += (sender, value, newValue) =>
+            _blockDestructibility.HealthValueChanged += (value, newValue) =>
             {
                 GetBlockView().GetSpriteRenderer().DOFade(_blockDestructibility.GetHealthPercentage(), 0f);
-                OnHealthValueChanged(value, newValue);
+                OnHealthValueChanged(newValue);
             };
         }
 
         public BlockDestructibility GetBlockDestructibility() => _blockDestructibility;
 
-        private void OnHealthValueChanged(int oldValue, int newValue)
+        private void OnHealthValueChanged( int newValue)
         {
-            HealthValueChanged?.Invoke(this, oldValue, newValue);
+            HealthValueChanged?.Invoke(new KeyValuePair<DestroyableBlock, int>(this, newValue));
         }
     }
 }

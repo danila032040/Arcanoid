@@ -26,12 +26,6 @@ namespace Scenes.Game.Balls.Base
         public BallAttachment GetBallAttachment() => _ballAttachment;
         public BallCollision GetBallCollision() => _ballCollision;
         public BallView GetBallView() => _ballView;
-
-        public void SetAngryBall(bool value)
-        {
-            _ballCollision.SetAngryBall(value);
-            _ballMovement.SetAngryBall(value);
-            _ballView.SetAngryBall(value);
-        }
+        
     }
 }

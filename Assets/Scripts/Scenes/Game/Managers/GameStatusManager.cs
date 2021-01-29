@@ -19,7 +19,7 @@ namespace Scenes.Game.Managers
         [SerializeField] private PopUpsManager _popUpsManager;
         [SerializeField] private LevelsManager _levelsManager;
 
-        public event OnFloatValueChanged ProgressValueChanged;
+        public event OnValueChanged<float> ProgressValueChanged;
 
         private void Awake()
         {
@@ -29,9 +29,7 @@ namespace Scenes.Game.Managers
 
         public void Reset()
         {
-            _maxDestroyableBlocksCount = GetDestroyableBlocksCount(_blocksManager.GetBlocks());
-            _ballsManager.ResetChangeSpeedForDuration();
-            BlocksManagerOnBlocksChanged(_blocksManager.GetBlocks());
+            _maxDestroyableBlocksCount = GetDestroyableBlocksCount(_blocksManager.GetBlocks()); BlocksManagerOnBlocksChanged(_blocksManager.GetBlocks());
 
             int levelNumber = DataProviderBetweenScenes.Instance.GetCurrentLevelNumber();
             int packNumber = DataProviderBetweenScenes.Instance.GetCurrentPackNumber();
@@ -73,7 +71,7 @@ namespace Scenes.Game.Managers
             return dBlocksCount;
         }
 
-        private float GetCurrentProgress()
+        public float GetCurrentProgress()
         {
             int n = GetDestroyableBlocksCount(_blocksManager.GetBlocks());
             return 1 - Mathf.Clamp01(n * 1f / _maxDestroyableBlocksCount);
@@ -83,7 +81,7 @@ namespace Scenes.Game.Managers
         {
             _popUpsManager.GetMainGamePopUp().GetProgressGameView().SetProgressGame(newValue);
             
-            ProgressValueChanged?.Invoke(sender, oldValue, newValue);
+            ProgressValueChanged?.Invoke(oldValue, newValue);
         }
     }
 }

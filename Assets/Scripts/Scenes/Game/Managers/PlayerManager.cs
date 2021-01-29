@@ -45,24 +45,22 @@ namespace Scenes.Game.Managers
             _outOfBoundsWall.OutOfBounds += OutOfBoundsWallOnOutOfBounds;
         }
 
-        private void BallsManagerOnBallsChanged(List<Ball> balls)
+        private void BallsManagerOnBallsChanged(List<Ball> oldBalls, List<Ball> newBalls)
         {
             _gameStatusManager.ChangeBallsSpeedOnBlocksCount();
         }
 
-        public event OnIntValueChanged HealthValueChanged;
+        public event OnValueChanged<int> HealthValueChanged;
 
-        protected virtual void OnHealthValueChanged(object sender, int oldValue, int newValue)
+        protected virtual void OnHealthValueChanged(int oldValue, int newValue)
         {
-            HealthValueChanged?.Invoke(sender, oldValue, newValue);
+            HealthValueChanged?.Invoke(oldValue, newValue);
         }
 
         public void Reset()
         {
             _hpController.SetHpValue(ProjectContext.Instance.GetHealthConfig().InitialPlayerHealthValue);
             AttachBall(_ballsManager.SpawnBall());
-            _paddle.GetPaddleMovement().ResetChangeSpeedForDuration();
-            _paddle.GetPaddleView().ResetChangeSizeForDuration();
         }
 
         private void OutOfBoundsWallOnOutOfBounds(GameObject obj)

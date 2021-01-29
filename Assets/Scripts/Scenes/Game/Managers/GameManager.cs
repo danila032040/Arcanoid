@@ -4,7 +4,7 @@ using SaveLoadSystem;
 using SceneLoader;
 using Scenes.Game.Balls;
 using Scenes.Game.Blocks;
-using Scenes.Game.Blocks.BoostedBlocks.Base;
+using Scenes.Game.Blocks.Boosters.Base;
 using Scenes.Game.Utils;
 using UnityEngine;
 
@@ -61,7 +61,7 @@ namespace Scenes.Game.Managers
             
             _blocksManager.DeleteBlocks();
             _ballsManager.DeleteBalls();
-            foreach (CatchableBoostEffect effect in FindObjectsOfType<CatchableBoostEffect>())
+            foreach (CatchableBoost effect in FindObjectsOfType<CatchableBoost>())
             {
                 Destroy(effect.gameObject);
             }
@@ -155,16 +155,16 @@ namespace Scenes.Game.Managers
         }
 
 
-        private void OnProgressValueChanged(object sender, float oldValue, float newValue)
+        private void OnProgressValueChanged(float oldValue, float newValue)
         {
             if (Mathf.Approximately(newValue, 1f))
             {
                 GameWin();
             }
         }
-        private void OnHealthValueChanged(object sender, int oldValue, int newValue)
+        private void OnHealthValueChanged(int oldValue, int newValue)
         {
-            if (newValue <= ProjectContext.Instance.GetHealthConfig().MinPlayerHealthValue)
+            if (newValue <= ProjectContext.Instance.GetHealthConfig().MinBlockHealthValue)
             {
                 GameOver();
             }

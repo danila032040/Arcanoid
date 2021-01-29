@@ -103,13 +103,6 @@ namespace Scenes.Game.Balls.Base
         }
 
         public void SetCurrentSpeedProgress(float value) => _currentSpeedProgress = value;
-
-
-        private bool _isAngryBall;
-        public void SetAngryBall(bool value)
-        {
-            Physics2D.IgnoreLayerCollision(8,9, value);
-            _isAngryBall = value;
-        }
+        
     }
 }

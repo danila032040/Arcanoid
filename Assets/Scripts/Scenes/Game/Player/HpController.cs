@@ -1,6 +1,5 @@
 using Context;
 using Scenes.Game.Managers;
-using Scenes.Game.PopUps;
 using Scenes.Game.Utils;
 using UnityEngine;
 
@@ -34,18 +33,19 @@ namespace Scenes.Game.Player
         public void AddHpValue(int value)
         {
             if (_model.GetHpValue() + value > ProjectContext.Instance.GetHealthConfig().InitialPlayerHealthValue) return;
-            
             int oldValue = _model.GetHpValue();
+            
             _view.AddHealth(value);
             _model.AddHealth(value);
+            
             OnHealthValueChanged(_model, oldValue, _model.GetHpValue());
         }
 
-        public event OnIntValueChanged HealthValueChanged;
+        public event OnValueChanged<int> HealthValueChanged;
 
         private void OnHealthValueChanged(object sender, int oldValue, int newValue)
         {
-            HealthValueChanged?.Invoke(sender, oldValue, newValue);
+            HealthValueChanged?.Invoke(oldValue, newValue);
         }
     }
 }

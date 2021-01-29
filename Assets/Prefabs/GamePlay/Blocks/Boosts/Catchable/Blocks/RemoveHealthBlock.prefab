@@ -93,6 +93,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9034508234218360552, guid: deb31b6309be8374ea97ea8623f549a1,
         type: 3}
+    - target: {fileID: 5274406732908355569, guid: 8a3e4bf181fadcb4983081d28dffb682,
+        type: 3}
+      propertyPath: _catchableBoostPrefab
+      value: 
+      objectReference: {fileID: 9034508234218360552, guid: deb31b6309be8374ea97ea8623f549a1,
+        type: 3}
     - target: {fileID: 5274406734901280097, guid: 8a3e4bf181fadcb4983081d28dffb682,
         type: 3}
       propertyPath: m_Layer
