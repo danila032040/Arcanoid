@@ -4,6 +4,7 @@ using Configurations;
 using Context;
 using Scenes.Game.Balls;
 using Scenes.Game.Balls.Base;
+using Scenes.Game.Contexts;
 using Scenes.Game.Paddles;
 using Scenes.Game.Player;
 using Scenes.Game.Services.Inputs.Implementations;
@@ -16,38 +17,18 @@ namespace Scenes.Game.Managers
 {
     public class PlayerManager : MonoBehaviour
     {
-        private IInputService _inputService;
-
-        [SerializeField] private GameStatusManager _gameStatusManager;
-
-        [SerializeField] private HpController _hpController;
-        [SerializeField] private BallsManager _ballsManager;
-
-
-        [SerializeField] private Paddle _paddle;
-        [SerializeField] private OutOfBoundsWall _outOfBoundsWall;
-
-
-        public void Init(IInputService inputService)
-        {
-            _inputService = inputService;
-        }
-
-
-        [SerializeField] private InputService _inputServiceImpl;
+        [SerializeField] private GameContext _gameContext;
 
         private void Awake()
         {
-            Init(_inputServiceImpl);
-
-            _hpController.HealthValueChanged += OnHealthValueChanged;
-            _ballsManager.BallsChanged += BallsManagerOnBallsChanged;
-            _outOfBoundsWall.OutOfBounds += OutOfBoundsWallOnOutOfBounds;
+            _gameContext.HpController.HealthValueChanged += OnHealthValueChanged;
+            _gameContext.BallsManager.BallsChanged += BallsManagerOnBallsChanged;
+            _gameContext.OutOfBoundsWall.OutOfBounds += OutOfBoundsWallOnOutOfBounds;
         }
 
         private void BallsManagerOnBallsChanged(List<Ball> oldBalls, List<Ball> newBalls)
         {
-            _gameStatusManager.ChangeBallsSpeedOnBlocksCount();
+            _gameContext.GameStatusManager.ChangeBallsSpeedOnBlocksCount();
         }
 
         public event OnValueChanged<int> HealthValueChanged;
@@ -59,8 +40,8 @@ namespace Scenes.Game.Managers
 
         public void Reset()
         {
-            _hpController.SetHpValue(ProjectContext.Instance.GetHealthConfig().InitialPlayerHealthValue);
-            AttachBall(_ballsManager.SpawnBall());
+            _gameContext.HpController.SetHpValue(ProjectContext.Instance.GetHealthConfig().InitialPlayerHealthValue);
+            AttachBall(_gameContext.BallsManager.SpawnBall());
         }
 
         private void OutOfBoundsWallOnOutOfBounds(GameObject obj)
@@ -68,11 +49,11 @@ namespace Scenes.Game.Managers
             Ball ball = obj.GetComponent<Ball>();
             if (!ReferenceEquals(ball, null))
             {
-                _ballsManager.RemoveBall(ball);
-                if (_ballsManager.GetBallsCount() <= 0)
+                _gameContext.BallsManager.RemoveBall(ball);
+                if (_gameContext.BallsManager.GetBallsCount() <= 0)
                 {
-                    AttachBall(_ballsManager.SpawnBall());
-                    _hpController.AddHpValue(ProjectContext.Instance.GetHealthConfig()
+                    AttachBall(_gameContext.BallsManager.SpawnBall());
+                    _gameContext.HpController.AddHpValue(ProjectContext.Instance.GetHealthConfig()
                         .AddHealthToPlayerForLoosingAllBalls);
                 }
             }
@@ -83,13 +64,13 @@ namespace Scenes.Game.Managers
         private void AttachBall(Ball ball)
         {
             _attachedBall = ball;
-            _attachedBall.GetBallAttachment().AttachTo(_paddle.transform);
-            _inputService.MouseButtonUp += DetachBall;
+            _attachedBall.GetBallAttachment().AttachTo(_gameContext.Paddle.transform);
+            _gameContext.InputService.MouseButtonUp += DetachBall;
         }
 
         private void DetachBall()
         {
-            _inputService.MouseButtonUp -= DetachBall;
+            _gameContext.InputService.MouseButtonUp -= DetachBall;
             _attachedBall.GetBallAttachment().Detach();
             _attachedBall.GetBallMovement().StartMoving();
         }

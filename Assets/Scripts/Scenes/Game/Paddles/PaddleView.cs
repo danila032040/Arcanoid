@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
+﻿using Scenes.Game.Balls.Base;
 using UnityEngine;
 
 namespace Scenes.Game.Paddles
@@ -18,11 +15,18 @@ namespace Scenes.Game.Paddles
             _initialScale = transform.localScale;
         }
 
-        public float Width => this.transform.localScale.x * _collider.size.x;
-        public float Height => this.transform.localScale.y * _collider.size.y;
+        public float Width => transform.localScale.x * _collider.size.x;
+        public float Height => transform.localScale.y * _collider.size.y;
 
         public Vector3 GetInitialScale() => _initialScale;
         public Vector3 GetCurrentScale() => transform.localScale;
-        public void SetScale(Vector3 scale) => transform.localScale = scale;
+
+        public void SetScale(Vector3 scale)
+        {
+            BallAttachment ballAttachment = GetComponentInChildren<BallAttachment>();
+            ballAttachment?.Detach();
+            transform.localScale = scale;
+            ballAttachment?.AttachTo(transform);
+        }
     }
 }

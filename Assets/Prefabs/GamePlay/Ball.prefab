@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84279ff8ffd83894b895bf6b7dd9c317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attachOffset: {x: 0, y: 0.2, z: 0}
+  _attachOffset: {x: 0, y: 0.15, z: 0}
   _rb: {fileID: 479106398499040807}
 --- !u!114 &479106398499040811
 MonoBehaviour:
@@ -200,8 +200,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 479106398499040805}
-  _angryColor: {r: 1, g: 0, b: 0, a: 1}
-  _normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1028640583554347504
 GameObject:
   m_ObjectHideFlags: 0

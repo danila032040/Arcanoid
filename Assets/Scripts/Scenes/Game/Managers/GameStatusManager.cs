@@ -5,6 +5,7 @@ using Scenes.Game.Balls;
 using Scenes.Game.Balls.Base;
 using Scenes.Game.Blocks;
 using Scenes.Game.Blocks.Base;
+using Scenes.Game.Contexts;
 using Scenes.Game.Utils;
 using UnityEngine;
 
@@ -13,31 +14,28 @@ namespace Scenes.Game.Managers
     public class GameStatusManager : MonoBehaviour
     {
         private int _maxDestroyableBlocksCount = 1;
-        
-        [SerializeField] private BallsManager _ballsManager;
-        [SerializeField] private BlocksManager _blocksManager;
-        [SerializeField] private PopUpsManager _popUpsManager;
-        [SerializeField] private LevelsManager _levelsManager;
+
+        [SerializeField] private GameContext _gameContext;
 
         public event OnValueChanged<float> ProgressValueChanged;
 
         private void Awake()
         {
-            _blocksManager.BlocksChanged += BlocksManagerOnBlocksChanged;
+            _gameContext.BlocksManager.BlocksChanged += BlocksManagerOnBlocksChanged;
             _lastProgress = GetCurrentProgress();
         }
 
         public void Reset()
         {
-            _maxDestroyableBlocksCount = GetDestroyableBlocksCount(_blocksManager.GetBlocks()); BlocksManagerOnBlocksChanged(_blocksManager.GetBlocks());
+            _maxDestroyableBlocksCount = GetDestroyableBlocksCount(_gameContext.BlocksManager.GetBlocks()); BlocksManagerOnBlocksChanged(_gameContext.BlocksManager.GetBlocks());
 
             int levelNumber = DataProviderBetweenScenes.Instance.GetCurrentLevelNumber();
             int packNumber = DataProviderBetweenScenes.Instance.GetCurrentPackNumber();
 
-            PackInfo packInfo = _levelsManager.LoadPack(packNumber);
+            PackInfo packInfo = _gameContext.LevelsManager.LoadPack(packNumber);
             
-            _popUpsManager.GetMainGamePopUp().GetPackGameView().SetLevelName(packInfo.GetLevelInfos()[levelNumber].Name);
-            _popUpsManager.GetMainGamePopUp().GetPackGameView().SetPackImage(packInfo.GetPackSprite());
+            _gameContext.PopUpsManager.GetMainGamePopUp().GetPackGameView().SetLevelName(packInfo.GetLevelInfos()[levelNumber].Name);
+            _gameContext.PopUpsManager.GetMainGamePopUp().GetPackGameView().SetPackImage(packInfo.GetPackSprite());
         }
 
         private float _lastProgress;
@@ -50,8 +48,8 @@ namespace Scenes.Game.Managers
         
         public void ChangeBallsSpeedOnBlocksCount()
         {
-            Block[,] blocks = _blocksManager.GetBlocks();
-            _ballsManager.SetCurrentSpeedProgress(GetCurrentProgress());
+            Block[,] blocks = _gameContext.BlocksManager.GetBlocks();
+            _gameContext.BallsManager.SetCurrentSpeedProgress(GetCurrentProgress());
         }
         
         private int GetDestroyableBlocksCount(Block[,] blocks)
@@ -73,13 +71,13 @@ namespace Scenes.Game.Managers
 
         public float GetCurrentProgress()
         {
-            int n = GetDestroyableBlocksCount(_blocksManager.GetBlocks());
+            int n = GetDestroyableBlocksCount(_gameContext.BlocksManager.GetBlocks());
             return 1 - Mathf.Clamp01(n * 1f / _maxDestroyableBlocksCount);
         }
 
         private void OnProgressValueChanged(object sender, float oldValue, float newValue)
         {
-            _popUpsManager.GetMainGamePopUp().GetProgressGameView().SetProgressGame(newValue);
+            _gameContext.PopUpsManager.GetMainGamePopUp().GetProgressGameView().SetProgressGame(newValue);
             
             ProgressValueChanged?.Invoke(oldValue, newValue);
         }

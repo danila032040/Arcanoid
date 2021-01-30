@@ -1031,10 +1031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8d1a969f7d6473189125e18dfa5fb94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballsManager: {fileID: 881123442}
-  _blocksManager: {fileID: 881123440}
-  _popUpsManager: {fileID: 881123443}
-  _levelsManager: {fileID: 881123445}
+  _gameContext: {fileID: 881123447}
 --- !u!114 &881123440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1099,12 +1096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263b8fc1b39b47e3b48313209100874b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameStatusManager: {fileID: 881123439}
-  _hpController: {fileID: 912555191}
-  _ballsManager: {fileID: 881123442}
-  _paddle: {fileID: 1745430903}
-  _outOfBoundsWall: {fileID: 218246560}
-  _inputServiceImpl: {fileID: 881123437}
+  _gameContext: {fileID: 881123447}
 --- !u!114 &881123445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1129,12 +1121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c5375a745e4397b06a4129e552cf86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blocksManager: {fileID: 881123440}
-  _ballsManager: {fileID: 881123442}
-  _levelsManager: {fileID: 881123445}
-  _gameStatusManager: {fileID: 881123439}
-  _playerManager: {fileID: 881123444}
-  _popUpsManager: {fileID: 881123443}
+  _gameContext: {fileID: 881123447}
 --- !u!114 &881123447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1175,6 +1162,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _poolManager: {fileID: 1179120340}
   _gameContext: {fileID: 881123447}
+  _effectCollisions:
+  - _firstEffectType: 1
+    _secondEffectType: 2
+  - _firstEffectType: 3
+    _secondEffectType: 4
+  - _firstEffectType: 5
+    _secondEffectType: 6
 --- !u!1 &912555189
 GameObject:
   m_ObjectHideFlags: 0

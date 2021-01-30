@@ -2,9 +2,8 @@ using Context;
 using EnergySystem;
 using SaveLoadSystem;
 using SceneLoader;
-using Scenes.Game.Balls;
-using Scenes.Game.Blocks;
 using Scenes.Game.Blocks.Boosters.Base;
+using Scenes.Game.Contexts;
 using Scenes.Game.Utils;
 using UnityEngine;
 
@@ -12,40 +11,35 @@ namespace Scenes.Game.Managers
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private BlocksManager _blocksManager;
-        [SerializeField] private BallsManager _ballsManager;
-        [SerializeField] private LevelsManager _levelsManager;
-        [SerializeField] private GameStatusManager _gameStatusManager;
-        [SerializeField] private PlayerManager _playerManager;
-        [SerializeField] private PopUpsManager _popUpsManager;
+        [SerializeField] private GameContext _gameContext;
 
         private void Awake()
         {
-            _levelsManager.Init(new InfoSaveLoader());
+            _gameContext.LevelsManager.Init(new InfoSaveLoader());
         }
 
         private void Subscribe()
         {
-            _gameStatusManager.ProgressValueChanged += OnProgressValueChanged;
-            _playerManager.HealthValueChanged += OnHealthValueChanged;
+            _gameContext.GameStatusManager.ProgressValueChanged += OnProgressValueChanged;
+            _gameContext.PlayerManager.HealthValueChanged += OnHealthValueChanged;
 
-            _popUpsManager.PauseGame += PopUpsManagerOnGamePause;
-            _popUpsManager.UnPauseGame += PopUpsManagerOnUnPauseGame;
-            _popUpsManager.RestartGame += PopUpsManagerOnRestartGame;
-            _popUpsManager.ReturnGame += PopUpsManagerOnReturnGame;
-            _popUpsManager.NextLevelGame += PopUpsManagerOnNextLevelGame;
+            _gameContext.PopUpsManager.PauseGame += PopUpsManagerOnGamePause;
+            _gameContext.PopUpsManager.UnPauseGame += PopUpsManagerOnUnPauseGame;
+            _gameContext.PopUpsManager.RestartGame += PopUpsManagerOnRestartGame;
+            _gameContext.PopUpsManager.ReturnGame += PopUpsManagerOnReturnGame;
+            _gameContext.PopUpsManager.NextLevelGame += PopUpsManagerOnNextLevelGame;
         }
         
         private void UnSubscribe()
         {
-            _gameStatusManager.ProgressValueChanged -= OnProgressValueChanged;
-            _playerManager.HealthValueChanged -= OnHealthValueChanged;
+            _gameContext.GameStatusManager.ProgressValueChanged -= OnProgressValueChanged;
+            _gameContext.PlayerManager.HealthValueChanged -= OnHealthValueChanged;
 
-            _popUpsManager.PauseGame -= PopUpsManagerOnGamePause;
-            _popUpsManager.UnPauseGame -= PopUpsManagerOnUnPauseGame;
-            _popUpsManager.RestartGame -= PopUpsManagerOnRestartGame;
-            _popUpsManager.ReturnGame -= PopUpsManagerOnReturnGame;
-            _popUpsManager.NextLevelGame -= PopUpsManagerOnNextLevelGame;
+            _gameContext.PopUpsManager.PauseGame -= PopUpsManagerOnGamePause;
+            _gameContext.PopUpsManager.UnPauseGame -= PopUpsManagerOnUnPauseGame;
+            _gameContext.PopUpsManager.RestartGame -= PopUpsManagerOnRestartGame;
+            _gameContext.PopUpsManager.ReturnGame -= PopUpsManagerOnReturnGame;
+            _gameContext.PopUpsManager.NextLevelGame -= PopUpsManagerOnNextLevelGame;
 
         }
 
@@ -59,34 +53,36 @@ namespace Scenes.Game.Managers
         {
             UnSubscribe();
             
-            _blocksManager.DeleteBlocks();
-            _ballsManager.DeleteBalls();
+            _gameContext.BlocksManager.DeleteBlocks();
+            _gameContext.BallsManager.DeleteBalls();
+            _gameContext.EffectsManager.DeleteEffects();
+            
             foreach (CatchableBoost effect in FindObjectsOfType<CatchableBoost>())
             {
                 Destroy(effect.gameObject);
             }
 
             
-            _levelsManager.GetCurrentLevel(out int currentLevelNumber, out int currentPackNumber);
+            _gameContext.LevelsManager.GetCurrentLevel(out int currentLevelNumber, out int currentPackNumber);
             
-            _blocksManager.SpawnBlocks(_levelsManager.LoadLevel(currentLevelNumber, currentPackNumber));
+            _gameContext.BlocksManager.SpawnBlocks(_gameContext.LevelsManager.LoadLevel(currentLevelNumber, currentPackNumber));
             
-            _gameStatusManager.Reset();
-            _playerManager.Reset();
+            _gameContext.GameStatusManager.Reset();
+            _gameContext.PlayerManager.Reset();
             
             Subscribe();
         }
 
         private void GameOver()
         {
-            _popUpsManager.GameOver();
+            _gameContext.PopUpsManager.GameOver();
         }
 
         private void GameWin()
         {
             EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsForPassingLevel());
                 
-            _levelsManager.SaveInfo();
+            _gameContext.LevelsManager.SaveInfo();
 
             GameWinInfo gameWinInfo = new GameWinInfo();
 
@@ -96,8 +92,8 @@ namespace Scenes.Game.Managers
             int nextPackNumber;
             int nextLevelNumber;
             
-            _levelsManager.GetCurrentLevel(out currentLevelNumber, out currentPackNumber);
-            _levelsManager.GetNextLevel(out nextLevelNumber, out nextPackNumber);
+            _gameContext.LevelsManager.GetCurrentLevel(out currentLevelNumber, out currentPackNumber);
+            _gameContext.LevelsManager.GetNextLevel(out nextLevelNumber, out nextPackNumber);
 
             gameWinInfo._currentLevelNumber = currentLevelNumber;
             gameWinInfo._nextLevelNumber = nextLevelNumber;
@@ -107,7 +103,7 @@ namespace Scenes.Game.Managers
 
             gameWinInfo._enoughEnergy = EnergyManager.Instance.CanPlayLevel();
             
-            _popUpsManager.GameWin(gameWinInfo);
+            _gameContext.PopUpsManager.GameWin(gameWinInfo);
         }
         
         private void PopUpsManagerOnGamePause()
@@ -139,7 +135,7 @@ namespace Scenes.Game.Managers
             int nextLevelNumber;
             int nextPackNumber;
             
-            _levelsManager.GetNextLevel(out nextLevelNumber, out nextPackNumber);
+            _gameContext.LevelsManager.GetNextLevel(out nextLevelNumber, out nextPackNumber);
             
             DataProviderBetweenScenes.Instance.SetCurrentLevelNumber(nextLevelNumber);
             DataProviderBetweenScenes.Instance.SetCurrentPackNumber(nextPackNumber);
@@ -151,7 +147,7 @@ namespace Scenes.Game.Managers
         private void OnOtherSceneLoaded(AsyncOperation obj)
         {
             Time.timeScale = 1f;
-            _popUpsManager.GetMainGamePopUp().Close();
+            _gameContext.PopUpsManager.GetMainGamePopUp().Close();
         }
 
 

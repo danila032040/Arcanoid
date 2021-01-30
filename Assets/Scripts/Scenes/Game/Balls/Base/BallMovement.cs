@@ -22,6 +22,7 @@ namespace Scenes.Game.Balls.Base
         }
 
         private Vector3 _velocityBeforeCollision;
+
         private void FixedUpdate()
         {
             _velocityBeforeCollision = _rb.velocity;
@@ -52,9 +53,9 @@ namespace Scenes.Game.Balls.Base
         private void CheckCollisionWithPaddle(Collision2D collision)
         {
             Paddle paddle = collision.gameObject.GetComponent<Paddle>();
-            if (!paddle)  return;
+            if (!paddle) return;
 
-            if (collision.GetContact(0).normal != Vector2.up) return;
+            if (Vector2.Angle(collision.GetContact(0).normal, Vector2.up) > 60f) return;
 
             _rb.velocity = Vector2.zero;
 
@@ -84,13 +85,15 @@ namespace Scenes.Game.Balls.Base
             if (Vector2.Angle(_rb.velocity, Vector2.left) <= _angleWithHorToChangeDirection ||
                 Vector2.Angle(_rb.velocity, Vector2.right) <= _angleWithHorToChangeDirection)
             {
-                _rb.velocity = Quaternion.Euler(0, 0, Random.Range(_minHorChangeAngle, _maxHorChangeAngle)) * _rb.velocity;
+                _rb.velocity = Quaternion.Euler(0, 0, Random.Range(_minHorChangeAngle, _maxHorChangeAngle)) *
+                               _rb.velocity;
             }
 
             if (Vector2.Angle(_rb.velocity, Vector2.up) <= _angleWithVertToChangeDirection ||
                 Vector2.Angle(_rb.velocity, Vector2.down) <= _angleWithVertToChangeDirection)
             {
-                _rb.velocity = Quaternion.Euler(0, 0, Random.Range(_minVertChangeAngle, _maxVertChangeAngle)) * _rb.velocity;
+                _rb.velocity = Quaternion.Euler(0, 0, Random.Range(_minVertChangeAngle, _maxVertChangeAngle)) *
+                               _rb.velocity;
             }
         }
 
@@ -103,6 +106,5 @@ namespace Scenes.Game.Balls.Base
         }
 
         public void SetCurrentSpeedProgress(float value) => _currentSpeedProgress = value;
-        
     }
 }
