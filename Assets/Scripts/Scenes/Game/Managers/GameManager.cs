@@ -5,6 +5,7 @@ using SceneLoader;
 using Scenes.Game.Blocks.Boosters.Base;
 using Scenes.Game.Contexts;
 using Scenes.Game.Utils;
+using Scenes.Shared;
 using UnityEngine;
 
 namespace Scenes.Game.Managers
@@ -53,9 +54,9 @@ namespace Scenes.Game.Managers
         {
             UnSubscribe();
             
+            _gameContext.EffectsManager.DeleteEffects();
             _gameContext.BlocksManager.DeleteBlocks();
             _gameContext.BallsManager.DeleteBalls();
-            _gameContext.EffectsManager.DeleteEffects();
             
             foreach (CatchableBoost effect in FindObjectsOfType<CatchableBoost>())
             {

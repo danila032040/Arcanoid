@@ -19,20 +19,32 @@ namespace Scenes.Game.Effects.Impl
 
         public override void Enable()
         {
-            SetBallsAngryState(Context.BallsManager.GetBalls(), true);
+            SetBallsAngryState(Context.BallsManager.GetBalls(), true, _changeColorAnimationDuration);
+            Context.BallsManager.BallsChanged += SetBallsAngry;
+        }
+
+        public override void ForceEnable()
+        {
+            SetBallsAngryState(Context.BallsManager.GetBalls(), true, 0f);
             Context.BallsManager.BallsChanged += SetBallsAngry;
         }
 
         public override void Disable()
         {
             Context.BallsManager.BallsChanged -= SetBallsAngry;
-            SetBallsAngryState(Context.BallsManager.GetBalls(), false);
+            SetBallsAngryState(Context.BallsManager.GetBalls(), false, _changeColorAnimationDuration);
+        }
+
+        public override void ForceDisable()
+        {
+            Context.BallsManager.BallsChanged -= SetBallsAngry;
+            SetBallsAngryState(Context.BallsManager.GetBalls(), false, 0f);
         }
 
         private void SetBallsAngry(List<Ball> oldBalls, List<Ball> newBalls)
         {
-            SetBallsAngryState(oldBalls.Except(newBalls).ToList(), false);
-            SetBallsAngryState(newBalls, true);
+            SetBallsAngryState(oldBalls.Except(newBalls).ToList(), false, _changeColorAnimationDuration);
+            SetBallsAngryState(newBalls, true, _changeColorAnimationDuration);
         }
 
         private void OnCollisionWithDestroyableBlock(DestroyableBlock block)
@@ -40,17 +52,13 @@ namespace Scenes.Game.Effects.Impl
             block.GetBlockDestructibility().SetHealth(ProjectContext.Instance.GetHealthConfig().MinBlockHealthValue);
         }
 
-        private void SetBallsAngryState(List<Ball> balls, bool isAngry)
+        private void SetBallsAngryState(List<Ball> balls, bool isAngry, float duration)
         {
-            if (isAngry)
-            {
-                
-            }
             Physics2D.IgnoreLayerCollision(_ballsIndexLayer, _blocksIndexLayer, isAngry);
             foreach (Ball ball in balls)
             {
                 ball.GetBallView().GetSpriteRenderer().DOColor(isAngry ? _angryColor : _startColor,
-                    _changeColorAnimationDuration);
+                    duration);
 
                 if (isAngry) ball.GetBallCollision().CollisionWithDestroyableBlock += OnCollisionWithDestroyableBlock;
                 else ball.GetBallCollision().CollisionWithDestroyableBlock -= OnCollisionWithDestroyableBlock;

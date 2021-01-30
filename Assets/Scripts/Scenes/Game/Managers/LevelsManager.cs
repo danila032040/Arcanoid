@@ -2,6 +2,7 @@ using Context;
 using SaveLoadSystem.Data;
 using SaveLoadSystem.Interfaces;
 using SaveLoadSystem.Interfaces.SaveLoaders;
+using Scenes.Shared;
 using Unity.Mathematics;
 using UnityEngine;
 

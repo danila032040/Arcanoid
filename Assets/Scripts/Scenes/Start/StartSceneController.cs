@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Context;
 using EnergySystem;
@@ -16,7 +17,6 @@ namespace Scenes.Start
     public class StartSceneController : MonoBehaviour
     {
         [SerializeField] private Button _buttonStartGame;
-        [SerializeField] private TextMeshProUGUI _energyPointsCountText;
 
 
         private IPlayerInfoSaveLoader _playerInfoSaveLoader;
@@ -34,23 +34,12 @@ namespace Scenes.Start
         {
             Init(new InfoSaveLoader(), _packProviderImpl);
             _buttonStartGame.onClick.AddListener(StartGame);
-
-            StartCoroutine(UpdateEnergyPoints());
         }
 
-        private IEnumerator UpdateEnergyPoints()
-        {
-            while (true)
-            {
-                _energyPointsCountText.text = $"{EnergyManager.Instance.GetEnergyPointsCount()}/" +
-                                              $"{ProjectContext.Instance.GetEnergyConfig().GetInitialEnergyPoints()}";
-                yield return new WaitForSecondsRealtime(ProjectContext.Instance.GetEnergyConfig()
-                    .GetSecondsToRestoreOneEnergyPoint());
-            }
-        }
-
+        
         private void StartGame()
         {
+            _buttonStartGame.onClick.RemoveListener(StartGame);
             PlayerInfo info = _playerInfoSaveLoader.LoadPlayerInfo();
 
             if (info == null)

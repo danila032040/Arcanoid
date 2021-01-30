@@ -14,6 +14,7 @@ using SaveLoadSystem.Interfaces.SaveLoaders;
 using SceneLoader;
 using Scenes.ChoosePack.Packs;
 using Scenes.ChoosePack.PopUps;
+using Scenes.Shared;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,7 +26,6 @@ namespace Scenes.ChoosePack
         [SerializeField] private Pack _packPrefab;
         [SerializeField] private Transform _packsParent;
         [SerializeField] private ScrollRect _scrollRect;
-        [SerializeField] private TextMeshProUGUI _energyPointsCountText;
         [SerializeField] private Button _buttonReturn;
 
 
@@ -47,28 +47,12 @@ namespace Scenes.ChoosePack
             Init(ProjectContext.Instance.GetPackProvider(), new InfoSaveLoader(), DataProviderBetweenScenes.Instance);
             SpawnPacks();
             ScrollToLastOpenedPack();
-            
-            _energyPointsCountText.text = $"{EnergyManager.Instance.GetEnergyPointsCount()}/" +
-                                          $"{ProjectContext.Instance.GetEnergyConfig().GetInitialEnergyPoints()}";
 
-            StartCoroutine(UpdateEnergyPoints());
-            
             _buttonReturn.onClick.AddListener(() =>
             {
                 SceneLoaderController.Instance.LoadScene(LoadingScene.StartScene);
             });
             
-        }
-        
-        private IEnumerator UpdateEnergyPoints()
-        {
-            while (true)
-            {
-                _energyPointsCountText.text = $"{EnergyManager.Instance.GetEnergyPointsCount()}/" +
-                                              $"{ProjectContext.Instance.GetEnergyConfig().GetInitialEnergyPoints()}";
-                yield return new WaitForSecondsRealtime(ProjectContext.Instance.GetEnergyConfig()
-                    .GetSecondsToRestoreOneEnergyPoint());
-            }
         }
         
         private Pack[] _packs;

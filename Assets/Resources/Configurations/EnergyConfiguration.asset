@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95e6abaa59ad4aecb288032b0b434fc4, type: 3}
   m_Name: EnergyConfiguration
   m_EditorClassIdentifier: 
-  _secondsToRestoreOneEnergyPoint: 30
+  _secondsToRestoreOneEnergyPoint: 1
   _energyPointsToPlayLevel: -3
   _energyPointsForPassingLevel: 5
   _initialEnergyPoints: 30
   _energyPointsToByeOneHeart: -6
+  _minEnergyPointsCount: 0

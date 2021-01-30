@@ -31,3 +31,7 @@ MonoBehaviour:
     - {fileID: 4900000, guid: 534d9bd5a4bd2f74fba3f1116c84991f, type: 3}
     - {fileID: 4900000, guid: 704e08d2c5bf5f044aaba51602388fe4, type: 3}
     _packSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - _packName: GodRank
+    _levelFiles:
+    - {fileID: 4900000, guid: 494b617b445786f49af1be2e24e0c822, type: 3}
+    _packSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}

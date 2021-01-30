@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Localization.LocalizedText
 {
     [RequireComponent(typeof(TextMeshProUGUI))]
-    public class LocalizedTextTMP : MonoBehaviour
+    public class LocalizedTextTMPUGUI : MonoBehaviour
     {
         [SerializeField] private string _key;
         

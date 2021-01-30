@@ -2,7 +2,7 @@ using Context;
 using Singleton;
 using UnityEngine;
 
-namespace Scenes
+namespace Scenes.Shared
 {
     public class DataProviderBetweenScenes : MonoBehaviourSingletonPersistent<DataProviderBetweenScenes>,
         IMonoBehaviourSingletonInitialize<DataProviderBetweenScenes>

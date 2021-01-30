@@ -15,19 +15,38 @@ namespace Scenes.Game.Effects.Impl
         public override void Enable()
         {
             _initialSpeed = Context.Paddle.GetPaddleMovement().GetInitialSpeed();
-            ChangeSpeed(_changedPaddleSpeed);
+            ChangeSpeed(_changedPaddleSpeed, _changePaddleSpeedAnimationDuration);
         }
+
+        public override void ForceEnable()
+        {
+            _initialSpeed = Context.Paddle.GetPaddleMovement().GetInitialSpeed();
+            ChangeSpeed(_changedPaddleSpeed, 0f);
+        }
+
 
         public override void Disable()
         {
-            ChangeSpeed(_initialSpeed);
+            ChangeSpeed(_initialSpeed, _changePaddleSpeedAnimationDuration);
         }
 
-        private void ChangeSpeed(float changedPaddleSpeed)
+        public override void ForceDisable()
         {
-            DOTween.To(() => Context.Paddle.GetPaddleMovement().GetCurrentSpeed(),
-                x => { Context.Paddle.GetPaddleMovement().SetSpeed(x); }, changedPaddleSpeed,
-                _changePaddleSpeedAnimationDuration);
+            ChangeSpeed(_initialSpeed, 0f);
+        }
+
+        private void ChangeSpeed(float changedPaddleSpeed, float duration)
+        {
+            if (duration != 0f)
+            {
+                DOTween.To(() => Context.Paddle.GetPaddleMovement().GetCurrentSpeed(),
+                    x => { Context.Paddle.GetPaddleMovement().SetSpeed(x); }, changedPaddleSpeed,
+                    duration);
+            }
+            else
+            {
+                Context.Paddle.GetPaddleMovement().SetSpeed(changedPaddleSpeed);
+            }
         }
     }
 }

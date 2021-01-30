@@ -42,6 +42,7 @@ namespace Scenes.Game.Managers
         {
             _gameContext.HpController.SetHpValue(ProjectContext.Instance.GetHealthConfig().InitialPlayerHealthValue);
             AttachBall(_gameContext.BallsManager.SpawnBall());
+            _gameContext.BallsManager.SetCurrentSpeedProgress(_gameContext.GameStatusManager.GetCurrentProgress());
         }
 
         private void OutOfBoundsWallOnOutOfBounds(GameObject obj)

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using DG.Tweening;
 using Scenes.Game.Balls.Base;
 using Scenes.Game.Effects.Base;
@@ -17,13 +16,29 @@ namespace Scenes.Game.Effects.Impl
             Context.BallsManager.BallsChanged += BallsManagerOnBallsChanged;
             Context.GameStatusManager.ProgressValueChanged += GameStatusManagerOnProgressValueChanged;
             _ballsSpeedCurrentProgress = Context.GameStatusManager.GetCurrentProgress();
+            SetBallsSpeedProgress(_changedBallsSpeedProgress, _changeBallSpeedAnimationDuration);
+        }
+
+        public override void ForceEnable()
+        {
+            Context.BallsManager.BallsChanged += BallsManagerOnBallsChanged;
+            Context.GameStatusManager.ProgressValueChanged += GameStatusManagerOnProgressValueChanged;
+            _ballsSpeedCurrentProgress = Context.GameStatusManager.GetCurrentProgress();
+            SetBallsSpeedProgress(_changedBallsSpeedProgress, 0);
         }
 
         public override void Disable()
         {
             Context.BallsManager.BallsChanged -= BallsManagerOnBallsChanged;
             Context.GameStatusManager.ProgressValueChanged -= GameStatusManagerOnProgressValueChanged;
-            SetBallsSpeedProgress(_currentProgress);
+            SetBallsSpeedProgress(_currentProgress, _changeBallSpeedAnimationDuration);
+        }
+
+        public override void ForceDisable()
+        {
+            Context.BallsManager.BallsChanged -= BallsManagerOnBallsChanged;
+            Context.GameStatusManager.ProgressValueChanged -= GameStatusManagerOnProgressValueChanged;
+            SetBallsSpeedProgress(_currentProgress, 0f);
         }
 
         private float _currentProgress;
@@ -31,25 +46,32 @@ namespace Scenes.Game.Effects.Impl
         private void GameStatusManagerOnProgressValueChanged(float oldValue, float newValue)
         {
             _currentProgress = newValue;
-            SetBallsSpeedProgress(_changedBallsSpeedProgress);
+            SetBallsSpeedProgress(_changedBallsSpeedProgress, _changeBallSpeedAnimationDuration);
         }
 
         private void BallsManagerOnBallsChanged(List<Ball> oldValue, List<Ball> newValue)
         {
-            SetBallsSpeedProgress(_changedBallsSpeedProgress);
+            SetBallsSpeedProgress(_changedBallsSpeedProgress, _changeBallSpeedAnimationDuration);
         }
 
         private float _ballsSpeedCurrentProgress;
-        private void SetBallsSpeedProgress(float progress)
+
+        private void SetBallsSpeedProgress(float progress, float duration)
         {
-            float startProgress = _ballsSpeedCurrentProgress;
-            DOTween.To(() => startProgress,
-                x =>
-                {
-                    _ballsSpeedCurrentProgress = x;
-                    Context.BallsManager.SetCurrentSpeedProgress(x);
-                    Debug.Log(x);
-                }, progress, _changeBallSpeedAnimationDuration);
+            if (duration != 0f)
+            {
+                DOTween.To(() => _ballsSpeedCurrentProgress,
+                    x =>
+                    {
+                        _ballsSpeedCurrentProgress = x;
+                        Context.BallsManager.SetCurrentSpeedProgress(x);
+                    }, progress, duration);
+            }
+            else
+            {
+                    _ballsSpeedCurrentProgress = progress;
+                    Context.BallsManager.SetCurrentSpeedProgress(progress);
+            }
         }
     }
 }

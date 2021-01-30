@@ -18,20 +18,43 @@ namespace Scenes.Game.Effects.Impl
             Vector3 changedSize = _changedPaddleSizeCoefficient * _initialSize;
             changedSize.y = _initialSize.y;
             changedSize.z = _initialSize.z;
-            
-            ChangeSpeed(changedSize);
+
+            ChangeSpeed(changedSize, _changePaddleSizeAnimationDuration);
+        }
+
+        public override void ForceEnable()
+        {
+            _initialSize = Context.Paddle.GetPaddleView().GetInitialScale();
+
+            Vector3 changedSize = _changedPaddleSizeCoefficient * _initialSize;
+            changedSize.y = _initialSize.y;
+            changedSize.z = _initialSize.z;
+
+            ChangeSpeed(changedSize, 0f);
         }
 
         public override void Disable()
         {
-            ChangeSpeed(_initialSize);
+            ChangeSpeed(_initialSize, _changePaddleSizeAnimationDuration);
         }
 
-        private void ChangeSpeed(Vector3 changedPaddleSize)
+        public override void ForceDisable()
         {
-            DOTween.To(() => Context.Paddle.GetPaddleView().GetCurrentScale(),
-                x => { Context.Paddle.GetPaddleView().SetScale(x); }, changedPaddleSize,
-                _changePaddleSizeAnimationDuration);
+            ChangeSpeed(_initialSize, 0f);
+        }
+
+        private void ChangeSpeed(Vector3 changedPaddleSize, float duration)
+        {
+            if (duration != 0f)
+            {
+                DOTween.To(() => Context.Paddle.GetPaddleView().GetCurrentScale(),
+                    x => { Context.Paddle.GetPaddleView().SetScale(x); }, changedPaddleSize,
+                    duration);
+            }
+            else
+            {
+                Context.Paddle.GetPaddleView().SetScale(changedPaddleSize);
+            }
         }
     }
 }

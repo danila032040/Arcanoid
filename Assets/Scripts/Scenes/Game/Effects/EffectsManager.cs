@@ -44,11 +44,10 @@ namespace Scenes.Game.Effects
                 _effectTypes[key] = null;
             }
 
-            for (int i = 0; i < _effects.Count; ++i)
-            {
-                RemoveOneEffect(_effects[0]);
-            }
+            while (_effects.Count > 0) ForceRemoveOneEffect(_effects[0]);
         }
+
+        
 
 
         private void Start()
@@ -90,6 +89,12 @@ namespace Scenes.Game.Effects
             _effects.Remove(effect);
             _poolManager.Remove(effect);
         }
+        private void ForceRemoveOneEffect(Effect effect)
+        {
+            effect.ForceDisable();
+            _effects.Remove(effect);
+            _poolManager.Remove(effect);
+        }
 
         private void StopEffectCoroutine(EffectType type)
         {
@@ -99,7 +104,7 @@ namespace Scenes.Game.Effects
                 StopCoroutine(coroutine);
 
                 Effect effectToRemove = _effects.Find((e) => e.Type == type);
-                if (effectToRemove != null) RemoveOneEffect(effectToRemove);
+                if (effectToRemove != null) ForceRemoveOneEffect(effectToRemove);
             }
         }
 
