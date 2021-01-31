@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Context;
+﻿using Context;
 using EnergySystem;
 using SaveLoadSystem;
 using SaveLoadSystem.Data;
 using SaveLoadSystem.Interfaces;
 using SaveLoadSystem.Interfaces.SaveLoaders;
 using SceneLoader;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 

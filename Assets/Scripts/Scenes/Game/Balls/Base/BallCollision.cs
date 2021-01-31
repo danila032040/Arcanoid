@@ -16,9 +16,9 @@ namespace Scenes.Game.Balls.Base
             CheckCollisionWithDestroyableBlock(collision.collider);
         }
 
-        private void OnTriggerEnter2D(Collider2D collider)
+        private void OnTriggerEnter2D(Collider2D coll)
         {
-            CheckCollisionWithDestroyableBlock(collider);
+            CheckCollisionWithDestroyableBlock(coll);
         }
 
         private void CheckCollisionWithDestroyableBlock(Collider2D collision)

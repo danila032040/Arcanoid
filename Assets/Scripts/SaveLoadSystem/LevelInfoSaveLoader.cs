@@ -1,12 +1,10 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using SaveLoadSystem.Data;
 using SaveLoadSystem.Interfaces.SaveLoaders;
 using UnityEngine;
 
 namespace SaveLoadSystem
 {
-    //TODO: Divide logic into 2 different classes, serialize and deserialize arrays into json prefabs.
     public class LevelInfoSaveLoader : ILevelInfoSaveLoader
     {
         private const string DefaultLevelPath = "Levels";

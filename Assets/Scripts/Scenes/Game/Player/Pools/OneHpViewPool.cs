@@ -1,4 +1,3 @@
-using System;
 using Pool.Abstracts;
 using Pool.Factories;
 using UnityEngine;
@@ -17,15 +16,19 @@ namespace Scenes.Game.Player.Pools
         protected override void OnPoolEnter(OneHpView view)
         {
             view.gameObject.SetActive(false);
-            view.transform.SetParent(transform);
-            view.transform.localScale = new Vector3(0, 0, 0);
+            
+            Transform viewTransform = view.transform;
+            viewTransform.SetParent(transform);
+            viewTransform.localScale = new Vector3(0, 0, 0);
         }
 
         protected override void OnPoolExit(OneHpView view)
         {
             view.gameObject.SetActive(true);
-            view.transform.SetParent(transform);
-            view.transform.localScale = new Vector3(0, 0, 0);
+            
+            Transform viewTranform = view.transform;
+            viewTranform.SetParent(transform);
+            viewTranform.localScale = new Vector3(0, 0, 0);
         }
     }
 }

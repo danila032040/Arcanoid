@@ -1,7 +1,7 @@
 using System;
 using PopUpSystems;
 using Scenes.Game.Player;
-using Scenes.Game.PopUps.MainGamePopUps;
+using Scenes.Game.PopUps.MainGamePopUpViews;
 using UnityEngine;
 using UnityEngine.UI;
 

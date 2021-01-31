@@ -1,20 +1,21 @@
+using EnergySystem;
+using SaveLoadSystem.Interfaces.Infos;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace EnergySystem
+namespace SaveLoadSystem.Data
 {
     [System.Serializable]
-    public class EnergyPoints
+    public class EnergyInfo : IEnergyPointsInfo
     {
         [SerializeField] private int _count;
         [SerializeField] private long _lastTimeUpdated;
         [SerializeField] private long _timePassed;
 
-        public EnergyPoints()
+        public EnergyInfo()
         {
         }
 
-        public EnergyPoints(int count, long lastTimeUpdated, long timePassed)
+        public EnergyInfo(int count, long lastTimeUpdated, long timePassed)
         {
             _count = count;
             _lastTimeUpdated = lastTimeUpdated;

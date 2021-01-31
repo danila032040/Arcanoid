@@ -1,6 +1,4 @@
-﻿using System;
-using Scenes.Game.Blocks.Base;
-using Scenes.Game.Paddles;
+﻿using Scenes.Game.Paddles;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -19,13 +17,6 @@ namespace Scenes.Game.Balls.Base
         private void Update()
         {
             NormalizeVelocity(_rb.velocity.normalized);
-        }
-
-        private Vector3 _velocityBeforeCollision;
-
-        private void FixedUpdate()
-        {
-            _velocityBeforeCollision = _rb.velocity;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)

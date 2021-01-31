@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using PopUpSystems;
 using TMPro;
@@ -54,7 +53,7 @@ namespace Scenes.ChoosePack.PopUps
             OnClosing();
         }
 
-        protected virtual void OnButtonOkPressed()
+        private void OnButtonOkPressed()
         {
             ButtonOkPressed?.Invoke();
             StartCoroutine(CloseAnim());

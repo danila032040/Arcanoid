@@ -1,6 +1,5 @@
 using DG.Tweening;
 using Scenes.Game.Effects.Base;
-using Scenes.Game.Paddles;
 using UnityEngine;
 
 namespace Scenes.Game.Effects.Impl

@@ -1,5 +1,5 @@
+using Scenes.Game.AllTypes;
 using Scenes.Game.Blocks.Boosters.Base;
-using Scenes.Game.Effects.Base;
 using UnityEngine;
 
 namespace Scenes.Game.Blocks.Boosters.CatchableBoosts

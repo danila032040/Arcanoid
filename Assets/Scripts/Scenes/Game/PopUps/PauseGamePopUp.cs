@@ -3,7 +3,6 @@ using System.Collections;
 using DG.Tweening;
 using EnergySystem;
 using PopUpSystems;
-using SceneLoader;
 using Scenes.ChoosePack.PopUps;
 using UnityEngine;
 using UnityEngine.UI;
@@ -76,8 +75,7 @@ namespace Scenes.Game.PopUps
             }
             else
             {
-                var popUp = PopUpSystem.Instance.ShowPopUpOnANewLayer<NotEnoughEnergyPointsPopUp>();
-                
+                PopUpSystem.Instance.ShowPopUpOnANewLayer<NotEnoughEnergyPointsPopUp>();
             }
         }
 

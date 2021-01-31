@@ -1,8 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using Context;
 using DG.Tweening;
 using EnergySystem;
@@ -15,7 +10,6 @@ using SceneLoader;
 using Scenes.ChoosePack.Packs;
 using Scenes.ChoosePack.PopUps;
 using Scenes.Shared;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 

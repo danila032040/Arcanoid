@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scenes.Game.PopUps.MainGamePopUps
+namespace Scenes.Game.PopUps.MainGamePopUpViews
 {
     public class ProgressGameView : MonoBehaviour
     {

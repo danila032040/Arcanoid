@@ -28,9 +28,8 @@ namespace SaveLoadSystem.Data
 
         public LevelInfo[] GetLevelInfos()
         {
-            LevelInfo[] levelInfos;
             int n = _levelFiles.Length;
-            levelInfos = new LevelInfo[n];
+            LevelInfo[] levelInfos = new LevelInfo[n];
             for (int i = 0; i < n; ++i)
             {
                 levelInfos[i] = _levelInfoSaveLoader.LoadLevelInfo(_levelFiles[i]);

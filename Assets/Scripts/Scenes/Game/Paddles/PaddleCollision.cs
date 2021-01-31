@@ -1,4 +1,3 @@
-using System;
 using Scenes.Game.Blocks.Boosters.Base;
 using UnityEngine;
 

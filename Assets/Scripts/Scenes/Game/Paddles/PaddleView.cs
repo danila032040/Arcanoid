@@ -6,7 +6,6 @@ namespace Scenes.Game.Paddles
     public class PaddleView : MonoBehaviour
     {
         [SerializeField] private BoxCollider2D _collider;
-        [SerializeField] private SpriteRenderer _spriteRenderer;
 
         private Vector3 _initialScale;
         
@@ -24,9 +23,9 @@ namespace Scenes.Game.Paddles
         public void SetScale(Vector3 scale)
         {
             BallAttachment ballAttachment = GetComponentInChildren<BallAttachment>();
-            ballAttachment?.Detach();
+            if (!ReferenceEquals(ballAttachment,null)) ballAttachment.Detach();
             transform.localScale = scale;
-            ballAttachment?.AttachTo(transform);
+            if (!ReferenceEquals(ballAttachment, null)) ballAttachment.AttachTo(transform);
         }
     }
 }

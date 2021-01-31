@@ -27,7 +27,7 @@ namespace Scenes.Game.Player
             int oldValue = _model.GetHpValue();
             _view.SetHealth(value);
             _model.SetHealth(value);
-            OnHealthValueChanged(_model, oldValue, _model.GetHpValue());
+            OnHealthValueChanged(oldValue, _model.GetHpValue());
         }
 
         public void AddHpValue(int value)
@@ -38,12 +38,12 @@ namespace Scenes.Game.Player
             _view.AddHealth(value);
             _model.AddHealth(value);
             
-            OnHealthValueChanged(_model, oldValue, _model.GetHpValue());
+            OnHealthValueChanged(oldValue, _model.GetHpValue());
         }
 
         public event OnValueChanged<int> HealthValueChanged;
 
-        private void OnHealthValueChanged(object sender, int oldValue, int newValue)
+        private void OnHealthValueChanged(int oldValue, int newValue)
         {
             HealthValueChanged?.Invoke(oldValue, newValue);
         }

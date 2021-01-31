@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Context
+namespace Configurations
 {
     [CreateAssetMenu(fileName = "ProjectPrefabsConfiguration", menuName = "Configurations/Project/Prefabs", order = 0)]
     public class ProjectPrefabsConfig : ScriptableObject

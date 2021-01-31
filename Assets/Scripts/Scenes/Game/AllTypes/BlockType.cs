@@ -1,4 +1,4 @@
-﻿namespace Scenes.Game.Blocks.Base
+﻿namespace Scenes.Game.AllTypes
 {
     [System.Serializable]
     public enum BlockType

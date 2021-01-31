@@ -26,7 +26,7 @@ namespace Scenes.Game.Services.Screens.Implementations
             _oldScreenResolution = currentScreenResolution;
         }
 
-        protected virtual void OnScreenResolutionChanged(Vector2 obj)
+        private void OnScreenResolutionChanged(Vector2 obj)
         {
             ScreenResolutionChanged?.Invoke(obj);
         }

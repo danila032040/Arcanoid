@@ -1,5 +1,4 @@
 using Configurations;
-using EnergySystem;
 using SaveLoadSystem;
 using SaveLoadSystem.Interfaces;
 using Singleton;

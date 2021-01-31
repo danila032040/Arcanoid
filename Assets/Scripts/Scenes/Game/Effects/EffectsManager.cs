@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Scenes.Game.AllTypes;
 using Scenes.Game.Contexts;
 using Scenes.Game.Effects.Base;
 using Scenes.Game.Effects.Pool;

@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Singleton
@@ -17,7 +15,7 @@ namespace Singleton
                 {
                     _instance = new GameObject().AddComponent<T>();
                     _instance.gameObject.name = typeof(T).Name;
-
+                    
                     _instance.InitSingleton();
                 }
 
@@ -35,7 +33,6 @@ namespace Singleton
         {
             if (_instance == null)
             {
-                //TODO: Init singleton required.
                 _instance = this as T;
                 DontDestroyOnLoad(_instance);
             }

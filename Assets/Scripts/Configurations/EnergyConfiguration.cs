@@ -1,8 +1,6 @@
-using System;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
-namespace EnergySystem
+namespace Configurations
 {
     [CreateAssetMenu(fileName = "EnergyConfiguration", menuName = "Configurations/Energy", order = 0)]
     public class EnergyConfiguration : ScriptableObject

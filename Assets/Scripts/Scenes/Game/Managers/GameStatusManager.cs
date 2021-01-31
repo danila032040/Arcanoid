@@ -1,9 +1,4 @@
-using System;
-using PopUpSystems;
 using SaveLoadSystem.Data;
-using Scenes.Game.Balls;
-using Scenes.Game.Balls.Base;
-using Scenes.Game.Blocks;
 using Scenes.Game.Blocks.Base;
 using Scenes.Game.Contexts;
 using Scenes.Game.Utils;
@@ -43,13 +38,12 @@ namespace Scenes.Game.Managers
         private void BlocksManagerOnBlocksChanged(Block[,] blocks)
         {
             ChangeBallsSpeedOnBlocksCount();
-            OnProgressValueChanged(this, _lastProgress, GetCurrentProgress());
+            OnProgressValueChanged(_lastProgress, GetCurrentProgress());
             _lastProgress = GetCurrentProgress();
         }
         
         public void ChangeBallsSpeedOnBlocksCount()
         {
-            Block[,] blocks = _gameContext.BlocksManager.GetBlocks();
             _gameContext.BallsManager.SetCurrentSpeedProgress(GetCurrentProgress());
         }
         
@@ -76,7 +70,7 @@ namespace Scenes.Game.Managers
             return 1 - Mathf.Clamp01(n * 1f / _maxDestroyableBlocksCount);
         }
 
-        private void OnProgressValueChanged(object sender, float oldValue, float newValue)
+        private void OnProgressValueChanged(float oldValue, float newValue)
         {
             _gameContext.PopUpsManager.GetMainGamePopUp().GetProgressGameView().SetProgressGame(newValue);
             

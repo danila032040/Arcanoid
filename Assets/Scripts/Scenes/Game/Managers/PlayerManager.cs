@@ -1,16 +1,8 @@
-using System;
 using System.Collections.Generic;
-using Configurations;
 using Context;
-using Scenes.Game.Balls;
 using Scenes.Game.Balls.Base;
 using Scenes.Game.Contexts;
-using Scenes.Game.Paddles;
-using Scenes.Game.Player;
-using Scenes.Game.Services.Inputs.Implementations;
-using Scenes.Game.Services.Inputs.Interfaces;
 using Scenes.Game.Utils;
-using Scenes.Game.Walls;
 using UnityEngine;
 
 namespace Scenes.Game.Managers
@@ -33,7 +25,7 @@ namespace Scenes.Game.Managers
 
         public event OnValueChanged<int> HealthValueChanged;
 
-        protected virtual void OnHealthValueChanged(int oldValue, int newValue)
+        private void OnHealthValueChanged(int oldValue, int newValue)
         {
             HealthValueChanged?.Invoke(oldValue, newValue);
         }

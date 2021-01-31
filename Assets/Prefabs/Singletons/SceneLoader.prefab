@@ -232,3 +232,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneChangingCanvasGroup: {fileID: 1723296713507227150}
   _fadeDuration: 1
+  _isInitialised: 1

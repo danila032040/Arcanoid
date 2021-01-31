@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace PopUpSystems
 {
@@ -7,11 +6,11 @@ namespace PopUpSystems
     {
         private List<PopUp> _popUps = new List<PopUp>();
 
-        private bool isEnabled;
+        private bool _isEnabled;
 
         public void DisableInput()
         {
-            isEnabled = false;
+            _isEnabled = false;
             foreach (PopUp popUp in _popUps)
             {
                 popUp.DisableInput();
@@ -20,7 +19,7 @@ namespace PopUpSystems
 
         public void EnableInput()
         {
-            isEnabled = true;
+            _isEnabled = true;
             foreach (PopUp popUp in _popUps)
             {
                 popUp.EnableInput();
@@ -29,7 +28,7 @@ namespace PopUpSystems
 
         public void Add(PopUp popUp)
         {
-            if (isEnabled) popUp.EnableInput();
+            if (_isEnabled) popUp.EnableInput();
             else popUp.DisableInput();
             
             _popUps.Add(popUp);

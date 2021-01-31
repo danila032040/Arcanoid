@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
-using Scenes.Game.Utils;
 using UnityEngine;
 
 namespace Scenes.Game.Blocks.Base

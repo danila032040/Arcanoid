@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections;
-using DG.Tweening;
 using Scenes.Game.Services.Cameras.Implementations;
 using Scenes.Game.Services.Cameras.Interfaces;
 using Scenes.Game.Services.Inputs.Implementations;
 using Scenes.Game.Services.Inputs.Interfaces;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Scenes.Game.Paddles
 {
@@ -106,8 +103,7 @@ namespace Scenes.Game.Paddles
 
                 nextXPosition = nextXPosition + moveXDirection * moveXDistance;
 
-                if (moveXDirection > 0) nextXPosition = Mathf.Min(nextXPosition, _goalXPosition);
-                else nextXPosition = Mathf.Max(nextXPosition, _goalXPosition);
+                nextXPosition = moveXDirection > 0 ? Mathf.Min(nextXPosition, _goalXPosition) : Mathf.Max(nextXPosition, _goalXPosition);
 
 
                 nextPosition.x = nextXPosition;

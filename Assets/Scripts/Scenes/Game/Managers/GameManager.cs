@@ -1,6 +1,5 @@
 using Context;
 using EnergySystem;
-using SaveLoadSystem;
 using SceneLoader;
 using Scenes.Game.Blocks.Boosters.Base;
 using Scenes.Game.Contexts;
@@ -82,14 +81,8 @@ namespace Scenes.Game.Managers
 
             GameWinInfo gameWinInfo = new GameWinInfo();
 
-            int currentLevelNumber;
-            int currentPackNumber;
-            
-            int nextPackNumber;
-            int nextLevelNumber;
-            
-            _gameContext.LevelsManager.GetCurrentLevel(out currentLevelNumber, out currentPackNumber);
-            _gameContext.LevelsManager.GetNextLevel(out nextLevelNumber, out nextPackNumber);
+            _gameContext.LevelsManager.GetCurrentLevel(out int currentLevelNumber, out int currentPackNumber);
+            _gameContext.LevelsManager.GetNextLevel(out int nextLevelNumber, out int nextPackNumber);
 
             gameWinInfo._currentLevelNumber = currentLevelNumber;
             gameWinInfo._nextLevelNumber = nextLevelNumber;
@@ -127,11 +120,8 @@ namespace Scenes.Game.Managers
         private void PopUpsManagerOnNextLevelGame()
         {
             EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsToPlayLevel());
-            
-            int nextLevelNumber;
-            int nextPackNumber;
-            
-            _gameContext.LevelsManager.GetNextLevel(out nextLevelNumber, out nextPackNumber);
+
+            _gameContext.LevelsManager.GetNextLevel(out int nextLevelNumber, out int nextPackNumber);
             
             DataProviderBetweenScenes.Instance.SetCurrentLevelNumber(nextLevelNumber);
             DataProviderBetweenScenes.Instance.SetCurrentPackNumber(nextPackNumber);

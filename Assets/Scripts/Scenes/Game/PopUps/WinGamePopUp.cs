@@ -192,14 +192,14 @@ namespace Scenes.Game.PopUps
             OnClosing();
         }
 
-        protected virtual void OnButtonNextLevelPressed()
+        private void OnButtonNextLevelPressed()
         {
             SetButtonActivity(false,false);
             ButtonNextLevelPressed?.Invoke();
             StartCoroutine(CloseAnim());
         }
 
-        protected virtual void OnButtonChoosePackPressed()
+        private void OnButtonChoosePackPressed()
         {
             ButtonChoosePackPressed?.Invoke();
             StartCoroutine(CloseAnim());

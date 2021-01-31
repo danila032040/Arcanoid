@@ -1,4 +1,4 @@
-namespace Scenes.Game.Effects.Base
+namespace Scenes.Game.AllTypes
 {
     public enum EffectType
     {

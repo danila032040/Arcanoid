@@ -1,37 +1,41 @@
 using System;
+using Configurations;
 using Context;
+using SaveLoadSystem;
+using SaveLoadSystem.Data;
+using SaveLoadSystem.Interfaces.SaveLoaders;
 using Singleton;
 using Unity.Mathematics;
-using UnityEngine;
 
 namespace EnergySystem
 {
     public class EnergyManager : MonoBehaviourSingletonPersistent<EnergyManager>,
         IMonoBehaviourSingletonInitialize<EnergyManager>
     {
-        private const string EnergyPointsKey = "EnergyPoints";
         private EnergyConfiguration _config;
+        private IEnergyPointsSaveLoader _energyPointsSaveLoader;
 
         public void InitSingleton()
         {
             _config = ProjectContext.Instance.GetEnergyConfig();
+            _energyPointsSaveLoader = new EnergyPointsSaveLoader();
 
             RecalculateEnergyPoints();
         }
 
-        private EnergyPoints RecalculateEnergyPoints()
+        private EnergyInfo RecalculateEnergyPoints()
         {
-            EnergyPoints energyPoints = LoadEnergyPoints();
+            EnergyInfo energyInfo = _energyPointsSaveLoader.LoadEnergyPoints();
 
-            if (energyPoints == null)
+            if (energyInfo == null)
             {
-                energyPoints = new EnergyPoints(_config.GetInitialEnergyPoints(), DateTime.Now.Ticks,
+                energyInfo = new EnergyInfo(_config.GetInitialEnergyPoints(), DateTime.Now.Ticks,
                     TimeSpan.Zero.Ticks);
             }
             else
             {
-                DateTime prevDate = new DateTime(energyPoints.LastTimeUpdated);
-                TimeSpan otherSeconds = new TimeSpan(energyPoints.TimePassed);
+                DateTime prevDate = new DateTime(energyInfo.LastTimeUpdated);
+                TimeSpan otherSeconds = new TimeSpan(energyInfo.TimePassed);
                 DateTime currDate = DateTime.Now;
 
                 int passedSeconds = (int) math.round((currDate - prevDate).TotalSeconds + otherSeconds.TotalSeconds);
@@ -39,18 +43,18 @@ namespace EnergySystem
                 TimeSpan remainSeconds =
                     TimeSpan.FromSeconds(passedSeconds % _config.GetSecondsToRestoreOneEnergyPoint());
 
-                if (energyPoints.Count < _config.GetInitialEnergyPoints())
+                if (energyInfo.Count < _config.GetInitialEnergyPoints())
                 {
-                    energyPoints.Count =
-                        math.min(energyPoints.Count + restoredPoints, _config.GetInitialEnergyPoints());
+                    energyInfo.Count =
+                        math.min(energyInfo.Count + restoredPoints, _config.GetInitialEnergyPoints());
                 }
 
-                energyPoints.LastTimeUpdated = currDate.Ticks;
-                energyPoints.TimePassed = remainSeconds.Ticks;
+                energyInfo.LastTimeUpdated = currDate.Ticks;
+                energyInfo.TimePassed = remainSeconds.Ticks;
             }
 
-            SaveEnergyPoints(energyPoints);
-            return energyPoints;
+            _energyPointsSaveLoader.SaveEnergyPoints(energyInfo);
+            return energyInfo;
         }
 
         public int GetEnergyPointsCount()
@@ -60,17 +64,16 @@ namespace EnergySystem
 
         public void AddEnergyPoints(int value)
         {
-            EnergyPoints ep = RecalculateEnergyPoints();
+            EnergyInfo ep = RecalculateEnergyPoints();
             ep.Count += value;
             if (ep.Count < _config.GetMinEnergyPointsCount()) ep.Count = _config.GetMinEnergyPointsCount();
-            ;
-            SaveEnergyPoints(ep);
+            _energyPointsSaveLoader.SaveEnergyPoints(ep);
         }
 
         public int GetRemainingSecondsToRestoreOnePoint()
         {
-            EnergyPoints ep = RecalculateEnergyPoints();
-            if (ep.Count == _config.GetInitialEnergyPoints()) return 0;
+            EnergyInfo ep = RecalculateEnergyPoints();
+            if (ep.Count >= _config.GetInitialEnergyPoints()) return 0;
             
             int res = _config.GetSecondsToRestoreOneEnergyPoint() - (int) (ep.TimePassed / TimeSpan.TicksPerSecond);
             if (res == 0) _config.GetSecondsToRestoreOneEnergyPoint();
@@ -81,27 +84,6 @@ namespace EnergySystem
         public bool CanPlayLevel()
         {
             return GetEnergyPointsCount() + _config.GetEnergyPointsToPlayLevel() >= _config.GetMinEnergyPointsCount();
-        }
-
-        private void SaveEnergyPoints(EnergyPoints points)
-        {
-            if (points == null)
-            {
-                PlayerPrefs.DeleteKey(EnergyPointsKey);
-                return;
-            }
-
-            PlayerPrefs.SetString(EnergyPointsKey, JsonUtility.ToJson(points, true));
-            PlayerPrefs.Save();
-        }
-
-        private EnergyPoints LoadEnergyPoints()
-        {
-            if (!PlayerPrefs.HasKey(EnergyPointsKey)) return null;
-            
-            EnergyPoints ep = JsonUtility.FromJson<EnergyPoints>(PlayerPrefs.GetString(EnergyPointsKey));
-            if (ep.LastTimeUpdated == 0) return null;
-            return ep;
         }
     }
 }

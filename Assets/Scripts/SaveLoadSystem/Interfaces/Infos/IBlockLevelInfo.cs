@@ -1,3 +1,4 @@
+using Scenes.Game.AllTypes;
 using Scenes.Game.Blocks.Base;
 
 namespace SaveLoadSystem.Interfaces.Infos
