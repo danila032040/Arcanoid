@@ -32,7 +32,7 @@ namespace Scenes.Start
 
         private void Start()
         {
-            Init(new InfoSaveLoader(), _packProviderImpl);
+            Init(new PlayerInfoSaveLoader(), _packProviderImpl);
             _buttonStartGame.onClick.AddListener(StartGame);
         }
 

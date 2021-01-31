@@ -44,6 +44,11 @@ namespace Scenes.Game.Managers
         public void SaveInfo()
         {
             PlayerInfo info = _playerInfoSaveLoader.LoadPlayerInfo();
+            if (info == null)
+            {
+                info = PlayerInfo.GetDefault(ProjectContext.Instance.GetPackProvider().GetPacksCount());
+                _playerInfoSaveLoader.SavePlayerInfo(info);
+            }
             bool[] openedPacks = info.GetOpenedPacks();
             int[] lastPlayedLevels = info.GetLastPlayedLevels();
 

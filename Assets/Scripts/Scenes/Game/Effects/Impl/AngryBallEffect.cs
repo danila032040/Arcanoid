@@ -43,7 +43,7 @@ namespace Scenes.Game.Effects.Impl
 
         private void SetBallsAngry(List<Ball> oldBalls, List<Ball> newBalls)
         {
-            SetBallsAngryState(oldBalls.Except(newBalls).ToList(), false, _changeColorAnimationDuration);
+            SetBallsAngryState(oldBalls, false, 0f);
             SetBallsAngryState(newBalls, true, _changeColorAnimationDuration);
         }
 

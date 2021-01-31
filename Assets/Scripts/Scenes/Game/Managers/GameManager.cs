@@ -14,11 +14,6 @@ namespace Scenes.Game.Managers
     {
         [SerializeField] private GameContext _gameContext;
 
-        private void Awake()
-        {
-            _gameContext.LevelsManager.Init(new InfoSaveLoader());
-        }
-
         private void Subscribe()
         {
             _gameContext.GameStatusManager.ProgressValueChanged += OnProgressValueChanged;

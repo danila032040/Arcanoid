@@ -98,8 +98,10 @@ namespace EnergySystem
         private EnergyPoints LoadEnergyPoints()
         {
             if (!PlayerPrefs.HasKey(EnergyPointsKey)) return null;
-
-            return JsonUtility.FromJson<EnergyPoints>(PlayerPrefs.GetString(EnergyPointsKey));
+            
+            EnergyPoints ep = JsonUtility.FromJson<EnergyPoints>(PlayerPrefs.GetString(EnergyPointsKey));
+            if (ep.LastTimeUpdated == 0) return null;
+            return ep;
         }
     }
 }

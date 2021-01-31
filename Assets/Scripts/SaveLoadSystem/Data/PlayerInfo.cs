@@ -1,11 +1,13 @@
 using SaveLoadSystem.Interfaces.Infos;
+using UnityEngine;
 
 namespace SaveLoadSystem.Data
 {
+    [System.Serializable]
     public class PlayerInfo : IPlayerPackInfo
     {
-        private bool[] _openedPacks;
-        private int[] _lastPlayedLevels;
+        [SerializeField] private bool[] _openedPacks;
+        [SerializeField] private int[] _lastPlayedLevels;
         
         public PlayerInfo()
         {

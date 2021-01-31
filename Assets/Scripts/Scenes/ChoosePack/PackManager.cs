@@ -44,7 +44,7 @@ namespace Scenes.ChoosePack
 
         private void Start()
         {
-            Init(ProjectContext.Instance.GetPackProvider(), new InfoSaveLoader(), DataProviderBetweenScenes.Instance);
+            Init(ProjectContext.Instance.GetPackProvider(), new PlayerInfoSaveLoader(), DataProviderBetweenScenes.Instance);
             SpawnPacks();
             ScrollToLastOpenedPack();
 

@@ -16,7 +16,7 @@ namespace SaveLoadSystem.Data
 
         public PackInfo()
         {
-            Init(new InfoSaveLoader());
+            Init(new LevelInfoSaveLoader());
         }
 
         public void Init(ILevelInfoSaveLoader levelInfoSaveLoader)

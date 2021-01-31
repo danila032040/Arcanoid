@@ -1,4 +1,5 @@
 using System;
+using SaveLoadSystem;
 using Scenes.Game.Balls;
 using Scenes.Game.Blocks;
 using Scenes.Game.Blocks.Boosters.Base;
@@ -44,6 +45,8 @@ namespace Scenes.Game.Contexts
         {
             BoostContext = new BoostContext(_blocksManager, _ballsManager, _effectsManager, _hpController);
             EffectContext = new EffectContext(_ballsManager, _gameStatusManager, _paddle);
+
+            LevelsManager.Init(new PlayerInfoSaveLoader());
         }
 
         public BoostContext BoostContext { get; private set; }
