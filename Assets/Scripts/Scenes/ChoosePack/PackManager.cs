@@ -42,13 +42,12 @@ namespace Scenes.ChoosePack
             SpawnPacks();
             ScrollToLastOpenedPack();
 
-            _buttonReturn.onClick.AddListener(() =>
-            {
-                SceneLoaderController.Instance.LoadScene(LoadingScene.StartScene);
-            });
+            _buttonReturn.onClick.AddListener(OnButtonReturnClicked);
             
         }
+
         
+
         private Pack[] _packs;
 
         public void SpawnPacks()
@@ -70,7 +69,7 @@ namespace Scenes.ChoosePack
                 _packs[i].transform.SetAsFirstSibling();
                 _packs[i].Init(packInfos[i], _playerInfoSaveLoader.LoadPlayerInfo(), _packProvider);
 
-                _packs[i].Clicked += PackClicked;
+                _packs[i].Clicked += OnPackClicked;
 
                 if (info.GetOpenedPacks()[i])
                 {
@@ -103,9 +102,19 @@ namespace Scenes.ChoosePack
             
             _scrollRect.content.transform.DOLocalMove(position, 1f);
         }
-
-        private void PackClicked(PackInfo packInfo)
+        
+        private void OnButtonReturnClicked()
         {
+            _buttonReturn.onClick.RemoveListener(OnButtonReturnClicked);
+            SceneLoaderController.Instance.LoadScene(LoadingScene.StartScene);
+        }
+
+        private void OnPackClicked(PackInfo packInfo)
+        {
+            foreach (Pack pack in _packs)
+            {
+                pack.Clicked -= OnPackClicked;
+            }
             if (EnergyManager.Instance.CanPlayLevel())
             {
                 EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsToPlayLevel());
