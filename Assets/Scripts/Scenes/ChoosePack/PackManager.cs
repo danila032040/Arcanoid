@@ -38,15 +38,14 @@ namespace Scenes.ChoosePack
 
         private void Start()
         {
-            Init(ProjectContext.Instance.GetPackProvider(), new PlayerInfoSaveLoader(), DataProviderBetweenScenes.Instance);
+            Init(ProjectContext.Instance.GetPackProvider(), new PlayerInfoSaveLoader(),
+                DataProviderBetweenScenes.Instance);
             SpawnPacks();
             ScrollToLastOpenedPack();
 
             _buttonReturn.onClick.AddListener(OnButtonReturnClicked);
-            
         }
 
-        
 
         private Pack[] _packs;
 
@@ -96,13 +95,14 @@ namespace Scenes.ChoosePack
 
             if (position.y < 0) position.y = 0;
 
-            position = Vector2.ClampMagnitude(position, _scrollRect.content.rect.height - _scrollRect.viewport.rect.height);
-            
+            position = Vector2.ClampMagnitude(position,
+                _scrollRect.content.rect.height - _scrollRect.viewport.rect.height);
+
             if (position.y < 0) position.y = 0;
-            
+
             _scrollRect.content.transform.DOLocalMove(position, 1f);
         }
-        
+
         private void OnButtonReturnClicked()
         {
             _buttonReturn.onClick.RemoveListener(OnButtonReturnClicked);
@@ -117,7 +117,8 @@ namespace Scenes.ChoosePack
             }
             if (EnergyManager.Instance.CanPlayLevel())
             {
-                EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsToPlayLevel());
+                EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig()
+                    .GetEnergyPointsToPlayLevel());
                 int packNumber = _packProvider.GetPackNumber(packInfo);
 
                 PlayerInfo playerInfo = _playerInfoSaveLoader.LoadPlayerInfo();
@@ -132,8 +133,15 @@ namespace Scenes.ChoosePack
             }
             else
             {
-                PopUpSystem.Instance.ShowPopUpOnANewLayer<NotEnoughEnergyPointsPopUp>().ShowAnim();
-
+                NotifyMessageWithButtonPopUp popUp =
+                    PopUpSystem.Instance.ShowPopUpOnANewLayer<NotifyMessageWithButtonPopUp>();
+                popUp.Show(
+                    ProjectContext.Instance.NotifyPopUpLocalizationConstants.NotEnoughEnergy,
+                    ProjectContext.Instance.NotifyPopUpLocalizationConstants.Ok, popUp.Hide);
+                foreach (Pack pack in _packs)
+                {
+                    pack.Clicked += OnPackClicked;
+                }
             }
         }
     }

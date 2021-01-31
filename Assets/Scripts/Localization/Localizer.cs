@@ -7,6 +7,7 @@ namespace Localization
 {
     public class Localizer : MonoBehaviour
     {
+        [SerializeField] private LocalizationResource _defaultLocalizationResource;
         [SerializeField] private LocalizationResource[] _localizationResources = new LocalizationResource[0];
 
         private readonly Dictionary<string, string> _words = new Dictionary<string, string>();
@@ -42,7 +43,13 @@ namespace Localization
 
         private void SetSystemLocale()
         {
-            _locale = Application.systemLanguage;
+            _locale = _defaultLocalizationResource.Locale;
+            foreach (LocalizationResource resource in _localizationResources)
+                if (resource.Locale == Application.systemLanguage)
+                {
+                    _locale = Application.systemLanguage;
+                    return;
+                }
         }
 
         private void ReloadDictionary()
@@ -60,6 +67,5 @@ namespace Localization
         {
             return _words[key];
         }
-
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnergyConfiguration
   m_EditorClassIdentifier: 
   _secondsToRestoreOneEnergyPoint: 1
-  _energyPointsToPlayLevel: -3
+  _energyPointsToPlayLevel: -40
   _energyPointsForPassingLevel: 5
   _initialEnergyPoints: 30
   _energyPointsToByeOneHeart: -6

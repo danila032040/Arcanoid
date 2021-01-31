@@ -7,23 +7,22 @@ namespace Localization.LocalizedText
     public class LocalizedTextTmpUGui : MonoBehaviour
     {
         [SerializeField] private string _key;
+        [SerializeField] private Localizer _localizer;
         
         private TextMeshProUGUI _text;
-
-        private Localizer _localizer;
-
-        public void Init(Localizer localizer)
+        
+        private void Awake()
         {
-            _localizer = localizer;
-        }
-
-        private void Start()
-        {
-            Init(FindObjectOfType<Localizer>());
             
             _text = this.GetComponent<TextMeshProUGUI>();
             _localizer.LocaleChanged += Localize;
             
+            Localize();
+        }
+
+        public void SetKey(string key)
+        {
+            _key = key;
             Localize();
         }
 

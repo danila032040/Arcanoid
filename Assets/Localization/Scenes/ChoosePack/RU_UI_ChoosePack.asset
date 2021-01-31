@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bc34edd5d015564dbfad24d89ec4a26, type: 3}
-  m_Name: UserInterfaceRU
+  m_Name: RU_UI_ChoosePack
   m_EditorClassIdentifier: 
   _locale: 30
   _translations:
-  - _key: ButtonStartGame
-    _value: "\u041D\u0430\u0447\u0430\u0442\u044C"
-  - _key: Arkanoid
-    _value: "\u0410\u0440\u043A\u0430\u043D\u043E\u0438\u0434"
   - _key: ChoosePack
     _value: "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0430\u043A"
+  - _key: Return
+    _value: "\u041D\u0430\u0437\u0430\u0434"

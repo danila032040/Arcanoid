@@ -24,7 +24,12 @@ namespace Scenes.Shared
                 _energyPointsCountText.text = $"{EnergyManager.Instance.GetEnergyPointsCount()}/" +
                                               $"{ProjectContext.Instance.GetEnergyConfig().GetInitialEnergyPoints()}";
                 TimeSpan timeSpan = TimeSpan.FromSeconds(EnergyManager.Instance.GetRemainingSecondsToRestoreOnePoint());
-                _timeToRestoreOnePoint.text = $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
+                if (timeSpan.Ticks != 0)
+                {
+                    _timeToRestoreOnePoint.text = $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
+                }
+                else _timeToRestoreOnePoint.text = "";
+
                 yield return new WaitForSecondsRealtime(1f);
             }
         }

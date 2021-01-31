@@ -292,6 +292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _key: Arkanoid
+  _localizer: {fileID: 1606349122643732259}
 --- !u!1 &941747475
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,6 +465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _key: ButtonStartGame
+  _localizer: {fileID: 1606349122643732259}
 --- !u!224 &1542545873 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4376814353522543814, guid: 458414a86cbbfdf489e2b1b3e95b83e0,
@@ -1051,6 +1053,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: e87aeb1b0098bf0499e5ec6d8199bbbd,
         type: 2}
+    - target: {fileID: 1606349122704432593, guid: bc54f90ec4366cf449d4d121cb9c7169,
+        type: 3}
+      propertyPath: _defaultLocalizationResource
+      value: 
+      objectReference: {fileID: 11400000, guid: 1f2939ad347e6214888c942d6ab6fbbf,
+        type: 2}
     - target: {fileID: 1606349122704432595, guid: bc54f90ec4366cf449d4d121cb9c7169,
         type: 3}
       propertyPath: m_Name
@@ -1058,6 +1066,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc54f90ec4366cf449d4d121cb9c7169, type: 3}
+--- !u!114 &1606349122643732259 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1606349122704432593, guid: bc54f90ec4366cf449d4d121cb9c7169,
+    type: 3}
+  m_PrefabInstance: {fileID: 1606349122643732258}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc21dd56d5eb1543a41ecd43bb295d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4376814354477853975
 PrefabInstance:
   m_ObjectHideFlags: 0
