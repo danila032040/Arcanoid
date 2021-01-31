@@ -148,4 +148,5 @@ MonoBehaviour:
   - {fileID: 7351420395257349033, guid: 6fe4ddcf06344bf48b37f5db445d4c2c, type: 3}
   - {fileID: 4784902016141254987, guid: 3da852dc1560fc741b3d8725bf48128f, type: 3}
   - {fileID: 1592709871808734778, guid: 54268548c69b6954fa28d0bd3e58197d, type: 3}
+  - {fileID: 5684127269267862535, guid: 29000c1f77ff5284298f403346db1adc, type: 3}
   _canvas: {fileID: 973000482}

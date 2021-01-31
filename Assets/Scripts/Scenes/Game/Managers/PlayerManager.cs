@@ -58,12 +58,12 @@ namespace Scenes.Game.Managers
         {
             _attachedBall = ball;
             _attachedBall.GetBallAttachment().AttachTo(_gameContext.Paddle.transform);
-            _gameContext.InputService.MouseButtonUp += DetachBall;
+            _gameContext.InputServicePopUp.MouseButtonUp += DetachBall;
         }
 
         private void DetachBall()
         {
-            _gameContext.InputService.MouseButtonUp -= DetachBall;
+            _gameContext.InputServicePopUp.MouseButtonUp -= DetachBall;
             _attachedBall.GetBallAttachment().Detach();
             _attachedBall.GetBallMovement().StartMoving();
         }

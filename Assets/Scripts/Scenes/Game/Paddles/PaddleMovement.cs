@@ -32,7 +32,7 @@ namespace Scenes.Game.Paddles
 
         private void Start()
         {
-            this.Init(FindObjectOfType<InputService>(), new CameraService(), Camera.main);
+            this.Init(FindObjectOfType<InputServicePopUp>(), new CameraService(), Camera.main);
 
             _currentMoveSpeed = _initialMoveSpeed;
 

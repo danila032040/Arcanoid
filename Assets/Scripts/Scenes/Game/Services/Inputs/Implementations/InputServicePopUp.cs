@@ -1,11 +1,12 @@
 ﻿using System;
+using PopUpSystems;
 using Scenes.Game.Services.Inputs.Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Scenes.Game.Services.Inputs.Implementations
 {
-    public class InputService : MonoBehaviour, IInputService
+    public class InputServicePopUp : PopUp, IInputService
     {
         public event Action MouseButtonDown;
         public event Action MouseButtonUp;
@@ -18,23 +19,35 @@ namespace Scenes.Game.Services.Inputs.Implementations
 
             CheckMousePositionChanged();
         }
+        
+        public override void EnableInput()
+        {
+            _isEnabled = true;
+        }
 
+        public override void DisableInput()
+        {
+            _isEnabled = false;
+        }
+
+        private bool _isEnabled;
         private void CheckMouseButtonDown()
         {
-            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) OnMouseButtonDown();
+            if (_isEnabled && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) OnMouseButtonDown();
         }
 
         private void CheckMouseButtonUp()
         {
-            if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject()) OnMouseButtonUp();
+            if (_isEnabled && Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject()) OnMouseButtonUp();
         }
 
 
-        Vector3 _oldMousePos;
+        Vector3Int _oldMousePos;
 
         private void CheckMousePositionChanged()
         {
-            Vector3 currentMousePos = Input.mousePosition;
+            if (!_isEnabled) return;
+            Vector3Int currentMousePos = Vector3Int.RoundToInt(Input.mousePosition);
             if (_oldMousePos != currentMousePos)
             {
                 OnMousePositionChanged(currentMousePos);
@@ -57,5 +70,7 @@ namespace Scenes.Game.Services.Inputs.Implementations
         {
             MousePositionChanged?.Invoke(obj);
         }
+
+        
     }
 }

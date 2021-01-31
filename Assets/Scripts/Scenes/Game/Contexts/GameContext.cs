@@ -1,3 +1,4 @@
+using PopUpSystems;
 using SaveLoadSystem;
 using Scenes.Game.Balls;
 using Scenes.Game.Blocks;
@@ -18,7 +19,7 @@ namespace Scenes.Game.Contexts
 {
     public class GameContext : MonoBehaviour
     {
-        [SerializeField] private InputService _inputService;
+        private InputServicePopUp _inputServicePopUp;
         [SerializeField] private ScreenService _screenService;
 
 
@@ -41,6 +42,8 @@ namespace Scenes.Game.Contexts
 
         private void Awake()
         {
+            _inputServicePopUp = PopUpSystem.Instance.ShowPopUp<InputServicePopUp>();
+            
             BoostContext = new BoostContext(_blocksManager, _ballsManager, _effectsManager, _hpController);
             EffectContext = new EffectContext(_ballsManager, _gameStatusManager, _paddle);
 
@@ -50,7 +53,7 @@ namespace Scenes.Game.Contexts
         public BoostContext BoostContext { get; private set; }
         public EffectContext EffectContext { get; private set; }
 
-        public IInputService InputService => _inputService;
+        public IInputService InputServicePopUp => _inputServicePopUp;
         public IScreenService ScreenService => _screenService;
         public ICameraService CameraService => _cameraService;
 

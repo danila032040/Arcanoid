@@ -976,7 +976,6 @@ GameObject:
   m_Component:
   - component: {fileID: 881123438}
   - component: {fileID: 881123447}
-  - component: {fileID: 881123437}
   - component: {fileID: 881123441}
   - component: {fileID: 881123446}
   - component: {fileID: 881123439}
@@ -993,18 +992,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &881123437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 881123436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a29714925424e4b4f80232a31a9804c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &881123438
 Transform:
   m_ObjectHideFlags: 0
@@ -1134,7 +1121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b887ff4d7e44dc8a8b6b6a3381f1e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputService: {fileID: 881123437}
   _screenService: {fileID: 881123441}
   _gameManager: {fileID: 881123446}
   _gameStatusManager: {fileID: 881123439}
@@ -1505,7 +1491,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _inputServiceImpl
       value: 
-      objectReference: {fileID: 881123437}
+      objectReference: {fileID: 0}
     - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
         type: 3}
       propertyPath: _screenServiceImpl
@@ -1745,7 +1731,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _inputServiceImpl
       value: 
-      objectReference: {fileID: 881123437}
+      objectReference: {fileID: 0}
     - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
         type: 3}
       propertyPath: _screenServiceImpl
@@ -1870,7 +1856,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _inputServiceImpl
       value: 
-      objectReference: {fileID: 881123437}
+      objectReference: {fileID: 0}
     - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
         type: 3}
       propertyPath: _screenServiceImpl
@@ -2323,7 +2309,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _inputServiceImpl
       value: 
-      objectReference: {fileID: 881123437}
+      objectReference: {fileID: 0}
     - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
         type: 3}
       propertyPath: _screenServiceImpl
@@ -2614,7 +2600,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _inputServiceImpl
       value: 
-      objectReference: {fileID: 881123437}
+      objectReference: {fileID: 0}
     - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
         type: 3}
       propertyPath: _screenServiceImpl
@@ -2989,7 +2975,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _inputServiceImpl
       value: 
-      objectReference: {fileID: 881123437}
+      objectReference: {fileID: 0}
     - target: {fileID: 6885784943255915703, guid: 1ffb0f69c0fb4184e84f68710f8dc0ba,
         type: 3}
       propertyPath: _screenServiceImpl
