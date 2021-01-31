@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scenes.Game.PopUps
+namespace Scenes.Shared.PopUps
 {
     public class WinGamePopUp : PopUp
     {

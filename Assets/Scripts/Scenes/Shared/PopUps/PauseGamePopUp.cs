@@ -3,25 +3,29 @@ using System.Collections;
 using DG.Tweening;
 using EnergySystem;
 using PopUpSystems;
-using SceneLoader;
-using Scenes.ChoosePack.PopUps;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scenes.Game.PopUps
+namespace Scenes.Shared.PopUps
 {
-    public class RestartGamePopUp : PopUp
+    public class PauseGamePopUp : PopUp
     {
         [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private Button _buttonContinue;
         [SerializeField] private Button _buttonRestart;
+        [SerializeField] private Button _buttonReturn;
         
         [SerializeField] private float _animationDuration;
 
+        public event Action ButtonContinuePressed;
         public event Action ButtonRestartPressed;
+        public event Action ButtonReturnPressed;
 
         private void Awake()
         {
+            _buttonContinue.onClick.AddListener(OnButtonContinuePressed);
             _buttonRestart.onClick.AddListener(OnButtonRestartPressed);
+            _buttonReturn.onClick.AddListener(OnButtonReturnPressed);
         }
         
 
@@ -55,6 +59,12 @@ namespace Scenes.Game.PopUps
             OnClosing();
         }
 
+        private void OnButtonContinuePressed()
+        {
+            ButtonContinuePressed?.Invoke();
+            StartCoroutine(CloseAnim());
+        }
+
         private void OnButtonRestartPressed()
         {
             if (EnergyManager.Instance.CanPlayLevel())
@@ -64,14 +74,16 @@ namespace Scenes.Game.PopUps
             }
             else
             {
-                var popUp = PopUpSystem.Instance.ShowPopUpOnANewLayer<NotEnoughEnergyPointsPopUp>();
-                popUp.SetButtonText("Choose Pack");
-                popUp.ShowAnim();
-                popUp.ButtonOkPressed += () =>
-                {
-                    SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene);
-                };
+                PopUpSystem.Instance.ShowPopUpOnANewLayer<NotEnoughEnergyPointsPopUp>();
             }
         }
+
+        private void OnButtonReturnPressed()
+        {
+            ButtonReturnPressed?.Invoke();
+            StartCoroutine(CloseAnim());
+        }
+
+        
     }
 }

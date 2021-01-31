@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scenes.ChoosePack.PopUps
+namespace Scenes.Shared.PopUps
 {
     public class NotEnoughEnergyPointsPopUp : PopUp
     {

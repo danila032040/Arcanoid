@@ -8,8 +8,8 @@ using SaveLoadSystem.Interfaces;
 using SaveLoadSystem.Interfaces.SaveLoaders;
 using SceneLoader;
 using Scenes.ChoosePack.Packs;
-using Scenes.ChoosePack.PopUps;
 using Scenes.Shared;
+using Scenes.Shared.PopUps;
 using UnityEngine;
 using UnityEngine.UI;
 

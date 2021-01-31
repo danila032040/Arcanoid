@@ -1,7 +1,7 @@
 using System;
 using PopUpSystems;
-using Scenes.Game.PopUps;
 using Scenes.Game.Utils;
+using Scenes.Shared.PopUps;
 using UnityEngine;
 
 namespace Scenes.Game.Managers

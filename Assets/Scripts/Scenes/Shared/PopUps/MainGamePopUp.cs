@@ -1,11 +1,11 @@
 using System;
 using PopUpSystems;
 using Scenes.Game.Player;
-using Scenes.Game.PopUps.MainGamePopUpViews;
+using Scenes.Shared.PopUps.MainGamePopUpViews;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scenes.Game.PopUps
+namespace Scenes.Shared.PopUps
 {
     public class MainGamePopUp : PopUp
     {
