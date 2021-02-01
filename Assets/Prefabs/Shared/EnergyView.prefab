@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4376814353522543814}
   - component: {fileID: 4376814353522543813}
+  - component: {fileID: -3430640575735553890}
   m_Layer: 5
   m_Name: EnergyView
   m_TagString: Untagged
@@ -50,8 +51,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb606b8d95f34bb0a7d78287952d010e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _addingTextPrefab: {fileID: 865516673160260153, guid: d08181a15646b554083578ba6847f053,
+    type: 3}
+  _addingTextStartPosition: {x: 0, y: 0, z: 0}
+  _addingTextFinalPosition: {x: 0, y: 50, z: 0}
+  _addingTextAnimationDuration: 1
   _energyPointsCountText: {fileID: 4376814353798314439}
   _timeToRestoreOnePoint: {fileID: 4376814354003181543}
+  _canvas: {fileID: -3430640575735553890}
+  _minusColor: {r: 1, g: 0, b: 0, a: 1}
+  _plusColor: {r: 0, g: 1, b: 0, a: 1}
+--- !u!223 &-3430640575735553890
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4376814353522543815}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_SortingLayerID: 0
+  m_SortingOrder: 1002
+  m_TargetDisplay: 0
 --- !u!1 &4376814353798314457
 GameObject:
   m_ObjectHideFlags: 0

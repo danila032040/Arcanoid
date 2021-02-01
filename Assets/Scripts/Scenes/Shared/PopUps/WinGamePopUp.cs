@@ -202,7 +202,12 @@ namespace Scenes.Shared.PopUps
 
         private void OnButtonNextLevelPressed()
         {
-            _gameManager.PlayNextLevel();
+            StartCoroutine(PlayNextLevelCoroutine());
+        }
+
+        private IEnumerator PlayNextLevelCoroutine()
+        {
+            yield return _gameManager.PlayNextLevelCoroutine();
             Hide(true);
         }
 

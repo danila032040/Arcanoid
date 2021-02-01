@@ -4,6 +4,7 @@ using Context;
 using SaveLoadSystem;
 using SaveLoadSystem.Data;
 using SaveLoadSystem.Interfaces.SaveLoaders;
+using Scenes.Game.Utils;
 using Singleton;
 using Unity.Mathematics;
 
@@ -12,8 +13,11 @@ namespace EnergySystem
     public class EnergyManager : MonoBehaviourSingletonPersistent<EnergyManager>,
         IMonoBehaviourSingletonInitialize<EnergyManager>
     {
+        public OnValueChanged<int> EnergyPointsValueChanged;
+        
         private EnergyConfiguration _config;
         private IEnergyPointsSaveLoader _energyPointsSaveLoader;
+        
 
         public void InitSingleton()
         {
@@ -68,6 +72,7 @@ namespace EnergySystem
             ep.Count += value;
             if (ep.Count < _config.GetMinEnergyPointsCount()) ep.Count = _config.GetMinEnergyPointsCount();
             _energyPointsSaveLoader.SaveEnergyPoints(ep);
+            EnergyPointsValueChanged?.Invoke(ep.Count - value, ep.Count);
         }
 
         public int GetRemainingSecondsToRestoreOnePoint()

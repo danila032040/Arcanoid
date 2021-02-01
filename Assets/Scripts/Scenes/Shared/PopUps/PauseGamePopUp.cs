@@ -76,8 +76,7 @@ namespace Scenes.Shared.PopUps
         {
             if (EnergyManager.Instance.CanPlayLevel())
             {
-                _gameManager.GameRestart();
-                Hide(true);
+                StartCoroutine(GameRestartCoroutine());
             }
             else
             {
@@ -87,6 +86,12 @@ namespace Scenes.Shared.PopUps
                     ProjectContext.Instance.NotifyPopUpLocalizationConstants.NotEnoughEnergy,
                     ProjectContext.Instance.NotifyPopUpLocalizationConstants.Ok, popUp.Hide);
             }
+        }
+
+        private IEnumerator GameRestartCoroutine()
+        {
+            yield return _gameManager.GameRestartCoroutine();
+            Hide(true);
         }
 
         private void OnButtonReturnPressed()

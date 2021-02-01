@@ -101,9 +101,10 @@ namespace Scenes.Shared.PopUps
         
         private void OnButtonBuyOneHeartClicked()
         {
-            _gameManager.BuyHeart();
-            Hide(true);
+            StartCoroutine(BuyHeartCoroutine());
         }
+
+        
 
         private void OnButtonChoosePackClicked()
         {
@@ -113,7 +114,18 @@ namespace Scenes.Shared.PopUps
 
         private void OnButtonRestartClicked()
         {
-            _gameManager.GameRestart();
+            StartCoroutine(GameRestartCoroutine());
+        }
+
+        private IEnumerator GameRestartCoroutine()
+        {
+            yield return _gameManager.GameRestartCoroutine();
+            Hide(true);
+        }
+        
+        private IEnumerator BuyHeartCoroutine()
+        {
+            yield return _gameManager.BuyHeartCoroutine();
             Hide(true);
         }
     }

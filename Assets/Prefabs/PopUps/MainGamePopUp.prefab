@@ -400,6 +400,7 @@ MonoBehaviour:
   _hpView: {fileID: 4411772824155603161}
   _progressGameView: {fileID: 9020803737276699046}
   _packGameView: {fileID: 3292693520809705490}
+  _energyView: {fileID: 4376814355221568087}
 --- !u!1 &3292693519708247834
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,26 +1233,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4376814353798314439, guid: 458414a86cbbfdf489e2b1b3e95b83e0,
         type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4376814353798314439, guid: 458414a86cbbfdf489e2b1b3e95b83e0,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4376814353798314439, guid: 458414a86cbbfdf489e2b1b3e95b83e0,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4376814353798314439, guid: 458414a86cbbfdf489e2b1b3e95b83e0,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4376814353798314439, guid: 458414a86cbbfdf489e2b1b3e95b83e0,
-        type: 3}
       propertyPath: m_fontSize
       value: 18
       objectReference: {fileID: 0}
@@ -1259,26 +1240,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_firstOverflowCharacterIndex
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4376814354003181543, guid: 458414a86cbbfdf489e2b1b3e95b83e0,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4376814354003181543, guid: 458414a86cbbfdf489e2b1b3e95b83e0,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4376814354003181543, guid: 458414a86cbbfdf489e2b1b3e95b83e0,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4376814354003181543, guid: 458414a86cbbfdf489e2b1b3e95b83e0,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4376814354003181543, guid: 458414a86cbbfdf489e2b1b3e95b83e0,
         type: 3}
@@ -1298,6 +1259,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1866798738}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4376814355221568087 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4376814353522543813, guid: 458414a86cbbfdf489e2b1b3e95b83e0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1866798738}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb606b8d95f34bb0a7d78287952d010e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3077606472220017158
 PrefabInstance:
   m_ObjectHideFlags: 0

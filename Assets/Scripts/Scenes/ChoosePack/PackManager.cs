@@ -1,3 +1,4 @@
+using System.Collections;
 using Context;
 using DG.Tweening;
 using EnergySystem;
@@ -22,7 +23,9 @@ namespace Scenes.ChoosePack
         [SerializeField] private ScrollRect _scrollRect;
         [SerializeField] private Button _buttonReturn;
 
+        [SerializeField] private EnergyView _energyView;
 
+        
         private IPackProvider _packProvider;
         private IPlayerInfoSaveLoader _playerInfoSaveLoader;
         private DataProviderBetweenScenes _dataProvider;
@@ -114,22 +117,11 @@ namespace Scenes.ChoosePack
             foreach (Pack pack in _packs)
             {
                 pack.Clicked -= OnPackClicked;
+                _buttonReturn.onClick.RemoveListener(OnButtonReturnClicked);
             }
             if (EnergyManager.Instance.CanPlayLevel())
             {
-                EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig()
-                    .GetEnergyPointsToPlayLevel());
-                int packNumber = _packProvider.GetPackNumber(packInfo);
-
-                PlayerInfo playerInfo = _playerInfoSaveLoader.LoadPlayerInfo();
-                int levelNumber = playerInfo.GetLastPlayedLevels()[packNumber];
-
-                if (levelNumber == packInfo.GetLevelsCount()) levelNumber = 0;
-
-                _dataProvider.SetCurrentLevelNumber(levelNumber);
-                _dataProvider.SetCurrentPackNumber(packNumber);
-
-                SceneLoaderController.Instance.LoadScene(LoadingScene.GameScene);
+                StartCoroutine(PackChosenCoroutine(packInfo));
             }
             else
             {
@@ -141,8 +133,30 @@ namespace Scenes.ChoosePack
                 foreach (Pack pack in _packs)
                 {
                     pack.Clicked += OnPackClicked;
+                    _buttonReturn.onClick.AddListener(OnButtonReturnClicked);
                 }
             }
+        }
+
+        private IEnumerator PackChosenCoroutine(PackInfo packInfo)
+        {
+            yield return _energyView.ShowEnergyChangesCoroutine(ProjectContext.Instance.GetEnergyConfig()
+                .GetEnergyPointsToPlayLevel());
+            
+            
+            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig()
+                .GetEnergyPointsToPlayLevel());
+            int packNumber = _packProvider.GetPackNumber(packInfo);
+
+            PlayerInfo playerInfo = _playerInfoSaveLoader.LoadPlayerInfo();
+            int levelNumber = playerInfo.GetLastPlayedLevels()[packNumber];
+
+            if (levelNumber == packInfo.GetLevelsCount()) levelNumber = 0;
+
+            _dataProvider.SetCurrentLevelNumber(levelNumber);
+            _dataProvider.SetCurrentPackNumber(packNumber);
+
+            SceneLoaderController.Instance.LoadScene(LoadingScene.GameScene);
         }
     }
 }

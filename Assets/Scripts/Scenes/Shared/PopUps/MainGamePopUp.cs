@@ -16,6 +16,10 @@ namespace Scenes.Shared.PopUps
         [SerializeField] private ProgressGameView _progressGameView;
         [SerializeField] private PackGameView _packGameView;
 
+        [SerializeField] private EnergyView _energyView;
+
+        public EnergyView EnergyView => _energyView;
+
         public override void EnableInput()
         {
             if (_buttonPauseGame)

@@ -37,7 +37,7 @@ namespace Scenes.Game.Balls.Base
             Vector2 velocity = -collision.relativeVelocity;
 
             _rb.velocity = Vector2.Reflect(velocity, normal);
-            CorrectVelocity();
+            //CorrectVelocity();
         }
 
 

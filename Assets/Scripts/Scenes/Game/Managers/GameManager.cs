@@ -1,9 +1,7 @@
-using System;
+using System.Collections;
 using Context;
-using DG.Tweening;
 using EnergySystem;
 using PopUpSystems;
-using SceneLoader;
 using Scenes.Game.Blocks.Boosters.Base;
 using Scenes.Game.Contexts;
 using Scenes.Game.Utils;
@@ -20,12 +18,13 @@ namespace Scenes.Game.Managers
         private MainGamePopUp _mainGamePopUp;
 
         public MainGamePopUp GetMainGamePopUp() => _mainGamePopUp;
+
         private void Awake()
         {
             _mainGamePopUp = PopUpSystem.Instance.SpawnPopUpOnANewLayer<MainGamePopUp>();
             _mainGamePopUp.Show(this);
         }
-        
+
         private void Start()
         {
             StartGame();
@@ -41,56 +40,61 @@ namespace Scenes.Game.Managers
             _gameContext.GameStatusManager.ProgressValueChanged += OnProgressValueChanged;
             _gameContext.PlayerManager.HealthValueChanged += OnHealthValueChanged;
         }
-        
+
         private void UnSubscribe()
         {
             _gameContext.GameStatusManager.ProgressValueChanged -= OnProgressValueChanged;
             _gameContext.PlayerManager.HealthValueChanged -= OnHealthValueChanged;
-
         }
 
-
-        
 
         private void StartGame()
         {
             UnSubscribe();
-            
+
             _gameContext.EffectsManager.DeleteEffects();
             _gameContext.BlocksManager.DeleteBlocks();
             _gameContext.BallsManager.DeleteBalls();
-            
+
             foreach (CatchableBoost effect in FindObjectsOfType<CatchableBoost>())
             {
                 Destroy(effect.gameObject);
             }
 
-            
+
             _gameContext.LevelsManager.GetCurrentLevel(out int currentLevelNumber, out int currentPackNumber);
-            
-            _gameContext.BlocksManager.SpawnBlocks(_gameContext.LevelsManager.LoadLevel(currentLevelNumber, currentPackNumber));
-            
+
+            _gameContext.BlocksManager.SpawnBlocks(
+                _gameContext.LevelsManager.LoadLevel(currentLevelNumber, currentPackNumber));
+
             _gameContext.GameStatusManager.Reset();
             _gameContext.PlayerManager.Reset();
-            
+
             Subscribe();
         }
-        
-        public void GameRestart()
+
+        public IEnumerator GameRestartCoroutine()
         {
-            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsToPlayLevel());
+            yield return _mainGamePopUp.EnergyView.ShowEnergyChangesCoroutine(ProjectContext.Instance.GetEnergyConfig()
+                .GetEnergyPointsToPlayLevel());
+            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig()
+                .GetEnergyPointsToPlayLevel());
             StartGame();
         }
 
         private void GameOver()
         {
-            PopUpSystem.Instance.SpawnPopUpOnANewLayer<RestartGamePopUp>().Show( this, true);
+            PopUpSystem.Instance.SpawnPopUpOnANewLayer<RestartGamePopUp>().Show(this, true);
         }
 
         private void GameWin()
         {
-            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsForPassingLevel());
-                
+            StartCoroutine(_mainGamePopUp.EnergyView.ShowEnergyChangesCoroutine(ProjectContext.Instance
+                .GetEnergyConfig()
+                .GetEnergyPointsForPassingLevel()));
+            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig()
+                .GetEnergyPointsForPassingLevel());
+
             _gameContext.LevelsManager.SaveInfo();
 
             GameWinInfo gameWinInfo = new GameWinInfo();
@@ -106,8 +110,31 @@ namespace Scenes.Game.Managers
 
             gameWinInfo._enoughEnergy = EnergyManager.Instance.CanPlayLevel();
 
-            PopUpSystem.Instance.SpawnPopUpOnANewLayer < WinGamePopUp>().Show(this, gameWinInfo, true);
+            PopUpSystem.Instance.SpawnPopUpOnANewLayer<WinGamePopUp>().Show(this, gameWinInfo, true);
+        }
 
+        public IEnumerator BuyHeartCoroutine()
+        {
+            yield return _mainGamePopUp.EnergyView.ShowEnergyChangesCoroutine(ProjectContext.Instance.GetEnergyConfig()
+                .GetEnergyPointsToByeOneHeart());
+            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig()
+                .GetEnergyPointsToByeOneHeart());
+
+            _gameContext.HpController.AddHpValue(1);
+        }
+
+        public IEnumerator PlayNextLevelCoroutine()
+        {
+            yield return _mainGamePopUp.EnergyView.ShowEnergyChangesCoroutine(ProjectContext.Instance.GetEnergyConfig()
+                .GetEnergyPointsToPlayLevel());
+            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig()
+                .GetEnergyPointsToPlayLevel());
+
+            _gameContext.LevelsManager.GetNextLevel(out int nextLevelNumber, out int nextPackNumber);
+
+            DataProviderBetweenScenes.Instance.SetCurrentLevelNumber(nextLevelNumber);
+            DataProviderBetweenScenes.Instance.SetCurrentPackNumber(nextPackNumber);
+            StartGame();
         }
 
         private void OnProgressValueChanged(float oldValue, float newValue)
@@ -117,30 +144,13 @@ namespace Scenes.Game.Managers
                 GameWin();
             }
         }
+
         private void OnHealthValueChanged(int oldValue, int newValue)
         {
             if (newValue <= ProjectContext.Instance.GetHealthConfig().MinBlockHealthValue)
             {
                 GameOver();
             }
-        }
-
-        public void BuyHeart()
-        {
-            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsToByeOneHeart());
-
-            _gameContext.HpController.AddHpValue(1);
-        }
-
-        public void PlayNextLevel()
-        {
-            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsToPlayLevel());
-
-            _gameContext.LevelsManager.GetNextLevel(out int nextLevelNumber, out int nextPackNumber);
-            
-            DataProviderBetweenScenes.Instance.SetCurrentLevelNumber(nextLevelNumber);
-            DataProviderBetweenScenes.Instance.SetCurrentPackNumber(nextPackNumber);
-            StartGame();
         }
     }
 }
