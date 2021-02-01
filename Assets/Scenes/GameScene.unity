@@ -980,7 +980,6 @@ GameObject:
   - component: {fileID: 881123446}
   - component: {fileID: 881123439}
   - component: {fileID: 881123444}
-  - component: {fileID: 881123443}
   - component: {fileID: 881123445}
   - component: {fileID: 881123442}
   - component: {fileID: 881123448}
@@ -1059,18 +1058,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ballsPool: {fileID: 99516173}
---- !u!114 &881123443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 881123436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c21c845c692f4db7b331045e78776445, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &881123444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1125,7 +1112,6 @@ MonoBehaviour:
   _gameManager: {fileID: 881123446}
   _gameStatusManager: {fileID: 881123439}
   _playerManager: {fileID: 881123444}
-  _popUpsManager: {fileID: 881123443}
   _levelsManager: {fileID: 881123445}
   _ballsManager: {fileID: 881123442}
   _blocksManager: {fileID: 881123440}
@@ -1199,7 +1185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4042d1dd66641459b44c958dab4902c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _popUpsManager: {fileID: 881123443}
+  _gameManager: {fileID: 881123446}
 --- !u!1 &963232507
 GameObject:
   m_ObjectHideFlags: 0
@@ -2186,6 +2172,75 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1741608678
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2532433871655079348, guid: eee5ac4b5d322f4479849edd81681bdd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532433871655079348, guid: eee5ac4b5d322f4479849edd81681bdd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532433871655079348, guid: eee5ac4b5d322f4479849edd81681bdd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532433871655079348, guid: eee5ac4b5d322f4479849edd81681bdd,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532433871655079348, guid: eee5ac4b5d322f4479849edd81681bdd,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532433871655079348, guid: eee5ac4b5d322f4479849edd81681bdd,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532433871655079348, guid: eee5ac4b5d322f4479849edd81681bdd,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532433871655079348, guid: eee5ac4b5d322f4479849edd81681bdd,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532433871655079348, guid: eee5ac4b5d322f4479849edd81681bdd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532433871655079348, guid: eee5ac4b5d322f4479849edd81681bdd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532433871655079348, guid: eee5ac4b5d322f4479849edd81681bdd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169637542425580281, guid: eee5ac4b5d322f4479849edd81681bdd,
+        type: 3}
+      propertyPath: m_Name
+      value: PopUpSystem
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eee5ac4b5d322f4479849edd81681bdd, type: 3}
 --- !u!114 &1745430903 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1721766515577042739, guid: 51459a87a5f899449a1b379ffc7afa14,

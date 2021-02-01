@@ -59,7 +59,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 1000
+  m_SortingOrder: 1001
   m_TargetDisplay: 0
 --- !u!114 &1723296713507227148
 MonoBehaviour:
@@ -232,4 +232,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneChangingCanvasGroup: {fileID: 1723296713507227150}
   _fadeDuration: 1
-  _isInitialised: 1

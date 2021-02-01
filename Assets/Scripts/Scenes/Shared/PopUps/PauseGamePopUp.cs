@@ -1,10 +1,14 @@
 using System;
 using System.Collections;
+using Context;
 using DG.Tweening;
 using EnergySystem;
 using PopUpSystems;
+using SceneLoader;
+using Scenes.Game.Managers;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
 
 namespace Scenes.Shared.PopUps
 {
@@ -14,20 +18,9 @@ namespace Scenes.Shared.PopUps
         [SerializeField] private Button _buttonContinue;
         [SerializeField] private Button _buttonRestart;
         [SerializeField] private Button _buttonReturn;
-        
+
         [SerializeField] private float _animationDuration;
-
-        public event Action ButtonContinuePressed;
-        public event Action ButtonRestartPressed;
-        public event Action ButtonReturnPressed;
-
-        private void Awake()
-        {
-            _buttonContinue.onClick.AddListener(OnButtonContinuePressed);
-            _buttonRestart.onClick.AddListener(OnButtonRestartPressed);
-            _buttonReturn.onClick.AddListener(OnButtonReturnPressed);
-        }
-        
+        [SerializeField] private float _pauseAnimationDuration;
 
         public override void EnableInput()
         {
@@ -38,52 +31,68 @@ namespace Scenes.Shared.PopUps
         {
             _canvasGroup.interactable = false;
         }
-        
-        public void ShowAnim()
+
+        private GameManager _gameManager;
+        public void Show(GameManager gameManager, bool stopTime)
         {
-            StartCoroutine(OpenAnim());
+            _gameManager = gameManager;
+            _buttonContinue.onClick.AddListener(OnButtonContinuePressed);
+            _buttonRestart.onClick.AddListener(OnButtonRestartPressed);
+            _buttonReturn.onClick.AddListener(OnButtonReturnPressed);
+            
+            StartCoroutine(ShowCoroutine(stopTime));
         }
-        
-        private IEnumerator OpenAnim()
+        private void Hide(bool returnTime)
         {
-            _canvasGroup.DOFade(0f, 0f);
+            _buttonContinue.onClick.RemoveListener(OnButtonContinuePressed);
+            _buttonRestart.onClick.RemoveListener(OnButtonRestartPressed);
+            _buttonReturn.onClick.RemoveListener(OnButtonReturnPressed);
+            StartCoroutine(HideCoroutine(returnTime));
+        }
+
+        private IEnumerator ShowCoroutine(bool stopTime)
+        {
+            _canvasGroup.alpha = 0f;
             DisableInput();
+            if (stopTime) yield return DOTween.To(() => Time.timeScale, scale => Time.timeScale = scale, 0f, _pauseAnimationDuration).WaitForCompletion();
             yield return _canvasGroup.DOFade(1f, _animationDuration).WaitForCompletion();
             EnableInput();
         }
 
-        private IEnumerator CloseAnim()
+        private IEnumerator HideCoroutine(bool returnTime)
         {
-            _canvasGroup.DOFade(1f, 0f);
+            _canvasGroup.alpha = 1f;
             yield return _canvasGroup.DOFade(0f, _animationDuration).WaitForCompletion();
             OnClosing();
+            if (returnTime) DOTween.To(() => Time.timeScale, scale => Time.timeScale = scale, 1f, _pauseAnimationDuration);
         }
 
         private void OnButtonContinuePressed()
         {
-            ButtonContinuePressed?.Invoke();
-            StartCoroutine(CloseAnim());
+            Hide(true);
         }
 
         private void OnButtonRestartPressed()
         {
             if (EnergyManager.Instance.CanPlayLevel())
             {
-                ButtonRestartPressed?.Invoke();
-                StartCoroutine(CloseAnim());
+                _gameManager.GameRestart();
+                Hide(true);
             }
             else
             {
-                PopUpSystem.Instance.ShowPopUpOnANewLayer<NotEnoughEnergyPointsPopUp>();
+                NotifyMessageWithButtonPopUp popUp =
+                    PopUpSystem.Instance.SpawnPopUpOnANewLayer<NotifyMessageWithButtonPopUp>();
+                popUp.Show(
+                    ProjectContext.Instance.NotifyPopUpLocalizationConstants.NotEnoughEnergy,
+                    ProjectContext.Instance.NotifyPopUpLocalizationConstants.Ok, popUp.Hide);
             }
         }
 
         private void OnButtonReturnPressed()
         {
-            ButtonReturnPressed?.Invoke();
-            StartCoroutine(CloseAnim());
+            SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene);
+            Hide(false);
         }
-
-        
     }
 }

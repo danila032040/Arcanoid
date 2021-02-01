@@ -94,7 +94,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 72
+  m_fontSize: 49.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 1592709871759920185}
   - component: {fileID: 1592709871759920186}
   - component: {fileID: 1592709871759920187}
+  - component: {fileID: 4587150672835147834}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -291,6 +292,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4587150672835147834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592709871759920325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc56db87e34547e8acf478ae1a2064ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clickedScaleCoefficient: 0.9
+  _animationDuration: 0.25
 --- !u!1 &1592709871808734773
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +542,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 72
+  m_fontSize: 26.25
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

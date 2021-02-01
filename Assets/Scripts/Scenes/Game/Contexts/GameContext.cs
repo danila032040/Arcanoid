@@ -1,3 +1,4 @@
+using System;
 using PopUpSystems;
 using SaveLoadSystem;
 using Scenes.Game.Balls;
@@ -26,7 +27,6 @@ namespace Scenes.Game.Contexts
         [SerializeField] private GameManager _gameManager;
         [SerializeField] private GameStatusManager _gameStatusManager;
         [SerializeField] private PlayerManager _playerManager;
-        [SerializeField] private PopUpsManager _popUpsManager;
         [SerializeField] private LevelsManager _levelsManager;
 
         [SerializeField] private BallsManager _ballsManager;
@@ -42,12 +42,17 @@ namespace Scenes.Game.Contexts
 
         private void Awake()
         {
-            _inputServicePopUp = PopUpSystem.Instance.ShowPopUp<InputServicePopUp>();
+            _inputServicePopUp = PopUpSystem.Instance.SpawnPopUp<InputServicePopUp>();
             
             BoostContext = new BoostContext(_blocksManager, _ballsManager, _effectsManager, _hpController);
             EffectContext = new EffectContext(_ballsManager, _gameStatusManager, _paddle);
 
             LevelsManager.Init(new PlayerInfoSaveLoader());
+        }
+
+        private void OnDestroy()
+        {
+            _inputServicePopUp.Close();
         }
 
         public BoostContext BoostContext { get; private set; }
@@ -60,7 +65,6 @@ namespace Scenes.Game.Contexts
         public GameManager GameManager => _gameManager;
         public GameStatusManager GameStatusManager => _gameStatusManager;
         public PlayerManager PlayerManager => _playerManager;
-        public PopUpsManager PopUpsManager => _popUpsManager;
         public LevelsManager LevelsManager => _levelsManager;
 
         public BallsManager BallsManager => _ballsManager;

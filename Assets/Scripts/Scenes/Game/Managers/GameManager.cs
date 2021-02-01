@@ -1,10 +1,14 @@
+using System;
 using Context;
+using DG.Tweening;
 using EnergySystem;
+using PopUpSystems;
 using SceneLoader;
 using Scenes.Game.Blocks.Boosters.Base;
 using Scenes.Game.Contexts;
 using Scenes.Game.Utils;
 using Scenes.Shared;
+using Scenes.Shared.PopUps;
 using UnityEngine;
 
 namespace Scenes.Game.Managers
@@ -13,16 +17,29 @@ namespace Scenes.Game.Managers
     {
         [SerializeField] private GameContext _gameContext;
 
+        private MainGamePopUp _mainGamePopUp;
+
+        public MainGamePopUp GetMainGamePopUp() => _mainGamePopUp;
+        private void Awake()
+        {
+            _mainGamePopUp = PopUpSystem.Instance.SpawnPopUpOnANewLayer<MainGamePopUp>();
+            _mainGamePopUp.Show(this);
+        }
+        
+        private void Start()
+        {
+            StartGame();
+        }
+
+        private void OnDestroy()
+        {
+            _mainGamePopUp.Close();
+        }
+
         private void Subscribe()
         {
             _gameContext.GameStatusManager.ProgressValueChanged += OnProgressValueChanged;
             _gameContext.PlayerManager.HealthValueChanged += OnHealthValueChanged;
-
-            _gameContext.PopUpsManager.PauseGame += PopUpsManagerOnGamePause;
-            _gameContext.PopUpsManager.UnPauseGame += PopUpsManagerOnUnPauseGame;
-            _gameContext.PopUpsManager.RestartGame += PopUpsManagerOnRestartGame;
-            _gameContext.PopUpsManager.ReturnGame += PopUpsManagerOnReturnGame;
-            _gameContext.PopUpsManager.NextLevelGame += PopUpsManagerOnNextLevelGame;
         }
         
         private void UnSubscribe()
@@ -30,19 +47,10 @@ namespace Scenes.Game.Managers
             _gameContext.GameStatusManager.ProgressValueChanged -= OnProgressValueChanged;
             _gameContext.PlayerManager.HealthValueChanged -= OnHealthValueChanged;
 
-            _gameContext.PopUpsManager.PauseGame -= PopUpsManagerOnGamePause;
-            _gameContext.PopUpsManager.UnPauseGame -= PopUpsManagerOnUnPauseGame;
-            _gameContext.PopUpsManager.RestartGame -= PopUpsManagerOnRestartGame;
-            _gameContext.PopUpsManager.ReturnGame -= PopUpsManagerOnReturnGame;
-            _gameContext.PopUpsManager.NextLevelGame -= PopUpsManagerOnNextLevelGame;
-
         }
 
 
-        private void Start()
-        {
-            StartGame();
-        }
+        
 
         private void StartGame()
         {
@@ -67,10 +75,16 @@ namespace Scenes.Game.Managers
             
             Subscribe();
         }
+        
+        public void GameRestart()
+        {
+            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsToPlayLevel());
+            StartGame();
+        }
 
         private void GameOver()
         {
-            _gameContext.PopUpsManager.GameOver();
+            PopUpSystem.Instance.SpawnPopUpOnANewLayer<RestartGamePopUp>().Show( this, true);
         }
 
         private void GameWin()
@@ -91,51 +105,10 @@ namespace Scenes.Game.Managers
             gameWinInfo._nextPack = ProjectContext.Instance.GetPackProvider().GetPackInfo(nextPackNumber);
 
             gameWinInfo._enoughEnergy = EnergyManager.Instance.CanPlayLevel();
-            
-            _gameContext.PopUpsManager.GameWin(gameWinInfo);
-        }
-        
-        private void PopUpsManagerOnGamePause()
-        {
-            Time.timeScale = 0f;
-        }
 
-        private void PopUpsManagerOnUnPauseGame()
-        {
-            Time.timeScale = 1f;
+            PopUpSystem.Instance.SpawnPopUpOnANewLayer < WinGamePopUp>().Show(this, gameWinInfo, true);
+
         }
-
-        private void PopUpsManagerOnRestartGame()
-        {
-            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsToPlayLevel());
-            StartGame();
-        }
-
-        private void PopUpsManagerOnReturnGame()
-        {
-            Time.timeScale = 0f;
-            SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene, OnOtherSceneLoaded);
-        }
-        
-        private void PopUpsManagerOnNextLevelGame()
-        {
-            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsToPlayLevel());
-
-            _gameContext.LevelsManager.GetNextLevel(out int nextLevelNumber, out int nextPackNumber);
-            
-            DataProviderBetweenScenes.Instance.SetCurrentLevelNumber(nextLevelNumber);
-            DataProviderBetweenScenes.Instance.SetCurrentPackNumber(nextPackNumber);
-            
-            StartGame();
-        }
-
-
-        private void OnOtherSceneLoaded(AsyncOperation obj)
-        {
-            Time.timeScale = 1f;
-            _gameContext.PopUpsManager.GetMainGamePopUp().Close();
-        }
-
 
         private void OnProgressValueChanged(float oldValue, float newValue)
         {
@@ -151,7 +124,23 @@ namespace Scenes.Game.Managers
                 GameOver();
             }
         }
-        
-        
+
+        public void BuyHeart()
+        {
+            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsToByeOneHeart());
+
+            _gameContext.HpController.AddHpValue(1);
+        }
+
+        public void PlayNextLevel()
+        {
+            EnergyManager.Instance.AddEnergyPoints(ProjectContext.Instance.GetEnergyConfig().GetEnergyPointsToPlayLevel());
+
+            _gameContext.LevelsManager.GetNextLevel(out int nextLevelNumber, out int nextPackNumber);
+            
+            DataProviderBetweenScenes.Instance.SetCurrentLevelNumber(nextLevelNumber);
+            DataProviderBetweenScenes.Instance.SetCurrentPackNumber(nextPackNumber);
+            StartGame();
+        }
     }
 }

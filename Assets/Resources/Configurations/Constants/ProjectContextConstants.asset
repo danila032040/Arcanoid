@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ProjectContextConstants
   m_EditorClassIdentifier: 
   _notifyPopUpLocalizationConstants: Configurations/Constants/Localization/NotifyPopUpLocalizationConstants
+  _restartGamePopUpLocalizationConstants: Configurations/Constants/Localization/RestartGamePopUpLocalizationConstants
   _projectPrefabsConfigPlace: Configurations/ProjectPrefabsConfiguration
   _healthConfigPlace: Configurations/HealthConfiguration
   _energyConfigPlace: Configurations/EnergyConfiguration

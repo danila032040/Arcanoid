@@ -30,8 +30,8 @@ namespace Scenes.Game.Managers
 
             PackInfo packInfo = _gameContext.LevelsManager.LoadPack(packNumber);
             
-            _gameContext.PopUpsManager.GetMainGamePopUp().GetPackGameView().SetLevelName(packInfo.GetLevelInfos()[levelNumber].Name);
-            _gameContext.PopUpsManager.GetMainGamePopUp().GetPackGameView().SetPackImage(packInfo.GetPackSprite());
+            _gameContext.GameManager.GetMainGamePopUp().GetPackGameView().SetLevelName(packInfo.GetLevelInfos()[levelNumber].Name);
+            _gameContext.GameManager.GetMainGamePopUp().GetPackGameView().SetPackImage(packInfo.GetPackSprite());
         }
 
         private float _lastProgress;
@@ -72,7 +72,7 @@ namespace Scenes.Game.Managers
 
         private void OnProgressValueChanged(float oldValue, float newValue)
         {
-            _gameContext.PopUpsManager.GetMainGamePopUp().GetProgressGameView().SetProgressGame(newValue);
+            _gameContext.GameManager.GetMainGamePopUp().GetProgressGameView().SetProgressGame(newValue);
             
             ProgressValueChanged?.Invoke(oldValue, newValue);
         }

@@ -1,7 +1,8 @@
-using System;
 using System.Collections;
 using DG.Tweening;
 using PopUpSystems;
+using SceneLoader;
+using Scenes.Game.Managers;
 using Scenes.Game.Utils;
 using TMPro;
 using UnityEngine;
@@ -32,15 +33,9 @@ namespace Scenes.Shared.PopUps
 
         [SerializeField] private float _scaleAnimationDuration;
         [SerializeField] private float _rotationAnimationDuration;
+        [SerializeField] private float _pauseAnimationDuration;
 
-        public event Action ButtonNextLevelPressed;
-        public event Action ButtonChoosePackPressed;
-
-        private void Awake()
-        {
-            _buttonNextLevel.onClick.AddListener(OnButtonNextLevelPressed);
-            _buttonChoosePack.onClick.AddListener(OnButtonChoosePackPressed);
-        }
+        private GameManager _gameManager;
 
         public override void EnableInput()
         {
@@ -52,12 +47,22 @@ namespace Scenes.Shared.PopUps
             _canvasGroup.interactable = false;
         }
 
-        public void ShowAnim(GameWinInfo gameWinInfo)
+        public void Show(GameManager gameManager, GameWinInfo gameWinInfo, bool stopTime)
         {
-            StartCoroutine(OpenAnim(gameWinInfo));
+            _gameManager = gameManager;
+            _buttonNextLevel.onClick.AddListener(OnButtonNextLevelPressed);
+            _buttonChoosePack.onClick.AddListener(OnButtonChoosePackPressed);
+            StartCoroutine(ShowCoroutine(gameWinInfo, stopTime));
         }
 
-        private IEnumerator OpenAnim(GameWinInfo gameWinInfo)
+        public void Hide(bool returnTime)
+        {
+            _buttonNextLevel.onClick.RemoveListener(OnButtonNextLevelPressed);
+            _buttonChoosePack.onClick.RemoveListener(OnButtonChoosePackPressed);
+            StartCoroutine(HideCoroutine(returnTime));
+        }
+
+        private IEnumerator ShowCoroutine(GameWinInfo gameWinInfo, bool stopTime)
         {
             _canvasGroup.DOFade(0f, 0f);
             DisableInput();
@@ -72,7 +77,8 @@ namespace Scenes.Shared.PopUps
             }
 
             SetCurrentLevel(gameWinInfo);
-
+            
+            if (stopTime) yield return DOTween.To(() => Time.timeScale, scale => Time.timeScale = scale, 0f, _pauseAnimationDuration).WaitForCompletion();
             yield return _canvasGroup.DOFade(1f, _openAnimationDuration).WaitForCompletion();
 
             if (IsLastLevel(gameWinInfo) || !gameWinInfo._enoughEnergy)
@@ -87,6 +93,13 @@ namespace Scenes.Shared.PopUps
             }
 
             EnableInput();
+        }
+
+        private IEnumerator HideCoroutine(bool returnTime)
+        {
+            yield return _canvasGroup.DOFade(0f, _openAnimationDuration).WaitForCompletion();
+            OnClosing();
+            if (returnTime) DOTween.To(() => Time.timeScale, scale => Time.timeScale = scale, 1f, _pauseAnimationDuration).WaitForCompletion();
         }
 
         private static bool IsLastLevel(GameWinInfo gameWinInfo)
@@ -186,23 +199,17 @@ namespace Scenes.Shared.PopUps
             _buttonChoosePack.gameObject.SetActive(buttonChoosePack);
         }
 
-        private IEnumerator CloseAnim()
-        {
-            yield return _canvasGroup.DOFade(0f, _openAnimationDuration).WaitForCompletion();
-            OnClosing();
-        }
 
         private void OnButtonNextLevelPressed()
         {
-            SetButtonActivity(false,false);
-            ButtonNextLevelPressed?.Invoke();
-            StartCoroutine(CloseAnim());
+            _gameManager.PlayNextLevel();
+            Hide(true);
         }
 
         private void OnButtonChoosePackPressed()
         {
-            ButtonChoosePackPressed?.Invoke();
-            StartCoroutine(CloseAnim());
+            SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene);
+            Hide(false);
         }
     }
 }

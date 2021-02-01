@@ -10,11 +10,11 @@ namespace Scenes.Game.Player
         private HpView _view;
         private HpModel _model;
 
-        [SerializeField] private PopUpsManager _popUpsManager;
+        [SerializeField] private GameManager _gameManager;
 
         private void Awake()
         {
-            _view = _popUpsManager.GetMainGamePopUp().GetHpView();
+            _view = _gameManager.GetMainGamePopUp().GetHpView();
             _model = new HpModel();
         }
 

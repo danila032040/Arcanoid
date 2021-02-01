@@ -13,6 +13,7 @@ namespace Context
         
         private ProjectContextConstants _projectContextConstants;
         private NotifyPopUpLocalizationConstants _notifyPopUpLocalizationConstants;
+        private RestartGamePopUpLocalizationConstants _restartGamePopUpLocalizationConstants;
         
         
         private ProjectPrefabsConfig _prefabsConfig;
@@ -29,6 +30,9 @@ namespace Context
             _notifyPopUpLocalizationConstants =
                 Resources.Load<NotifyPopUpLocalizationConstants>(_projectContextConstants
                     .NotifyPopUpLocalizationConstants);
+            _restartGamePopUpLocalizationConstants =
+                Resources.Load<RestartGamePopUpLocalizationConstants>(_projectContextConstants
+                    .RestartGamePopUpLocalizationConstants);
             
             _prefabsConfig = Resources.Load<ProjectPrefabsConfig>(_projectContextConstants.ProjectPrefabsConfigPlace);
             _healthConfig = Resources.Load<HealthConfiguration>(_projectContextConstants.HealthConfigPlace);
@@ -39,8 +43,9 @@ namespace Context
         
         public ProjectContextConstants ProjectContextConstants => _projectContextConstants;
         public NotifyPopUpLocalizationConstants NotifyPopUpLocalizationConstants => _notifyPopUpLocalizationConstants;
-        
-        
+        public RestartGamePopUpLocalizationConstants RestartGamePopUpLocalizationConstants => _restartGamePopUpLocalizationConstants;
+
+
         public ProjectPrefabsConfig GetPrefabsConfig() => _prefabsConfig;
         public HealthConfiguration GetHealthConfig() => _healthConfig;
         public EnergyConfiguration GetEnergyConfig() => _energyConfig;

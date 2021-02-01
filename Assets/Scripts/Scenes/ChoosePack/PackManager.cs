@@ -134,7 +134,7 @@ namespace Scenes.ChoosePack
             else
             {
                 NotifyMessageWithButtonPopUp popUp =
-                    PopUpSystem.Instance.ShowPopUpOnANewLayer<NotifyMessageWithButtonPopUp>();
+                    PopUpSystem.Instance.SpawnPopUpOnANewLayer<NotifyMessageWithButtonPopUp>();
                 popUp.Show(
                     ProjectContext.Instance.NotifyPopUpLocalizationConstants.NotEnoughEnergy,
                     ProjectContext.Instance.NotifyPopUpLocalizationConstants.Ok, popUp.Hide);

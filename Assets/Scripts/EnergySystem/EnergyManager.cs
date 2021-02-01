@@ -85,5 +85,10 @@ namespace EnergySystem
         {
             return GetEnergyPointsCount() + _config.GetEnergyPointsToPlayLevel() >= _config.GetMinEnergyPointsCount();
         }
+
+        public bool CanBuyHeart()
+        {
+            return GetEnergyPointsCount() + _config.GetEnergyPointsToByeOneHeart() >= _config.GetMinEnergyPointsCount();
+        }
     }
 }

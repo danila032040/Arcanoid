@@ -71,6 +71,10 @@ namespace Scenes.Game.Services.Inputs.Implementations
             MousePositionChanged?.Invoke(obj);
         }
 
-        
+
+        public void Close()
+        {
+            OnClosing();
+        }
     }
 }

@@ -21,9 +21,9 @@ namespace PopUpSystems
             Instantiate(ProjectContext.Instance.GetPrefabsConfig().GetPrefab<PopUpSystem>());
         }
 
-        public PopUp ShowPopUp(Type type)
+        public PopUp SpawnPopUp(Type type)
         {
-            if (_layers.Count == 0) return ShowPopUpOnANewLayer(type);
+            if (_layers.Count == 0) return SpawnPopUpOnANewLayer(type);
 
             PopUp popUpPrefab = _popUpPrefabs.Find(a => a.GetType() == type);
             PopUp popUp = CreatePopUp(popUpPrefab);
@@ -33,7 +33,7 @@ namespace PopUpSystems
             return popUp;
         }
 
-        public PopUp ShowPopUpOnANewLayer(Type type)
+        public PopUp SpawnPopUpOnANewLayer(Type type)
         {
             if (_layers.Count > 0) _layers.Peek().DisableInput();
 
@@ -41,19 +41,19 @@ namespace PopUpSystems
             layer.EnableInput();
             _layers.Push(layer);
 
-            return ShowPopUp(type);
+            return SpawnPopUp(type);
         }
 
 
-        public T ShowPopUp<T>() where T : PopUp
+        public T SpawnPopUp<T>() where T : PopUp
         {
-            return ShowPopUp(typeof(T)) as T;
+            return SpawnPopUp(typeof(T)) as T;
         }
 
 
-        public T ShowPopUpOnANewLayer<T>() where T : PopUp
+        public T SpawnPopUpOnANewLayer<T>() where T : PopUp
         {
-            return ShowPopUpOnANewLayer(typeof(T)) as T;
+            return SpawnPopUpOnANewLayer(typeof(T)) as T;
         }
 
 
