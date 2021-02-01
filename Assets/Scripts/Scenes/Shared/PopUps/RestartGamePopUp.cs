@@ -47,12 +47,12 @@ namespace Scenes.Shared.PopUps
                 ? ProjectContext.Instance.RestartGamePopUpLocalizationConstants.GameOver
                 : ProjectContext.Instance.RestartGamePopUpLocalizationConstants.NotEnoughEnergy);
             
-            _buttonRestart.onClick.AddListener(OnButtonRestartClicked);
-            _buttonChoosePack.onClick.AddListener(OnButtonChoosePackClicked);
-            _buttonByeOneHeart.onClick.AddListener(OnButtonBuyOneHeartClicked);
-            
+            Subscribe();
+
             StartCoroutine(ShowCoroutine(stopTime));
         }
+
+        
 
         private void SetMessageText(string messageTextKey)
         {
@@ -75,11 +75,23 @@ namespace Scenes.Shared.PopUps
 
         private void Hide(bool returnTime)
         {
+            UnSubscribe();
+
+            StartCoroutine(HideCoroutine(returnTime));
+        }
+        
+        private void Subscribe()
+        {
+            _buttonRestart.onClick.AddListener(OnButtonRestartClicked);
+            _buttonChoosePack.onClick.AddListener(OnButtonChoosePackClicked);
+            _buttonByeOneHeart.onClick.AddListener(OnButtonBuyOneHeartClicked);
+        }
+
+        private void UnSubscribe()
+        {
             _buttonRestart.onClick.RemoveListener(OnButtonRestartClicked);
             _buttonChoosePack.onClick.RemoveListener(OnButtonChoosePackClicked);
             _buttonByeOneHeart.onClick.RemoveListener(OnButtonBuyOneHeartClicked);
-            
-            StartCoroutine(HideCoroutine(returnTime));
         }
 
         private IEnumerator ShowCoroutine(bool stopTime)
@@ -101,19 +113,20 @@ namespace Scenes.Shared.PopUps
         
         private void OnButtonBuyOneHeartClicked()
         {
+            UnSubscribe();
             StartCoroutine(BuyHeartCoroutine());
         }
 
-        
-
         private void OnButtonChoosePackClicked()
         {
+            UnSubscribe();
             SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene);
             Hide(false);
         }
 
         private void OnButtonRestartClicked()
         {
+            UnSubscribe();
             StartCoroutine(GameRestartCoroutine());
         }
 

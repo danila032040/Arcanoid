@@ -27,12 +27,14 @@ namespace Scenes.Game.Managers
 
         private void Start()
         {
+            Time.timeScale = 1f;
             StartGame();
         }
 
         private void OnDestroy()
         {
-            _mainGamePopUp.Close();
+            if (_mainGamePopUp.isActiveAndEnabled)
+                _mainGamePopUp.Close();
         }
 
         private void Subscribe()

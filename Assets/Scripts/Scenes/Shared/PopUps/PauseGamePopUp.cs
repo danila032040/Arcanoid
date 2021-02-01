@@ -36,18 +36,31 @@ namespace Scenes.Shared.PopUps
         public void Show(GameManager gameManager, bool stopTime)
         {
             _gameManager = gameManager;
+            Subscribe();
+
+            StartCoroutine(ShowCoroutine(stopTime));
+        }
+
+        
+
+        private void Hide(bool returnTime)
+        {
+            UnSubscribe();
+            StartCoroutine(HideCoroutine(returnTime));
+        }
+        
+        private void Subscribe()
+        {
             _buttonContinue.onClick.AddListener(OnButtonContinuePressed);
             _buttonRestart.onClick.AddListener(OnButtonRestartPressed);
             _buttonReturn.onClick.AddListener(OnButtonReturnPressed);
-            
-            StartCoroutine(ShowCoroutine(stopTime));
         }
-        private void Hide(bool returnTime)
+
+        private void UnSubscribe()
         {
             _buttonContinue.onClick.RemoveListener(OnButtonContinuePressed);
             _buttonRestart.onClick.RemoveListener(OnButtonRestartPressed);
             _buttonReturn.onClick.RemoveListener(OnButtonReturnPressed);
-            StartCoroutine(HideCoroutine(returnTime));
         }
 
         private IEnumerator ShowCoroutine(bool stopTime)
@@ -69,6 +82,7 @@ namespace Scenes.Shared.PopUps
 
         private void OnButtonContinuePressed()
         {
+            UnSubscribe();
             Hide(true);
         }
 
@@ -76,6 +90,8 @@ namespace Scenes.Shared.PopUps
         {
             if (EnergyManager.Instance.CanPlayLevel())
             {
+
+                UnSubscribe();
                 StartCoroutine(GameRestartCoroutine());
             }
             else
@@ -96,6 +112,7 @@ namespace Scenes.Shared.PopUps
 
         private void OnButtonReturnPressed()
         {
+            UnSubscribe();
             SceneLoaderController.Instance.LoadScene(LoadingScene.ChoosePackScene);
             Hide(false);
         }
