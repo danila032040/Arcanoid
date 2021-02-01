@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858d900c7ae5422f9e0a7a59ba2015d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 100
+  _duration: 10
   _effectType: 4
   _changedPaddleSpeed: 0.5
   _changePaddleSpeedAnimationDuration: 0.5
