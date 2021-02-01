@@ -45,5 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _duration: 10
   _effectType: 5
-  _changedPaddleSizeCoefficient: 1.5
+  _changedPaddleSizeCoefficient: 4
   _changePaddleSizeAnimationDuration: 0.5

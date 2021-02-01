@@ -2814,7 +2814,7 @@ PrefabInstance:
     - target: {fileID: 4370056192696929532, guid: 51459a87a5f899449a1b379ffc7afa14,
         type: 3}
       propertyPath: _initialMoveSpeed
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4370056192696929532, guid: 51459a87a5f899449a1b379ffc7afa14,
         type: 3}

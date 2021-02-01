@@ -45,5 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _duration: 10
   _effectType: 4
-  _changedPaddleSpeed: 0.5
+  _changedPaddleSpeed: 1
   _changePaddleSpeedAnimationDuration: 0.5
