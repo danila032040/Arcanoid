@@ -121,8 +121,7 @@ namespace Scenes.Game.Paddles
                 float nextDistance = (velocity + (_rb.velocity * Mathf.Clamp01(1f - _rb.drag * Time.deltaTime)
                     )).magnitude * Time.deltaTime;
                 float progress = 1f - nextDistance / distanceToGoal;
-
-                Debug.Log($"{velocity} {distanceToGoal} {nextDistance}");
+;
                 if (!(progress <= 0.1))
                     _rb.velocity = velocity * progress;
             }

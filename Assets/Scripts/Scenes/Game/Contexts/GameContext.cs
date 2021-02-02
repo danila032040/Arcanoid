@@ -52,7 +52,7 @@ namespace Scenes.Game.Contexts
 
         private void OnDestroy()
         {
-            if (_inputServicePopUp.isActiveAndEnabled) _inputServicePopUp.Close();
+            if (!ReferenceEquals(_inputServicePopUp.gameObject,null)) _inputServicePopUp.Close();
         }
 
         public BoostContext BoostContext { get; private set; }

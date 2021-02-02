@@ -33,7 +33,7 @@ namespace Scenes.Game.Managers
 
         private void OnDestroy()
         {
-            if (_mainGamePopUp.isActiveAndEnabled)
+            if (!ReferenceEquals(_mainGamePopUp.gameObject, null))
                 _mainGamePopUp.Close();
         }
 

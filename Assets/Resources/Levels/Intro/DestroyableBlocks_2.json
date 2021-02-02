@@ -1,0 +1,22 @@
+{
+  "_name": "Destroyable blocks part 2",
+  "_fileName": "DestroyableBlocks_2",
+  "_bricks": [
+    0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 2, 2, 0, 0, 0, 2, 2, 0,
+    0, 2, 2, 0, 0, 0, 2, 2, 0,
+    1, 0, 0, 1, 0, 1, 0, 0, 1,
+    0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 2, 2, 0, 0, 0, 2, 2, 0,
+    0, 2, 2, 0, 0, 0, 2, 2, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0
+  ],
+  "_n": 9,
+  "_m": 9,
+  "_brickHeight": 0.25,
+  "_leftOffset": 0.1,
+  "_rightOffset": 0.1,
+  "_offsetBetweenRows": 0.01,
+  "_offsetBetweenCols": 0.01
+}
