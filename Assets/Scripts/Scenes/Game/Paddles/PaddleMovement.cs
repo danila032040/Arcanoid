@@ -1,8 +1,10 @@
 ﻿using System;
+using DG.Tweening;
 using Scenes.Game.Services.Cameras.Implementations;
 using Scenes.Game.Services.Cameras.Interfaces;
 using Scenes.Game.Services.Inputs.Implementations;
 using Scenes.Game.Services.Inputs.Interfaces;
+using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
 namespace Scenes.Game.Paddles
@@ -103,7 +105,9 @@ namespace Scenes.Game.Paddles
 
                 nextXPosition = nextXPosition + moveXDirection * moveXDistance;
 
-                nextXPosition = moveXDirection > 0 ? Mathf.Min(nextXPosition, _goalXPosition) : Mathf.Max(nextXPosition, _goalXPosition);
+                nextXPosition = moveXDirection > 0
+                    ? Mathf.Min(nextXPosition, _goalXPosition)
+                    : Mathf.Max(nextXPosition, _goalXPosition);
 
 
                 nextPosition.x = nextXPosition;
@@ -114,9 +118,13 @@ namespace Scenes.Game.Paddles
                     moveXDirection * _currentMoveSpeed * _cameraService.GetWorldPointWidth(_camera),
                     0);
 
-                _rb.velocity = Vector2.Lerp(Vector2.zero, velocity,
-                    (1f - (velocity + (_rb.velocity * Mathf.Clamp01(1f - _rb.drag * Time.deltaTime)
-                        )).magnitude * Time.deltaTime / distanceToGoal));
+                float nextDistance = (velocity + (_rb.velocity * Mathf.Clamp01(1f - _rb.drag * Time.deltaTime)
+                    )).magnitude * Time.deltaTime;
+                float progress = 1f - nextDistance / distanceToGoal;
+
+                Debug.Log($"{velocity} {distanceToGoal} {nextDistance}");
+                if (!(progress <= 0.1))
+                    _rb.velocity = velocity * progress;
             }
         }
 
