@@ -1,10 +1,8 @@
 ﻿using System;
-using DG.Tweening;
 using Scenes.Game.Services.Cameras.Implementations;
 using Scenes.Game.Services.Cameras.Interfaces;
 using Scenes.Game.Services.Inputs.Implementations;
 using Scenes.Game.Services.Inputs.Interfaces;
-using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
 namespace Scenes.Game.Paddles

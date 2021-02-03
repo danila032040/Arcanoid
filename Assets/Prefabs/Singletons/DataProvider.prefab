@@ -45,4 +45,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentPackNumber: 0
   _currentLevelNumber: 0
-  _isInitialised: 1
